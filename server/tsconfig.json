@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    // --- MODULE CONFIGURATION (REQUIRED FIX) ---
+    "module": "CommonJS",
+    "target": "ES2022",
+    "moduleResolution": "node", // Add this line
+    "verbatimModuleSyntax": false, // Change to false
+    "isolatedModules": true, // Keep
+    "moduleDetection": "auto", // Change to auto
+    // File Layout
+    // "rootDir": "./src",
+    "outDir": "./dist", // Good practice to include
+    // Environment Settings
+    "types": [
+      "node"
+    ], // Recommended for a Node.js project
+    "lib": [
+      "es2022"
+    ], // Recommended for a Node.js project
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    // ... (Keep your strictness/style options as you prefer)
+    "strict": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedSideEffectImports": true,
+    // Remove if not using React
+    // "jsx": "react-jsx", 
+  }
+}
