@@ -1,22 +1,16 @@
-
+import "./App.css";
+import { useToggleLightDark } from "./hooks/ToggleMode";
+import Navbar from "./components/layout/Navbar";
+import TaskModal from "./components/task/TaskModal";
 function App() {
 
+  const { mode } = useToggleLightDark();
+
   return (
-    <>
-      <div>
-
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className={mode ? "body dark-theme" : "body"}>
+      <Navbar />
+      <TaskModal />
+    </div>
   )
 }
 

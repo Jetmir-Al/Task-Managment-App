@@ -1,0 +1,19 @@
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    border-bottom: 2px solid var(--first-color);
+}
+
+.homeLinks {
+    display: flex;
+    gap: 1rem;
+}
+
+.account-links {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}

@@ -1,0 +1,63 @@
+.taskModal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 70vh;
+}
+
+.taskModal {
+    width: 40%;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    border-radius: 10px;
+}
+
+.taskHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.taskCards {
+    width: 100%;
+    display: grid;
+    align-items: center;
+
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 0 2rem;
+}
+
+
+
+/* Responsive Task Modal */
+@media screen and (max-width: 1024px) {
+
+    .taskModal {
+        width: 60%;
+    }
+
+    .taskCards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+@media screen and (max-width: 758px) {
+
+    .taskModal {
+        width: 85%;
+    }
+
+    .taskCards {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 1rem;
+    }
+}

@@ -1,0 +1,38 @@
+button {
+    cursor: pointer;
+    font: var(--h5);
+    padding: 0.3rem 0.4rem;
+}
+
+.navBtn {
+    color: var(--first-color);
+    background-color: transparent;
+    border: none;
+}
+
+.newCardBtn {
+    width: 100%;
+    border: 2px solid var(--border-color);
+    padding: 2rem 1rem;
+    color: var(--text-color);
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.deleteBtn {
+    background-color: var(--red);
+    border: none;
+    border-radius: 5px;
+    color: var(--white-color);
+}
+
+.deleteBtn:hover {
+    background-color: var(--redHover);
+}
+
+.btn {
+    border: none;
+    border-radius: 5px;
+    color: var(--first-color);
+    background-color: var(--border-color);
+}
