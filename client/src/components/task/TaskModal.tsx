@@ -5,6 +5,9 @@ import "./taskModel.css";
 const TaskModal = () => {
     return (
         <div className="taskModal-container">
+            <div className="taskModal-presentation">
+                <h2>My Tasks</h2>
+            </div>
             <div className="taskModal">
                 <div className="taskHeader">
                     <h3>To do</h3>

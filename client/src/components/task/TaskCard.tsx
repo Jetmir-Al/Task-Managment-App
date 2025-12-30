@@ -1,16 +1,9 @@
 import Button from "../ui/Button";
 import "./taskCard.css";
+import type { ITaskCardProps } from "../../types/ITask";
 
 
-interface TaskCardProps {
-    title: string,
-    summary: string,
-    details: string,
-    finished: () => void,
-    remove?: () => void
-}
-
-const TaskCard = ({ title, summary, details, finished, remove }: TaskCardProps) => (
+const TaskCard = ({ title, summary, details, finished, remove }: ITaskCardProps) => (
     <div className="taskCard">
         <h3>{title}</h3>
         <details>

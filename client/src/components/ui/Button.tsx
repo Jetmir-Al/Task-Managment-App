@@ -1,13 +1,8 @@
 import "./button.css";
-interface ButtonProps {
-    children: React.ReactNode,
-    onClick?: () => void,
-    type?: 'submit' | 'reset' | 'button',
-    className: string
-}
+import type { IButtonProps } from "../../types/IButton";
 
 
-function Button({ children, onClick, type, className }: ButtonProps) {
+function Button({ children, onClick, type, className }: IButtonProps) {
     return (
         <button
             type={type}
