@@ -1,0 +1,39 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: var(--container-color);
+    border-radius: 10px;
+    min-width: 300px;
+}
+
+.loginForm h3 {
+    align-self: center;
+}
+
+.loginForm label {
+    font: var(--h4);
+    width: 100%;
+}
+
+.loginForm input {
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 0.7rem;
+}
+
+.loginForm a {
+    color: var(--first-color);
+}
