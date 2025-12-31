@@ -1,9 +1,18 @@
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    z-index: var(--z-fixed);
+    background-color: hsla(230, 12%, 96%, .6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+
+    transition: top .4s;
 }
 
 .loginForm {
@@ -16,6 +25,9 @@
     background-color: var(--container-color);
     border-radius: 10px;
     min-width: 300px;
+    position: absolute;
+    top: 100px;
+    right: 40%;
 }
 
 .loginForm h3 {
