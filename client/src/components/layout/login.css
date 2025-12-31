@@ -27,7 +27,14 @@
     min-width: 300px;
     position: absolute;
     top: 100px;
-    right: 40%;
+    right: 100;
+}
+
+.x {
+    position: fixed;
+    top: 30px;
+    right: 50px;
+    font: var(--h2);
 }
 
 .loginForm h3 {

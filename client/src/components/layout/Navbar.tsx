@@ -3,12 +3,15 @@ import Button from "../ui/Button";
 import { useToggleLightDark } from "../../hooks/ToggleMode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun, faUser, faHouse } from "@fortawesome/free-solid-svg-icons";
-import Login from "../../pages/Login";
-import { useState } from "react";
+import Login from "./Login";
+import Signup from "./Signup";
+import { useAccountToggle } from "../../hooks/ToggleAccount";
+import { AccountToggleProvider } from "../../context/AccountToggle";
 
 const Navbar = () => {
     const { mode, toggleMode } = useToggleLightDark();
-    const [toggleAccount, setToggleAccount] = useState(false);
+    const { toggleAccount, toggleAcc, loginSignup } = useAccountToggle();
+
     return (
         <>
             <div className="navbar-container">
@@ -27,7 +30,7 @@ const Navbar = () => {
                 <div className="account-links">
                     <Button
                         type={"button"}
-                        onClick={() => console.log("Halo")}
+                        onClick={toggleAcc}
                         className={"navBtn"}
                     >
                         <FontAwesomeIcon
@@ -52,13 +55,16 @@ const Navbar = () => {
                     </Button>
                 </div>
             </div>
-            {
-
-                toggleAccount ?
-                    <> </>
-                    :
-                    <Login />
-
+            {toggleAccount ?
+                <AccountToggleProvider>
+                    {
+                        loginSignup ?
+                            <Signup />
+                            :
+                            <Login />
+                    }
+                </AccountToggleProvider>
+                : null
             }
         </>
     );

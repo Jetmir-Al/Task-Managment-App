@@ -1,9 +1,12 @@
 // import { useState } from "react";
-import "./pageStyles/login.css";
-
+import "./login.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import Button from "../ui/Button";
+import { useAccountToggle } from "../../hooks/ToggleAccount";
 
 const Login = () => {
-    // const [name, setName] = useState<string>();
+    const { toggleLoginSignup, toggleAcc } = useAccountToggle();
     return (
         <div className="login-container">
             <div className="loginForm">
@@ -22,9 +25,19 @@ const Login = () => {
                 </label>
 
                 <div>
-                    Already have an account? <a href="">Sign up</a>
+                    Already have an account? <a href=""
+                        onClick={toggleLoginSignup}
+                    >Sign up</a>
                 </div>
             </div>
+            <Button
+                type={"button"}
+                onClick={toggleAcc}
+                className={"x"}
+
+            >
+                <FontAwesomeIcon icon={faX} />
+            </Button>
         </div>
     );
 }

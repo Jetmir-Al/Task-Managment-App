@@ -1,18 +1,8 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import type { ReactNode } from "react";
 import React from "react";
+import { ToggleLightDarkContext, defaultState } from "./LightDarkModeContext";
 
-interface ICurrentMode {
-    mode: boolean;
-    toggleMode?: () => void;
-
-}
-const defaultState = {
-    mode: false,
-    toggleMode: () => console.log(""),
-};
-
-export const ToggleLightDarkContext = createContext<ICurrentMode>(defaultState);
 
 interface IToggleLightDarkProviderProps {
     children: ReactNode;
