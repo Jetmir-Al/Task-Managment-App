@@ -6,12 +6,11 @@ import { faMoon, faSun, faUser, faHouse } from "@fortawesome/free-solid-svg-icon
 import Login from "./Login";
 import Signup from "./Signup";
 import { useAccountToggle } from "../../hooks/ToggleAccount";
-import { AccountToggleProvider } from "../../context/AccountToggle";
+import { Activity } from "react";
 
 const Navbar = () => {
     const { mode, toggleMode } = useToggleLightDark();
     const { toggleAccount, toggleAcc, loginSignup } = useAccountToggle();
-
     return (
         <>
             <div className="navbar-container">
@@ -55,17 +54,15 @@ const Navbar = () => {
                     </Button>
                 </div>
             </div>
-            {toggleAccount ?
-                <AccountToggleProvider>
-                    {
-                        loginSignup ?
-                            <Signup />
-                            :
-                            <Login />
-                    }
-                </AccountToggleProvider>
-                : null
-            }
+            <Activity mode={toggleAccount ? "visible" : "hidden"}>
+                {
+                    loginSignup ?
+                        <Signup />
+                        :
+                        <Login />
+                }
+            </Activity>
+
         </>
     );
 }

@@ -6,7 +6,7 @@ import TaskModal from "./components/task/TaskModal";
 import Home from "./pages/Home";
 import BoardPage from "./pages/BoardPage";
 import Profiles from "./pages/Profiles";
-import Register from "./pages/Register";
+import NotFound from "./pages/NotFound";
 
 function App() {
 
@@ -17,9 +17,10 @@ function App() {
       <div className={mode ? "body dark-theme" : "body"}>
         <Navbar />
         <Routes>
+          <Route path="*" element={<NotFound />} />
+
           <Route path={"/"} element={<Home />} />
           <Route path={"/board-page"} element={<BoardPage />} />
-          <Route path={"/register"} element={<Register />} />
           <Route path={"/profile"} element={<Profiles />} />
           <Route path={"/taskmodal"} element={<TaskModal />} />
 

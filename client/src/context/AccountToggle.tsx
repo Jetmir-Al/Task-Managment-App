@@ -1,14 +1,14 @@
 import { useState, type ReactNode } from "react";
-import { DefaultValues, AccountToggle } from "./AccountToggleContext";
+import { AccountToggleContext } from "./AccountToggleContext";
 
 
 interface IToggleAccountProps {
     children: ReactNode
 }
 
-export const AccountToggleProvider: React.FC<IToggleAccountProps> = ({ children }) => {
-    const [toggleAccount, setToggleAccount] = useState(DefaultValues.toggleAccount);
-    const [loginSignup, setLoginSignup] = useState(DefaultValues.loginSignup);
+export const AccountToggleProvider = ({ children }: IToggleAccountProps) => {
+    const [toggleAccount, setToggleAccount] = useState(false);
+    const [loginSignup, setLoginSignup] = useState(true);
 
     const toggleAcc = () => {
         setToggleAccount(t => !t);
@@ -18,10 +18,15 @@ export const AccountToggleProvider: React.FC<IToggleAccountProps> = ({ children 
     }
 
     return (
-        <AccountToggle.Provider
-            value={{ toggleAccount, toggleAcc, loginSignup, toggleLoginSignup }}
+        <AccountToggleContext.Provider
+            value={{
+                toggleAccount,
+                loginSignup,
+                toggleAcc,
+                toggleLoginSignup,
+            }}
         >
             {children}
-        </AccountToggle.Provider>
+        </AccountToggleContext.Provider>
     );
 }

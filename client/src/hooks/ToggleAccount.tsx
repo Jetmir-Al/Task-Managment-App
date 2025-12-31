@@ -1,6 +1,11 @@
 import { useContext } from "react";
-import { AccountToggle } from "../context/AccountToggleContext";
+import { AccountToggleContext } from "../context/AccountToggleContext";
 
 export const useAccountToggle = () => {
-    return useContext(AccountToggle);
+    const context = useContext(AccountToggleContext);
+    if (!context) {
+        throw new Error("Problem with context!");
+
+    }
+    return context;
 }

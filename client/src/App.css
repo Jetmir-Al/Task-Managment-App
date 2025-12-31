@@ -20,8 +20,6 @@
     --gradient: linear-gradient(135deg, var(--container-color), var(--white-color));
     --gradient2: linear-gradient(135deg, var(--white-color), var(--container-color));
     --boxShadow: 0 4px 12px var(--border-color);
-    --boxShadow2: 0px 4px 12px var(--white-color);
-
 
     --ff: "Times New Roman", Times, sans-serif;
     --ff2: "Times New Roman", Times, sans-serif;

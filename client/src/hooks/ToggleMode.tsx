@@ -2,5 +2,9 @@ import { useContext } from "react";
 import { ToggleLightDarkContext } from "../context/LightDarkModeContext";
 
 export const useToggleLightDark = () => {
-    return useContext(ToggleLightDarkContext);
+    const context = useContext(ToggleLightDarkContext);
+    if (!context) {
+        throw new Error("Context problem!");
+    }
+    return context;
 }

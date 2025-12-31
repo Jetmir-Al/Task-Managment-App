@@ -3,16 +3,9 @@ import { createContext } from "react";
 
 interface IToggle {
     toggleAccount: boolean;
-    toggleAcc?: () => void | null;
     loginSignup: boolean;
-    toggleLoginSignup: () => void | null;
-}
-export const DefaultValues = {
-    toggleAccount: false,
-    toggleAcc: () => console.log(""),
-    loginSignup: true,
-    toggleLoginSignup: () => console.log("")
+    toggleAcc: () => void;
+    toggleLoginSignup: () => void;
 }
 
-
-export const AccountToggle = createContext<IToggle>(DefaultValues);
+export const AccountToggleContext = createContext<IToggle | null>(null);

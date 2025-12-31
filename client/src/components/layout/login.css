@@ -24,17 +24,25 @@
     padding: 2rem;
     background-color: var(--container-color);
     border-radius: 10px;
-    min-width: 300px;
+    min-width: 400px;
     position: absolute;
     top: 100px;
     right: 100;
 }
 
-.x {
+.loginSignup-btn {
+    background-color: transparent;
+    color: var(--first-color);
+    border: none;
+}
+
+.x-btn {
     position: fixed;
     top: 30px;
     right: 50px;
     font: var(--h2);
+    background-color: transparent;
+    border: none;
 }
 
 .loginForm h3 {

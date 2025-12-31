@@ -25,15 +25,17 @@ const Login = () => {
                 </label>
 
                 <div>
-                    Already have an account? <a href=""
+                    Dont have an account? <Button
+                        type={"button"}
+                        className={"loginSignup-btn"}
                         onClick={toggleLoginSignup}
-                    >Sign up</a>
+                    >Sign up</Button>
                 </div>
             </div>
             <Button
                 type={"button"}
                 onClick={toggleAcc}
-                className={"x"}
+                className={"x-btn"}
 
             >
                 <FontAwesomeIcon icon={faX} />

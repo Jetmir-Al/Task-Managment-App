@@ -5,9 +5,9 @@ interface ICurrentMode {
     toggleMode?: () => void;
 
 }
-export const defaultState = {
+export const defaultState: ICurrentMode = {
     mode: false,
-    toggleMode: () => console.log(""),
+    toggleMode: () => { },
 };
 
 export const ToggleLightDarkContext = createContext<ICurrentMode>(defaultState);

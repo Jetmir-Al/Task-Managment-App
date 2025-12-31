@@ -17,3 +17,7 @@
     flex-direction: row;
     gap: 1rem;
 }
+
+.icons :hover {
+    color: var(--first-color);
+}
