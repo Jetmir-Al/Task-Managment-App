@@ -14,13 +14,16 @@ const TaskCard = ({ title, summary, details, finished, remove }: ITaskCardProps)
         </details>
         <div className="taskCard-btns">
 
-            <Button
-                type="button"
-                onClick={finished}
-                className="btn"
-            >
-                Finished
-            </Button>
+            {
+                finished &&
+                <Button
+                    type="button"
+                    onClick={finished}
+                    className="btn"
+                >
+                    Finished
+                </Button>
+            }
             <Button
                 type="button"
                 onClick={remove}

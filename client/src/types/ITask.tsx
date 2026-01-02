@@ -11,6 +11,6 @@ export interface ITaskCardProps {
   title: string,
   summary: string,
   details: string,
-  finished: () => void,
+  finished?: () => void,
   remove?: () => void;
 }

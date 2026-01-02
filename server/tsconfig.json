@@ -27,7 +27,7 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "noUncheckedSideEffectImports": true,
-    // Remove if not using React
-    // "jsx": "react-jsx", 
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }

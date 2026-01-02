@@ -23,6 +23,8 @@
     gap: 1rem;
     padding: 2rem;
     background-color: var(--container-color);
+    box-shadow: var(--boxShadow);
+    border: 3px solid var(--border-color);
     border-radius: 10px;
     min-width: 400px;
     position: absolute;

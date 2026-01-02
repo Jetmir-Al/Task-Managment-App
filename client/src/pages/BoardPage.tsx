@@ -26,7 +26,7 @@ const BoardPage = () => {
                     type={"button"}
                     onClick={() => console.log("ss")}
                 >
-                    + Add Another Task
+                    + ADD
                 </Button>
             </div>
             <div className="inProgresTasks">
@@ -38,6 +38,14 @@ const BoardPage = () => {
                     finished={() => console.log("ss")}
                     remove={() => console.log("ss")}
                 />
+
+                <Button
+                    className={"addProgressTask"}
+                    type={"button"}
+                    onClick={() => console.log("ss")}
+                >
+                    + In Progress
+                </Button>
             </div>
             <div className="completedTasks">
                 <h2>Completed Tasks</h2>
@@ -45,9 +53,17 @@ const BoardPage = () => {
                     title="Completed Task"
                     summary="Po"
                     details="yas queen"
-                    finished={() => console.log("ss")}
+                    // finished={}
                     remove={() => console.log("ss")}
                 />
+
+                <Button
+                    className={"addCompletedTask"}
+                    type={"button"}
+                    onClick={() => console.log("ss")}
+                >
+                    + Finished
+                </Button>
             </div>
         </div>
     );
