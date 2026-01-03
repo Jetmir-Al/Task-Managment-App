@@ -1,5 +1,9 @@
 import { db } from "../config/db";
 import { IUser } from "../types/IUser";
+//destructure the result and give it types
+import { RowDataPacket } from "mysql2";
+
+
 export const UserModel = {
     async create(name: string, email: string, password: string) {
         const [result] = await db.execute(
@@ -12,12 +16,19 @@ export const UserModel = {
         return result;
     },
 
-    async findByEmail(email: string): Promise<IUser> {
-        const rows = await db.execute(
-            `SELECT * FROM users
-            WHERE email = ?
-            `, [email]
+    async findByEmail(email: string): Promise<IUser | null> {
+        const [rows] = await db.execute<IUser[] & RowDataPacket[]>(
+            `SELECT * FROM users WHERE email = ?`,
+            [email]
         );
-        return rows;
+        // ?? null -> converts undefined to null 
+        return rows[0] ?? null;
+    },
+
+    async findByID(userID: number): Promise<IUser | null> {
+        const [user] = await db.execute<IUser[] & RowDataPacket[]>(
+            `SELECT * FROM users WHERE userID = ?`, [userID]
+        );
+        return user[0] ?? null;
     }
 }

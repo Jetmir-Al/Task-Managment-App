@@ -1,5 +1,7 @@
-import { UserModel } from "../models/user.model";
 import bcrypt from "bcrypt";
+import { UserModel } from "../models/user.model";
+import { UserReponseDTO } from "../types/DTO/auth.dto";
+
 
 
 export const UserService = {
@@ -7,27 +9,46 @@ export const UserService = {
     async signup(name: string, email: string, password: string) {
         const userExists = await UserModel.findByEmail(email);
 
-        if (!userExists) {
+        if (userExists) {
             throw new Error("User already exists");
         }
 
-        // hash password in future, chose best option in express
         const passwordHash = await bcrypt.hash(password, 10);
 
         return await UserModel.create(name, email, passwordHash);
     },
 
-    async login(email: string, password: string) {
-        const userExists = await UserModel.findByEmail(email);
+    async login(email: string, password: string): Promise<UserReponseDTO> {
+        const user = await UserModel.findByEmail(email);
 
-        if (!userExists) {
-            throw new Error("Invalid Credencials");
+        if (!user) {
+            throw new Error("Invalid credentials");
         }
-        const checkPsw = await bcrypt.compare(password, userExists.passwordHash);
-        if (!checkPsw) {
-            throw new Error("Invalid Credencials");
+        // console.log(user);
+        const isMatch = await bcrypt.compare(password, user.passwordHash);
+
+        if (!isMatch) {
+            throw new Error("Invalid credentials");
         }
-        return userExists;
+
+        return {
+            userID: user.userID,
+            name: user.name,
+            email: user.email,
+            createdAt: user.createdAt
+        };
+    },
+
+    async status(userID: number) {
+        const userInfo = await UserModel.findByID(userID);
+        if (!userInfo) return null;
+
+        return {
+            userID: userInfo.userID,
+            name: userInfo.name,
+            email: userInfo.email,
+            createdAt: userInfo.createdAt
+        }
     }
 
 }

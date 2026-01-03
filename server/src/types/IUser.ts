@@ -4,6 +4,6 @@ export interface IUser {
     name: string;
     email: string;
     passwordHash: string;
-    createdAt?: Date;
+    createdAt: Date;
 }
 
