@@ -1,8 +1,9 @@
 ﻿import dotenv from "dotenv";
 dotenv.config();
-
 import cors from "cors";
 import express from "express";
+import cookieParser from "cookie-parser";
+
 import AuthRoutes from "./routes/auth.routes";
 
 
@@ -11,10 +12,10 @@ const app = express();
 const corsOptions = {
     origin: process.env.CLIENT_PORT
 }
-console.log("DB USER:", process.env.MYSQL_USER);
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/", AuthRoutes);
 
