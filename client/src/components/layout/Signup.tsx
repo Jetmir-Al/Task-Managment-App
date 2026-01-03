@@ -15,21 +15,29 @@ function Signup() {
                     Name: <br /> <br />
                     <input type="text"
                         placeholder="Enter your name here!"
+                        required
                     />
                 </label>
                 <label>
                     Email: <br /> <br />
                     <input type="email"
                         placeholder="Enter your email here!"
+                        required
                     />
                 </label>
                 <label>
                     Password: <br /> <br />
                     <input type="password"
                         placeholder="Enter your password here!"
+                        required
                     />
                 </label>
-
+                <Button
+                    type={"submit"}
+                    className={"submitForm-btn"}
+                >
+                    Submit
+                </Button>
                 <div>
                     Already have an account? <Button
                         type={"button"}
