@@ -6,9 +6,11 @@ import Button from "../ui/Button";
 import { useAccountToggle } from "../../hooks/ToggleAccount";
 import { useState } from "react";
 import { login } from "../../api/auth.api";
+import { useAuthHook } from "../../hooks/AuthHook";
 
 const Login = () => {
     const { toggleLoginSignup, toggleAcc } = useAccountToggle();
+    const { setUser, setAuth } = useAuthHook();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -16,7 +18,10 @@ const Login = () => {
     async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         try {
-            await login(email, password);
+            const res = await login(email, password);
+            toggleAcc();
+            setAuth(true);
+            setUser(res.userLogedIn);
         } catch (error: unknown) {
             console.log(error);
         }

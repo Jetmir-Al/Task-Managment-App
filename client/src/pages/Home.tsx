@@ -1,26 +1,56 @@
-import { useAuthHook } from "../hooks/AuthHook";
-
+import './pageStyles/home.css';
+import Button from '../components/ui/Button';
+import { useAccountToggle } from '../hooks/ToggleAccount';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faCalendarDays, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 const Home = () => {
-
-    const { authenticated, user } = useAuthHook();
+    const { toggleAcc } = useAccountToggle();
     return (
         <div className="home-container">
-            <div className="hero-section">
-                welcome text <br />
-                {authenticated ? "yes loged in" : "null"}
-                <br />
-                {user ? "user exsits" : "doesnt exists"}
-                <br />
-                {user?.name}
-                <br />
-                {new Date(user?.createdAt ?? "").toUTCString()}
-                <br />
-                {user?.email}
-                <br />
-                {user?.userID}
+            <img src="../src/assets/tm3.png" alt="task manger image" />
+            <div className="welcomeTitle">
+                <h2>
+                    Welcome to Task Manager
+                </h2>
+                <h5>
+                    Boost your productivity and stay organized with Task Manager.
+                    <br />
+                    Lets get started!
+                </h5>
+                <Button
+                    type={'button'}
+                    onClick={() => toggleAcc()}
+                    className={"welcomeBtn"}
+                >
+                    Get Started
+                </Button>
             </div>
-            <div>
-                tasks animation
+
+            <div className='welcomeCards'>
+                <div className="welcomeCard">
+                    <FontAwesomeIcon className='cardIcon'
+                        icon={faCalendarCheck} />
+                    <div className="cardInfo">
+                        <h3>Organize</h3>
+                        <p>Create and manage your tasks efficiently</p>
+                    </div>
+                </div>
+                <div className="welcomeCard">
+                    <FontAwesomeIcon className='cardIcon'
+                        icon={faCalendarDays} />
+                    <div className='cardInfo'>
+                        <h3>Set Deadlines</h3>
+                        <p>Set due dates to never miss an important deadline</p>
+                    </div>
+                </div>
+                <div className="welcomeCard">
+                    <FontAwesomeIcon className='cardIcon'
+                        icon={faBell} />
+                    <div className="cardInfo">
+                        <h3>Stay Focused</h3>
+                        <p>Recive reminders, and stay on track.</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -1,0 +1,87 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    min-height: 91.3vh;
+    background-color: var(--container-color);
+    padding: 0.75rem 1rem;
+}
+
+
+.welcomeTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.home-container img {
+    width: 20%;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.welcomeBtn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    background-color: var(--first-color);
+    color: var(--white-color);
+    transition: 0.4s;
+}
+
+.welcomeBtn:hover {
+    opacity: 0.9;
+}
+
+.welcomeCards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+}
+
+.welcomeCard {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    gap: 0.75rem;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--boxShadow);
+    width: 250px;
+    height: 130px;
+    padding: 0.75rem 1rem;
+}
+
+.cardInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 0.5rem;
+}
+
+.cardInfo h3 {
+    border-bottom: 2px solid var(--first-color);
+}
+
+.cardIcon {
+    font: var(--h3);
+    color: var(--first-color);
+}
+
+@media screen and (max-width: 1024px) {
+    .welcomeCards {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 758px) {
+    .home-container img {
+        width: 45%;
+    }
+}

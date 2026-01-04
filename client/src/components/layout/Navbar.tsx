@@ -2,15 +2,21 @@ import "./navbar.css";
 import Button from "../ui/Button";
 import { useToggleLightDark } from "../../hooks/ToggleMode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun, faUser, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSun, faUser, faUserGear, faHouse } from "@fortawesome/free-solid-svg-icons";
 import Login from "./Login";
 import Signup from "./Signup";
 import { useAccountToggle } from "../../hooks/ToggleAccount";
 import { Activity } from "react";
+import { useAuthHook } from "../../hooks/AuthHook";
+import { useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
     const { mode, toggleMode } = useToggleLightDark();
     const { toggleAccount, toggleAcc, loginSignup } = useAccountToggle();
+    const { authenticated } = useAuthHook();
+    const navigate = useNavigate();
+
     return (
         <>
             <div className="navbar-container">
@@ -27,15 +33,25 @@ const Navbar = () => {
                 </div>
 
                 <div className="account-links">
-                    <Button
-                        type={"button"}
-                        onClick={toggleAcc}
-                        className={"navBtn"}
-                    >
-                        <FontAwesomeIcon
-                            className="icons"
-                            icon={faUser} />
-                    </Button>
+                    {
+                        authenticated ?
+                            <Button
+                                type={"button"}
+                                onClick={() => navigate("/profile")}
+                                className={"navBtn"}>
+                                <FontAwesomeIcon icon={faUserGear} />
+                            </Button>
+                            :
+                            <Button
+                                type={"button"}
+                                onClick={toggleAcc}
+                                className={"navBtn"}
+                            >
+                                <FontAwesomeIcon
+                                    className="icons"
+                                    icon={faUser} />
+                            </Button>
+                    }
 
                     <Button
                         type={"button"}

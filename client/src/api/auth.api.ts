@@ -5,9 +5,12 @@ export const login = async (email: string, password: string) => {
         email, password
     });
 
-    console.log(res);
+    return res.data;
 }
 
+export const logout = async () => {
+    await api.post("/auth/logout", {}, { withCredentials: true });
+}
 
 
 export const status = async () => {
