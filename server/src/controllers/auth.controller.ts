@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
 import { cookieConfig } from "../config/httpCookies";
-import { LoginDTO, SingupDTO, UserStatusDTO } from "../types/DTO/auth.dto";
+import { LoginDTO, SingupDTO } from "../types/DTO/auth.dto";
 
 
 export const register = async (req: Request, res: Response) => {
@@ -22,9 +22,8 @@ export const login = async (req: Request, res: Response) => {
         const userLogedIn = await UserService.login(email, password);
         const { httpOnly, maxAge, sameSite } = cookieConfig;
         res.cookie("user", userLogedIn.userID, { httpOnly, maxAge, sameSite });
-        res.status(200).json({ message: "Cookie set" });
-        res.status(200).json(userLogedIn);
 
+        res.status(200).json({ message: "Cookie set", userLogedIn });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }

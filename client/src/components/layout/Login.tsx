@@ -13,7 +13,8 @@ const Login = () => {
     const [password, setPassword] = useState<string>("");
 
 
-    async function handleLogin() {
+    async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         try {
             await login(email, password);
         } catch (error: unknown) {
