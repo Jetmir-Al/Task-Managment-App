@@ -8,7 +8,7 @@ import Signup from "./Signup";
 import { useAccountToggle } from "../../hooks/ToggleAccount";
 import { Activity } from "react";
 import { useAuthHook } from "../../hooks/AuthHook";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Navbar = () => {
@@ -21,15 +21,25 @@ const Navbar = () => {
         <>
             <div className="navbar-container">
                 <div className="homeLinks">
-                    <a href="/">
+                    <Link to="/">
                         <FontAwesomeIcon
                             className="icons"
                             icon={faHouse}
                         />
-                    </a>
-                    <a href="/">
+                    </Link>
+                    <Link to="/" className="icons">
                         Home
-                    </a>
+                    </Link>
+                    {
+                        authenticated ?
+                            <Link
+                                className="icons"
+                                to={"/task-list"}
+                            >
+                                Task List
+                            </Link>
+                            : null
+                    }
                 </div>
 
                 <div className="account-links">
@@ -39,7 +49,9 @@ const Navbar = () => {
                                 type={"button"}
                                 onClick={() => navigate("/profile")}
                                 className={"navBtn"}>
-                                <FontAwesomeIcon icon={faUserGear} />
+                                <FontAwesomeIcon
+                                    className="icons"
+                                    icon={faUserGear} />
                             </Button>
                             :
                             <Button

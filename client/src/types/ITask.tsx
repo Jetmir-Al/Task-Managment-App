@@ -1,4 +1,9 @@
-
+export interface ITaskModal {
+  taskID: number,
+  userID: number,
+  category: string,
+  priority: string
+}
 export interface ITask {
   id: string;
   title: string;

@@ -8,7 +8,7 @@
 /*Variables */
 :root {
     --first-color: hsl(230, 62%, 56%);
-    --title-color: hsl(230, 70%, 16%);
+    --title-color: hsl(230, 70%, 20%);
     --text-color: hsl(230, 16%, 45%);
     --border-color: hsl(230, 50%, 90%);
     --white-color: hsl(0, 0%, 100%);
