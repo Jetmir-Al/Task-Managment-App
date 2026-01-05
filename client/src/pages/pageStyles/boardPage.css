@@ -6,8 +6,7 @@
     width: 100%;
     min-height: 85vh;
     gap: 1rem;
-    margin-top: 20px;
-
+    padding: 2rem 0;
 }
 
 .pendingTasks,
@@ -26,9 +25,11 @@
     border-radius: 10px
 }
 
-.pendingTasks h2 {
-    align-self: flex-start;
-    border-bottom: 2px solid gold;
+
+.addCompletedTask,
+.addPendingTask,
+.addProgressTask {
+    padding: 0.5rem 1rem;
 }
 
 .addProgressTask {
@@ -52,15 +53,28 @@
     color: var(--first-color);
 }
 
+.pendingTasks h2 {
+    background-color: gold;
+}
+
 .inProgresTasks h2 {
-    align-self: flex-start;
-    border-bottom: 2px solid var(--first-color);
+    background-color: var(--first-color);
 }
 
 .completedTasks h2 {
-    align-self: flex-start;
-    border-bottom: 2px solid green;
+    background-color: green;
 }
+
+.pendingTasks h2,
+.inProgresTasks h2,
+.completedTasks h2 {
+    color: var(--white-color);
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    clip-path: polygon(0% 0%, 100% 0%, 85% 50%, 100% 100%, 0% 100%);
+    width: 90%;
+}
+
 
 
 @media screen and (max-width: 758px) {
@@ -69,6 +83,12 @@
     .completedTasks,
     .inProgresTasks {
         width: 60%;
+    }
+
+    .pendingTasks h2,
+    .inProgresTasks h2,
+    .completedTasks h2 {
+        font: var(--h3);
     }
 
 }

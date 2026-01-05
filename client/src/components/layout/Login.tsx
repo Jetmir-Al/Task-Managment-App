@@ -13,6 +13,7 @@ const Login = () => {
     const { setUser, setAuth } = useAuthHook();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [badInfo, setBadInfo] = useState<boolean>(false);
 
 
     async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
@@ -22,8 +23,8 @@ const Login = () => {
             toggleAcc();
             setAuth(true);
             setUser(res.userLogedIn);
-        } catch (error: unknown) {
-            console.log(error);
+        } catch {
+            setBadInfo(true);
         }
     }
 
@@ -31,6 +32,10 @@ const Login = () => {
         <div className="login-container">
             <form className="loginForm" onSubmit={handleLogin}>
                 <h3>Login</h3>
+                {
+                    badInfo &&
+                    <p>Try a diffrent email or password!</p>
+                }
                 <label>
                     Email: <br /> <br />
                     <input type="email"

@@ -47,9 +47,12 @@
     border: none;
 }
 
-.loginForm h3 {
+.loginForm h3,
+.loginForm p {
     align-self: center;
 }
+
+
 
 .loginForm label {
     font: var(--h4);

@@ -56,6 +56,7 @@
     width: 250px;
     height: 130px;
     padding: 0.75rem 1rem;
+    border-radius: 10px;
 }
 
 .cardInfo {
@@ -65,9 +66,6 @@
     gap: 0.5rem;
 }
 
-.cardInfo h3 {
-    border-bottom: 2px solid var(--first-color);
-}
 
 .cardIcon {
     font: var(--h3);

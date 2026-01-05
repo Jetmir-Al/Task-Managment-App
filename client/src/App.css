@@ -45,14 +45,14 @@ h5 {
     color: var(--title-color);
 }
 
-.body {
+body {
     text-wrap: balance;
     font: var(--p);
     background-color: var(--body-color);
     color: var(--text-color);
 }
 
-.body.dark-theme {
+body.dark-theme {
     --title-color: hsl(230, 48%, 85%);
     --text-color: hsl(230, 16%, 70%);
     --border-color: hsl(230, 12%, 18%);
