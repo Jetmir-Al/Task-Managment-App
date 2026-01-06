@@ -1,18 +1,27 @@
 .taskModal-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     width: 100%;
-    min-height: 70vh;
     padding: 4rem 0;
     gap: 1rem;
 }
 
 .taskModal-presentation {
-    width: 40%;
+    width: 100%;
 }
 
 .taskModal-presentation h2 {
-    text-align: left;
+    text-align: center;
+}
+
+.taskList-presentation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+
 }

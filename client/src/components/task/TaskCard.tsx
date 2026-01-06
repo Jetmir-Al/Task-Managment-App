@@ -17,7 +17,7 @@ const TaskCard = ({ taskCardID, taskID, title, description, status, deadline, cr
                 <Button
                     type="button"
                     onClick={finished}
-                    className="btn"
+                    className="addCompletedTask"
                 >
                     Finished
                 </Button>

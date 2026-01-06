@@ -30,25 +30,21 @@
 .addPendingTask,
 .addProgressTask {
     padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
 }
 
 .addProgressTask {
-    border-radius: 10px;
-    border: none;
     background-color: var(--border-color);
     color: var(--first-color);
 }
 
 .addCompletedTask {
-    border-radius: 10px;
-    border: none;
     background-color: green;
     color: var(--white-color);
 }
 
 .addPendingTask {
-    border-radius: 10px;
-    border: none;
     background-color: var(--border-color);
     color: var(--first-color);
 }

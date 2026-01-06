@@ -9,15 +9,23 @@ const BoardPage = () => {
                 <h2>Pending Tasks</h2>
                 <TaskCard
                     title="New Task"
-                    summary="Po"
-                    details="yas queen"
+                    description="ss"
+                    deadline={new Date}
+                    createdAt={new Date}
+                    taskCardID={2}
+                    taskID={2}
+                    status="ss"
                     finished={() => console.log("ss")}
                     remove={() => console.log("ss")}
                 />
                 <TaskCard
                     title="New Task"
-                    summary="Po"
-                    details="yas queen"
+                    description="ss"
+                    deadline={new Date}
+                    createdAt={new Date}
+                    taskCardID={2}
+                    taskID={2}
+                    status="ss"
                     finished={() => console.log("ss")}
                     remove={() => console.log("ss")}
                 />
@@ -32,9 +40,13 @@ const BoardPage = () => {
             <div className="inProgresTasks">
                 <h2>In Progress Tasks</h2>
                 <TaskCard
-                    title="progress Task"
-                    summary="Po"
-                    details="yas queen"
+                    title="New Task"
+                    description="ss"
+                    deadline={new Date}
+                    createdAt={new Date}
+                    taskCardID={2}
+                    taskID={2}
+                    status="ss"
                     finished={() => console.log("ss")}
                     remove={() => console.log("ss")}
                 />
@@ -50,9 +62,13 @@ const BoardPage = () => {
             <div className="completedTasks">
                 <h2>Completed Tasks</h2>
                 <TaskCard
-                    title="Completed Task"
-                    summary="Po"
-                    details="yas queen"
+                    title="New Task"
+                    description="ss"
+                    deadline={new Date}
+                    createdAt={new Date}
+                    taskCardID={2}
+                    taskID={2}
+                    status="ss"
                     // finished={}
                     remove={() => console.log("ss")}
                 />

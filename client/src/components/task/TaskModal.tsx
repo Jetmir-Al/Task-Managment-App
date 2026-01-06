@@ -6,8 +6,12 @@ import "./taskModel.css";
 import Error from "../../utils/Error";
 import { AllTasksCards } from "../../api/taskCard.api";
 import NoInfo from "../../utils/NoInfo";
+import { useTaskHook } from "../../hooks/TaskHook";
+import TaskCardForm from "./TaskCardForm";
 
 const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
+
+    const { toggleTList, toggleTCard, toggleTaskCard } = useTaskHook();
     const [taskCard, setTaskCard] = useState<ITaskCardProps[] | null>(null);
 
     useEffect(() => {
@@ -38,39 +42,41 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                 <Button
                     type="button"
                     className="btn"
-                    onClick={() => console.log("")}
+                    onClick={() => toggleTList()}
                 >
                     + Add another List
                 </Button>
             </div>
+
             <div className="taskCards">
                 {
-                    taskCard?.length === 0 ? <NoInfo
-                        noInfo="No task cards -> Create one!"
-                    /> :
-                        taskCard?.map((task, index) => (
-                            <TaskCard
-                                key={index}
-                                taskCardID={task.taskCardID}
-                                taskID={task.taskID}
-                                title={task.title}
-                                description={task.description}
-                                status={task.status}
-                                createdAt={task.createdAt}
-                                deadline={task.deadline}
-                                finished={() => console.log("ss")}
-                                remove={() => console.log("ss")}
-                            />
-                        ))
-                }
+                    toggleTaskCard ? <TaskCardForm /> :
 
+                        taskCard?.length === 0 ? <NoInfo
+                            noInfo="No task cards -> Create one!"
+                        /> :
+                            taskCard?.map((task, index) => (
+                                <TaskCard
+                                    key={index}
+                                    taskCardID={task.taskCardID}
+                                    taskID={task.taskID}
+                                    title={task.title}
+                                    description={task.description}
+                                    status={task.status}
+                                    createdAt={task.createdAt}
+                                    deadline={task.deadline}
+                                    finished={() => console.log("ss")}
+                                    remove={() => console.log("ss")}
+                                />
+                            ))
+                }
             </div>
 
             <div className="newCard">
                 <Button
                     className="newCardBtn"
                     type="button"
-                    onClick={() => console.log("s")}
+                    onClick={() => toggleTCard()}
                 >
                     Add a new card
                 </Button>

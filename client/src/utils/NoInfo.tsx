@@ -12,7 +12,7 @@ function NoInfo(
             <FontAwesomeIcon
                 icon={faCircleQuestion}
                 className="noInfoIcon" />
-            <h2>{noInfo}</h2>
+            <h3>{noInfo}</h3>
         </div>
     );
 }
