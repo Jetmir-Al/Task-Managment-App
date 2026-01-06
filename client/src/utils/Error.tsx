@@ -6,7 +6,7 @@ import Button from '../components/ui/Button';
 
 interface IError {
     title: string | 'An error occurred',
-    details: string | "No details yet",
+    details: string | "No details yet" | undefined | object,
     onRetry: () => void | null,
     onClose: () => void | null
 }
@@ -37,7 +37,7 @@ export default function Error({ title, details, onRetry }: IError) {
 
                     {showDetails && (
                         <p className="errorDetailsText">
-                            {details}
+                            {details.toString()}
                         </p>
                     )}
                 </div>
@@ -45,14 +45,14 @@ export default function Error({ title, details, onRetry }: IError) {
             <div className='error-btns'>
                 <Button
                     onClick={onRetry}
-                    className={null}
+                    className={""}
                     type={'button'}
                 >
                     Retry
                 </Button>
                 <Button
                     onClick={() => navigate('/')}
-                    className={null}
+                    className={""}
                     type={'button'}
                 >
                     Close

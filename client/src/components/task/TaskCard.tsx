@@ -3,15 +3,13 @@ import "./taskCard.css";
 import type { ITaskCardProps } from "../../types/ITask";
 
 
-const TaskCard = ({ title, summary, details, finished, remove }: ITaskCardProps) => (
+const TaskCard = ({ taskCardID, taskID, title, description, status, deadline, createdAt, finished, remove }: ITaskCardProps) => (
     <div className="taskCard">
-        <h3>{title}</h3>
-        <details>
-            <summary>
-                {summary}
-            </summary>
-            {details}
-        </details>
+        <h3>{title} ~ {status} </h3>
+        <p>
+            {description} ~ {taskCardID} ~ {taskID}
+        </p>
+        <p>{new Date(deadline).toUTCString()} ~ {new Date(createdAt).toDateString()}</p>
         <div className="taskCard-btns">
 
             {

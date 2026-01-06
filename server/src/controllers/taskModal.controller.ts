@@ -6,6 +6,11 @@ import { TaskModalSerice } from "../services/task.service";
 
 export const AllTasks = async (req: Request, res: Response) => {
     try {
+        const token = req.cookies.user;
+        if (!token) {
+            return res.status(404).json({ message: "Cookie not found" });
+        }
+
         const { userID }: TaskDTO = req.body;
         const userTasks = await TaskModalSerice.allUserTasks(userID);
 

@@ -13,9 +13,13 @@ export interface ITask {
 }
 
 export interface ITaskCardProps {
+  taskCardID: number,
+  taskID: number,
   title: string,
-  summary: string,
-  details: string,
+  description: string,
+  status: string,
+  createdAt: Date,
+  deadline: Date,
   finished?: () => void,
   remove?: () => void;
 }

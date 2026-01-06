@@ -1,22 +1,3 @@
-.taskModal-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 70vh;
-    padding: 4rem 0;
-    gap: 1rem;
-}
-
-.taskModal-presentation {
-    width: 40%;
-}
-
-.taskModal-presentation h2 {
-    text-align: left;
-}
-
 .taskModal {
     width: 40%;
     padding: 1rem;

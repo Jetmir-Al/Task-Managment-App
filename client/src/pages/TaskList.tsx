@@ -3,6 +3,8 @@ import TaskModal from "../components/task/TaskModal";
 import { allTasks } from "../api/task.api";
 import { useAuthHook } from "../hooks/AuthHook";
 import type { ITaskModal } from "../types/ITask";
+import NoInfo from "../utils/NoInfo";
+import "./pageStyles/taskList.css";
 
 const TaskList = () => {
     const [taskList, setTaskList] = useState<ITaskModal[]>();
@@ -28,13 +30,19 @@ const TaskList = () => {
         <div className="taskModal-container">
             <div className="taskModal-presentation">
                 <h2>My Tasks</h2>
-                {/* {user?.userID} */}
             </div>
             {
-                taskList?.length === 0 ? <h1>{taskList[0].userID}</h1> : taskList && <h3>SSS type of junior ~~ {taskList[1].priority}</h3>
+                taskList?.length === 0 ? <NoInfo noInfo={"No tasks yet"} /> :
+                    taskList?.map((task, index) => (
+                        <TaskModal
+                            key={index}
+                            taskID={task.taskID}
+                            userID={task.userID}
+                            category={task.category}
+                            priority={task.priority}
+                        />
+                    ))
             }
-            <TaskModal />
-            <h1>Hey</h1>
         </div>
     );
 }
