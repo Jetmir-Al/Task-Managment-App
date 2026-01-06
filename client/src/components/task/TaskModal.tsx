@@ -15,6 +15,7 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
     const [taskCard, setTaskCard] = useState<ITaskCardProps[] | null>(null);
 
     useEffect(() => {
+
         async function getTaskCards() {
             try {
                 const res = await AllTasksCards(taskID);
@@ -71,16 +72,18 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                             ))
                 }
             </div>
-
-            <div className="newCard">
-                <Button
-                    className="newCardBtn"
-                    type="button"
-                    onClick={() => toggleTCard()}
-                >
-                    Add a new card
-                </Button>
-            </div>
+            {
+                toggleTaskCard === true ? null :
+                    <div className="newCard">
+                        <Button
+                            className="newCardBtn"
+                            type="button"
+                            onClick={() => toggleTCard()}
+                        >
+                            Add a new card
+                        </Button>
+                    </div>
+            }
         </div>
     );
 }

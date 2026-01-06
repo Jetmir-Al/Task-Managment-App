@@ -32,7 +32,7 @@ const TaskCardForm = () => {
                 Deadline <br /> <br />
                 <input type="datetime-local"
                     required
-                    onChange={(e) => e.target.valueAsDate}
+                    onChange={(e) => setDeadline(e.target.valueAsDate)}
                 />
             </label>
             <label>
