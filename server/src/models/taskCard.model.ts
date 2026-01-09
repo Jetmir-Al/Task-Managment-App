@@ -9,6 +9,14 @@ export const TaskCardModal = {
             WHERE taskID = ?`, [taskID]
         );
         return results ?? null;
+    },
+
+    async InsertTaskCard(taskID: number, title: string, description: string, status: string, deadline: Date) {
+        await db.execute(
+            `INSERT INTO taskCard 
+            (taskID, title, description, status, deadline)
+            VALUES (?, ?, ?, ?, ?)`, [taskID, title, description, status, deadline]
+        )
     }
 }
 

@@ -57,18 +57,20 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                             noInfo="No task cards -> Create one!"
                         /> :
                             taskCard?.map((task, index) => (
-                                <TaskCard
-                                    key={index}
-                                    taskCardID={task.taskCardID}
-                                    taskID={task.taskID}
-                                    title={task.title}
-                                    description={task.description}
-                                    status={task.status}
-                                    createdAt={task.createdAt}
-                                    deadline={task.deadline}
-                                    finished={() => console.log("ss")}
-                                    remove={() => console.log("ss")}
-                                />
+                                <>
+                                    <TaskCard
+                                        key={index}
+                                        taskCardID={task.taskCardID}
+                                        taskID={task.taskID}
+                                        title={task.title}
+                                        description={task.description}
+                                        status={task.status}
+                                        createdAt={task.createdAt}
+                                        deadline={task.deadline}
+                                        finished={() => console.log("ss")}
+                                        remove={() => console.log("ss")}
+                                    />
+                                </>
                             ))
                 }
             </div>

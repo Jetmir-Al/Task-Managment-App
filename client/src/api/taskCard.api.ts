@@ -8,4 +8,13 @@ export const AllTasksCards = async (taskID?: number) => {
     } catch (err) {
         console.error(err);
     }
-} 
+}
+
+export const CreateTaskCard = async (taskID: number, title: string, description: string, status: string, deadline: Date | null) => {
+    try {
+        const res = await api.post("/taskCard/createTaskCard", { taskID, title, description, status, deadline }, { withCredentials: true });
+        return res.data;
+    } catch (err) {
+        console.log(err);
+    }
+}

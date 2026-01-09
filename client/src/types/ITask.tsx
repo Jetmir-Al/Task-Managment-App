@@ -4,6 +4,14 @@ export interface ITaskModal {
   category: string,
   priority: string
 }
+
+export interface ICreateTaskList {
+  userID?: number,
+  category?: string,
+  priority?: string;
+}
+
+
 export interface ITask {
   id: string;
   title: string;

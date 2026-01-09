@@ -2,15 +2,40 @@ import { useState } from "react";
 import "./taskForm.css"
 import Button from "../ui/Button";
 import { useTaskHook } from "../../hooks/TaskHook";
+import Error from "../../utils/Error";
+import { useAuthHook } from "../../hooks/AuthHook";
+import { createTaskList } from "../../api/task.api";
 
 
 const TaskListForm = () => {
     const { toggleTList } = useTaskHook();
-    const [category, setCategory] = useState<string | null>(null);
-    const [priority, setPriority] = useState<string | null>(null)
+    const { user } = useAuthHook();
+    const [category, setCategory] = useState<string>();
+    const [priority, setPriority] = useState<string>();
+
+    async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const userID = user?.userID;
+        try {
+            const res = await createTaskList({ userID, category, priority });
+            if (res.message === "Inserted succesfully") {
+                toggleTList();
+            }
+        } catch (error) {
+            if (error) {
+
+                return <Error
+                    title="Error getting task cards"
+                    details={error}
+                    onClose={() => { }}
+                    onRetry={() => { }}
+                />
+            }
+        }
+    }
 
     return (
-        <form className="formContainer">
+        <form className="formContainer" onSubmit={handleFormSubmit}>
             <h2>New List</h2>
             <label>
                 Category <br /> <br />
@@ -45,7 +70,7 @@ const TaskListForm = () => {
                     Cancel
                 </Button>
             </div>
-        </form>
+        </form >
     )
 }
 

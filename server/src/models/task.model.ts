@@ -10,5 +10,15 @@ export const TaskModal = {
         );
 
         return results ?? null;
+    },
+    async createTaskList(userID: number, category: string, priority: string) {
+        await db.execute(
+            `INSERT INTO task 
+            (userID, category, priority)
+            VALUES (?, ?, ?);
+            `, [userID, category, priority]
+        )
     }
+
+
 }

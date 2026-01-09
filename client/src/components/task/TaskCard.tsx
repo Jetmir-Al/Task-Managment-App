@@ -9,7 +9,7 @@ const TaskCard = ({ taskCardID, taskID, title, description, status, deadline, cr
         <p>
             {description} ~ {taskCardID} ~ {taskID}
         </p>
-        <p>{new Date(deadline).toUTCString()} ~ {new Date(createdAt).toDateString()}</p>
+        <p>{new Date(deadline).toDateString()} ~ {new Date(createdAt).toDateString()}</p>
         <div className="taskCard-btns">
 
             {

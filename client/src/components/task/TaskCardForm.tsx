@@ -2,17 +2,41 @@ import { useState } from "react";
 import "./taskForm.css"
 import Button from "../ui/Button";
 import { useTaskHook } from "../../hooks/TaskHook";
+import Error from "../../utils/Error";
+import { CreateTaskCard } from "../../api/taskCard.api";
 
 
 const TaskCardForm = () => {
     const { toggleTCard } = useTaskHook();
-    const [title, setTitle] = useState<string | null>(null);
-    const [description, setDescription] = useState<string | null>(null);
-    const [status, setStatus] = useState<string | null>(null);
+    const [title, setTitle] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+    const [status, setStatus] = useState<string>("");
     const [deadline, setDeadline] = useState<Date | null>(null);
 
+
+    async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        try {
+            const res = await CreateTaskCard(3, title, description, status, deadline);
+            console.log(res);
+            if (res.message === "Insert succesfully") {
+                toggleTCard();
+            }
+        } catch (error) {
+            if (error) {
+
+                return <Error
+                    title="Error getting task cards"
+                    details={error}
+                    onClose={() => { }}
+                    onRetry={() => { }}
+                />
+            }
+        }
+    }
+
     return (
-        <form className="formContainer">
+        <form className="formContainer" onSubmit={handleFormSubmit}>
             <h2>New Card</h2>
             <label>
                 Title <br /> <br />
