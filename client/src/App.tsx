@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/Home";
@@ -9,31 +10,36 @@ import ProtectedRoutes from "./Route/ProtectedRoutes";
 import { useAuthHook } from "./hooks/AuthHook";
 import TaskList from "./pages/TaskList";
 
+const queryClient = new QueryClient();
+
 function App() {
 
   const { authenticated } = useAuthHook();
 
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="*" element={<NotFound />} />
+    <QueryClientProvider client={queryClient}>
 
-        <Route path={"/"} element={
-          authenticated ?
-            <BoardPage />
-            :
-            <Home />
-        } />
-        {
-          <Route element={<ProtectedRoutes />}>
-            <Route path={"/profile"} element={<Profiles />} />
-            <Route path={"/task-list"} element={<TaskList />} />
-          </Route>
-        }
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="*" element={<NotFound />} />
 
-      </Routes>
-    </Router>
+          <Route path={"/"} element={
+            authenticated ?
+              <BoardPage />
+              :
+              <Home />
+          } />
+          {
+            <Route element={<ProtectedRoutes />}>
+              <Route path={"/profile"} element={<Profiles />} />
+              <Route path={"/task-list"} element={<TaskList />} />
+            </Route>
+          }
+
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   )
 }
 

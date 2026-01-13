@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { type ITaskCardProps, type ITaskModal } from "../../types/ITask";
 import Button from "../ui/Button";
 import TaskCard from "./TaskCard";
@@ -8,32 +7,49 @@ import { AllTasksCards } from "../../api/taskCard.api";
 import NoInfo from "../../utils/NoInfo";
 import { useTaskHook } from "../../hooks/TaskHook";
 import TaskCardForm from "./TaskCardForm";
+import { useQuery } from "@tanstack/react-query";
 
 const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
 
     const { toggleTList, toggleTCard, toggleTaskCard } = useTaskHook();
-    const [taskCard, setTaskCard] = useState<ITaskCardProps[] | null>(null);
 
-    useEffect(() => {
-
-        async function getTaskCards() {
-            try {
-                const res = await AllTasksCards(taskID);
-                setTaskCard(res);
-            } catch (error) {
-                if (error) {
-
-                    return <Error
-                        title="Error getting task cards"
-                        details={error}
-                        onClose={() => { }}
-                        onRetry={() => { }}
-                    />
-                }
-            }
+    const { data: tasks, isError, error } = useQuery({
+        queryKey: ['taskCards', taskID],
+        queryFn: async () => {
+            const res = await AllTasksCards(taskID);
+            return res;
         }
-        getTaskCards();
-    }, [taskID])
+    });
+
+
+    if (isError) {
+        return <Error
+            title="Error getting task cards"
+            details={error}
+            onClose={() => { }}
+            onRetry={() => { }} />
+    }
+
+    // useEffect(() => {
+
+    //     async function getTaskCards() {
+    //         try {
+    //             const res = await AllTasksCards(taskID);
+    //             setTaskCard(res);
+    //         } catch (error) {
+    //             if (error) {
+
+    //                 return <Error
+    //                     title="Error getting task cards"
+    //                     details={error}
+    //                     onClose={() => { }}
+    //                     onRetry={() => { }}
+    //                 />
+    //             }
+    //         }
+    //     }
+    //     getTaskCards();
+    // }, [taskID])
 
     return (
 
@@ -53,10 +69,10 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                 {
                     toggleTaskCard ? <TaskCardForm /> :
 
-                        taskCard?.length === 0 ? <NoInfo
+                        tasks?.length === 0 ? <NoInfo
                             noInfo="No task cards -> Create one!"
                         /> :
-                            taskCard?.map((task, index) => (
+                            tasks?.map((task: ITaskCardProps, index: number) => (
                                 <>
                                     <TaskCard
                                         key={index}
