@@ -7,6 +7,7 @@ import { useAccountToggle } from "../../hooks/ToggleAccount";
 import { useState } from "react";
 import { login } from "../../api/auth.api";
 import { useAuthHook } from "../../hooks/AuthHook";
+import { useMutation } from "@tanstack/react-query";
 
 const Login = () => {
     const { toggleLoginSignup, toggleAcc } = useAccountToggle();
@@ -15,17 +16,22 @@ const Login = () => {
     const [password, setPassword] = useState<string>("");
     const [badInfo, setBadInfo] = useState<boolean>(false);
 
-
-    async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        try {
-            const res = await login(email, password);
+    const { mutateAsync: LoginFunc } = useMutation({
+        mutationFn: async () => {
+            return await login(email, password);
+        },
+        onSuccess: (res) => {
             toggleAcc();
             setAuth(true);
-            setUser(res.userLogedIn);
-        } catch {
+            setUser(res?.userLogedIn);
+        },
+        onError: () => {
             setBadInfo(true);
         }
+    })
+    async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        LoginFunc();
     }
 
     return (

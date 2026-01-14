@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import { useTaskHook } from "../../hooks/TaskHook";
 import Error from "../../utils/Error";
 import { CreateTaskCard } from "../../api/taskCard.api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 
 const TaskCardForm = () => {
@@ -12,27 +13,32 @@ const TaskCardForm = () => {
     const [description, setDescription] = useState<string>("");
     const [status, setStatus] = useState<string>("");
     const [deadline, setDeadline] = useState<Date | null>(null);
+    const queryClient = useQueryClient();
 
+    const { mutateAsync: TaskFormFunc } = useMutation({
+        mutationFn: async () => {
+            return await CreateTaskCard(3, title, description, status, deadline);
+        },
+        onSuccess: () => {
+            toggleTCard();
+            queryClient.invalidateQueries(
+                { queryKey: ['taskCards'] }
+            );
+        },
+        onError: (error) => {
+            return <Error
+                title="Error getting task cards"
+                details={error}
+                onClose={() => { }}
+                onRetry={() => { }}
+            />
+        }
+
+    })
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        try {
-            const res = await CreateTaskCard(3, title, description, status, deadline);
-            console.log(res);
-            if (res.message === "Insert succesfully") {
-                toggleTCard();
-            }
-        } catch (error) {
-            if (error) {
-
-                return <Error
-                    title="Error getting task cards"
-                    details={error}
-                    onClose={() => { }}
-                    onRetry={() => { }}
-                />
-            }
-        }
+        TaskFormFunc();
     }
 
     return (

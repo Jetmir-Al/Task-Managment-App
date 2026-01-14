@@ -5,6 +5,7 @@ import Button from "../ui/Button";
 import { useAccountToggle } from "../../hooks/ToggleAccount";
 import { useState } from "react";
 import { singup } from "../../api/auth.api";
+import { useMutation } from "@tanstack/react-query";
 
 function Signup() {
     const { toggleLoginSignup, toggleAcc } = useAccountToggle();
@@ -14,6 +15,17 @@ function Signup() {
     const [badEmail, setBadEmail] = useState<boolean>(false);
     const [badInfo, setBadInfo] = useState<boolean>(false);
 
+    const { mutateAsync: SignupFunc } = useMutation({
+        mutationFn: async () => {
+            return await singup(name, email, password);
+        },
+        onSuccess: () => {
+            toggleLoginSignup();
+        },
+        onError: () => {
+            setBadInfo(true);
+        }
+    })
 
     const handleSignupForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -21,12 +33,7 @@ function Signup() {
         if (!regex.test(email)) {
             setBadEmail(true);
         } else {
-            try {
-                await singup(name, email, password);
-                toggleLoginSignup();
-            } catch {
-                setBadInfo(true);
-            }
+            SignupFunc();
         }
     }
 

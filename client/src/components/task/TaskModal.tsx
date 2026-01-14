@@ -8,12 +8,13 @@ import NoInfo from "../../utils/NoInfo";
 import { useTaskHook } from "../../hooks/TaskHook";
 import TaskCardForm from "./TaskCardForm";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../utils/Loading";
 
 const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
 
     const { toggleTList, toggleTCard, toggleTaskCard } = useTaskHook();
 
-    const { data: tasks, isError, error } = useQuery({
+    const { data: tasks, isError, error, isLoading } = useQuery({
         queryKey: ['taskCards', taskID],
         queryFn: async () => {
             const res = await AllTasksCards(taskID);
@@ -29,27 +30,8 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
             onClose={() => { }}
             onRetry={() => { }} />
     }
+    if (isLoading) return <Loading />
 
-    // useEffect(() => {
-
-    //     async function getTaskCards() {
-    //         try {
-    //             const res = await AllTasksCards(taskID);
-    //             setTaskCard(res);
-    //         } catch (error) {
-    //             if (error) {
-
-    //                 return <Error
-    //                     title="Error getting task cards"
-    //                     details={error}
-    //                     onClose={() => { }}
-    //                     onRetry={() => { }}
-    //                 />
-    //             }
-    //         }
-    //     }
-    //     getTaskCards();
-    // }, [taskID])
 
     return (
 

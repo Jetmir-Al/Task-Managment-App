@@ -5,6 +5,7 @@ import { useTaskHook } from "../../hooks/TaskHook";
 import Error from "../../utils/Error";
 import { useAuthHook } from "../../hooks/AuthHook";
 import { createTaskList } from "../../api/task.api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 
 const TaskListForm = () => {
@@ -12,26 +13,32 @@ const TaskListForm = () => {
     const { user } = useAuthHook();
     const [category, setCategory] = useState<string>();
     const [priority, setPriority] = useState<string>();
+    const queryClient = useQueryClient();
+
+    const { mutateAsync: TaskListFunc } = useMutation({
+        mutationFn: async (userID: number | undefined) => {
+            return await createTaskList({ userID, category, priority });
+        },
+        onSuccess: () => {
+            toggleTList();
+            queryClient.invalidateQueries({
+                queryKey: ['taskLists']
+            });
+        },
+        onError: (error) => {
+            return <Error
+                title="Error getting task cards"
+                details={error}
+                onClose={() => { }}
+                onRetry={() => toggleTList()}
+            />
+        }
+    })
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const userID = user?.userID;
-        try {
-            const res = await createTaskList({ userID, category, priority });
-            if (res.message === "Inserted succesfully") {
-                toggleTList();
-            }
-        } catch (error) {
-            if (error) {
-
-                return <Error
-                    title="Error getting task cards"
-                    details={error}
-                    onClose={() => { }}
-                    onRetry={() => { }}
-                />
-            }
-        }
+        TaskListFunc(userID);
     }
 
     return (

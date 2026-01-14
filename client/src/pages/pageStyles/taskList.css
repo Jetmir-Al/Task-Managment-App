@@ -9,11 +9,19 @@
 }
 
 .taskModal-presentation {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     width: 100%;
+    background-color: var(--border-color);
+    padding: 0.7rem 1rem;
 }
 
-.taskModal-presentation h2 {
-    text-align: center;
+.taskModal-btn {
+    border-radius: 5px;
+    border: none;
+    background-color: var(--first-color);
+    color: var(--white-color);
 }
 
 .taskList-presentation {

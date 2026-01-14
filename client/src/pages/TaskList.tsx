@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import TaskModal from "../components/task/TaskModal";
 import { allTasks } from "../api/task.api";
 import { useAuthHook } from "../hooks/AuthHook";
@@ -7,26 +6,30 @@ import NoInfo from "../utils/NoInfo";
 import "./pageStyles/taskList.css";
 import { useTaskHook } from "../hooks/TaskHook";
 import TaskListForm from "../components/task/TaskListForm";
+import Error from "../utils/Error";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../utils/Loading";
+import Button from "../components/ui/Button";
 
 const TaskList = () => {
-    const [taskList, setTaskList] = useState<ITaskModal[]>();
     const { user } = useAuthHook();
-    const { toggleTaskList } = useTaskHook();
+    const { toggleTaskList, toggleTList } = useTaskHook();
 
-    useEffect(() => {
-        try {
-            async function getTasks() {
-                if (user) {
-                    const tasks = await allTasks(user?.userID);
-                    setTaskList(tasks);
-                }
-            }
-
-            getTasks();
-        } catch (error) {
-            console.error(error);
+    const { data: tasks, isError, isLoading, error } = useQuery({
+        queryKey: ['taskLists', user?.userID],
+        queryFn: async () => {
+            if (user) return await allTasks(user?.userID);
         }
-    }, [user]);
+    });
+
+    if (isError) {
+        return <Error
+            title="Error getting task cards"
+            details={error}
+            onClose={() => { }}
+            onRetry={() => { }} />
+    }
+    if (isLoading) return <Loading />
 
     return (
         <div className="taskModal-container">
@@ -34,12 +37,18 @@ const TaskList = () => {
                 toggleTaskList ? <TaskListForm /> : <>
                     <div className="taskModal-presentation">
                         <h2>My Tasks</h2>
+                        <Button
+                            className="taskModal-btn"
+                            type="button"
+                            onClick={() => toggleTList()}>
+                            Add Task List
+                        </Button>
                     </div>
                     <div className="taskList-presentation">
                         {
 
-                            taskList?.length === 0 ? <NoInfo noInfo={"No tasks yet"} /> :
-                                taskList?.map((task, index) => (
+                            tasks?.length === 0 ? <NoInfo noInfo={"No tasks yet"} /> :
+                                tasks?.map((task: ITaskModal, index: number) => (
                                     <TaskModal
                                         key={index}
                                         taskID={task.taskID}
