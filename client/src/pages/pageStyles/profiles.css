@@ -36,6 +36,14 @@
     border-radius: 3px;
 }
 
+.profile-btns :nth-child(2) {
+    border: none;
+    padding: 0.7rem 1rem;
+    border-radius: 3px;
+    background-color: var(--first-color);
+    color: var(--white-color);
+}
+
 .profile-btns :last-child {
     background-color: var(--red);
     border: none;
