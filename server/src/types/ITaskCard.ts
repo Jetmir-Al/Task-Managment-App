@@ -9,7 +9,7 @@ export interface ITaskCard {
     deadline: Date
 }
 
-enum status {
+export enum status {
     pending = 'pending',
     progress = 'in progress',
     finished = 'finished'

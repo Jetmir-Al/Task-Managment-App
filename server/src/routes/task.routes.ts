@@ -1,9 +1,12 @@
 import express from 'express';
-import { AllTasks, InsertTaskList } from '../controllers/taskModal.controller';
+import { AllTasks, InsertTaskList, ProgressTaskList, PendingTaskList, FinishedTaskList } from '../controllers/taskModal.controller';
 const router = express.Router();
 
 router.post('/all', AllTasks);
 router.post('/createTaskList', InsertTaskList);
+router.post('/pendingTasks', PendingTaskList);
+router.post('/progressTasks', ProgressTaskList);
+router.post('/finished', FinishedTaskList);
 
 
 export default router;

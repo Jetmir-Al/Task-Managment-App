@@ -9,6 +9,7 @@ import { useTaskHook } from "../../hooks/TaskHook";
 import TaskCardForm from "./TaskCardForm";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../utils/Loading";
+import { Activity } from "react";
 
 const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
 
@@ -48,11 +49,13 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
             </div>
 
             <div className="taskCards">
-                {
-                    toggleTaskCard ? <TaskCardForm /> :
-
+                <Activity mode={toggleTaskCard ? "visible" : "hidden"}>
+                    <TaskCardForm />
+                </Activity>
+                <Activity mode={toggleTaskCard ? "hidden" : "visible"}>
+                    {
                         tasks?.length === 0 ? <NoInfo
-                            noInfo="No task cards -> Create one!"
+                            noInfo="No task cards!"
                         /> :
                             tasks?.map((task: ITaskCardProps, index: number) => (
                                 <>
@@ -70,10 +73,12 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                                     />
                                 </>
                             ))
-                }
+                    }
+                </Activity>
+
             </div>
             {
-                toggleTaskCard === true ? null :
+                toggleTaskCard ? null :
                     <div className="newCard">
                         <Button
                             className="newCardBtn"

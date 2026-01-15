@@ -1,8 +1,47 @@
 import "./pageStyles/boardPage.css";
 import TaskCard from "../components/task/TaskCard";
 import Button from "../components/ui/Button";
+import { useQuery } from "@tanstack/react-query";
+import { useAuthHook } from "../hooks/AuthHook";
+import { FinishedTaskList, PendingTaskList, ProgressTaskList } from "../api/task.api";
+import Loading from "../utils/Loading";
+import Error from "../utils/Error";
 
 const BoardPage = () => {
+
+    const { user } = useAuthHook();
+    const { isError, error, isLoading, data: pendingTasks } = useQuery({
+        queryKey: ["pendingTasks", user?.userID],
+        queryFn: async () => {
+            const res = await PendingTaskList(user?.userID);
+            const res2 = await ProgressTaskList(user?.userID);
+
+            return { res, res2 };
+        }
+    });
+    // const { data: progress } = useQuery({
+    //     queryKey: ["pendingTasks", user?.userID],
+    //     queryFn: async () => {
+    //         const res = await ProgressTaskList(user?.userID);
+    //         return res;
+    //     }
+    // });
+    // const { data: finished } = useQuery({
+    //     queryKey: ["pendingTasks", user?.userID],
+    //     queryFn: async () => {
+    //         const res = await FinishedTaskList(user?.userID);
+    //         return res;
+    //     }
+    // });
+    if (isLoading) return <Loading />;
+    if (isError) {
+        return <Error
+            title="Error getting task cards"
+            details={error}
+            onClose={() => { }}
+            onRetry={() => { }} />
+    }
+
     return (
         <div className="boardPage-container">
             <div className="pendingTasks">

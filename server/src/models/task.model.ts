@@ -1,6 +1,6 @@
 import { RowDataPacket } from "mysql2";
 import { db } from "../config/db";
-import { ITask } from "../types/ITask";
+import { ITask, ITaskStatus } from "../types/ITask";
 
 export const TaskModal = {
     async AllTasks(userID: number): Promise<ITask | null> {
@@ -18,6 +18,38 @@ export const TaskModal = {
             VALUES (?, ?, ?);
             `, [userID, category, priority]
         )
+    },
+    async PendingTasks(userID: number): Promise<ITaskStatus | null> {
+        const [results] = await db.execute<ITaskStatus & RowDataPacket[]>(
+            `SELECT * FROM taskcard
+            INNER JOIN task 
+            ON taskcard.taskID = task.taskID
+            WHERE userID = ? AND taskcard.status = 'pending'
+            `, [userID]
+        );
+        return results ?? null;
+    },
+    async ProgressTasks(userID: number): Promise<ITaskStatus | null> {
+        const [results] = await db.execute<ITaskStatus & RowDataPacket[]>(
+            `SELECT * FROM taskcard
+            INNER JOIN task 
+            ON taskcard.taskID = task.taskID
+            WHERE userID = ? AND taskcard.status = 'in progress'
+            `, [userID]
+        );
+        return results ?? null;
+
+    },
+    async FinishedTasks(userID: number): Promise<ITaskStatus | null> {
+        const [results] = await db.execute<ITaskStatus & RowDataPacket[]>(
+            `SELECT * FROM taskcard
+            INNER JOIN task 
+            ON taskcard.taskID = task.taskID
+            WHERE userID = ? AND taskcard.status = 'finished'
+            `, [userID]
+        );
+        return results ?? null;
+
     }
 
 

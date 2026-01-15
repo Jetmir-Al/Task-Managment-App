@@ -45,9 +45,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     }
 
 
-    if (loading) {
-        return <Loading />
-    }
+    if (loading) return <Loading />;
 
     return (
         <AuthContext.Provider

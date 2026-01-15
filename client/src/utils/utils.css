@@ -21,7 +21,8 @@
     color: #742a2a;
     padding: 1rem;
     border-radius: 5px;
-    max-width: 720px;
+    width: 60%;
+    max-width: 500px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     font-family: 'Segoe UI, Roboto, Helvetica, Arial, sans-serif';
 }
@@ -51,6 +52,12 @@
     font-size: 14px;
 }
 
+.error-btns {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+}
 
 .errorCloseBtn {
     cursor: pointer;
@@ -65,7 +72,8 @@
     margin-top: 8px;
 }
 
-.errorDetails button {
+.error-btns button {
+    border: none;
     border-bottom: 1px solid orangered;
     background: transparent;
     color: orangered;
@@ -94,6 +102,7 @@
     background-color: var(--border-color);
     padding: 2.5rem;
     border-radius: 10px;
+    width: 100%;
     text-align: center;
 }
 

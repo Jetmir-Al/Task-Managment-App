@@ -45,14 +45,14 @@ export default function Error({ title, details, onRetry }: IError) {
             <div className='error-btns'>
                 <Button
                     onClick={onRetry}
-                    className={""}
+                    className={"retry"}
                     type={'button'}
                 >
                     Retry
                 </Button>
                 <Button
                     onClick={() => navigate('/')}
-                    className={""}
+                    className={"errorCloseBtn"}
                     type={'button'}
                 >
                     Close
