@@ -25,6 +25,7 @@ export const TaskModal = {
             INNER JOIN task 
             ON taskcard.taskID = task.taskID
             WHERE userID = ? AND taskcard.status = 'pending'
+            ORDER BY taskcard.createdAt DESC LIMIT 3
             `, [userID]
         );
         return results ?? null;
@@ -35,6 +36,7 @@ export const TaskModal = {
             INNER JOIN task 
             ON taskcard.taskID = task.taskID
             WHERE userID = ? AND taskcard.status = 'in progress'
+            ORDER BY taskcard.createdAt DESC LIMIT 3
             `, [userID]
         );
         return results ?? null;
@@ -46,6 +48,7 @@ export const TaskModal = {
             INNER JOIN task 
             ON taskcard.taskID = task.taskID
             WHERE userID = ? AND taskcard.status = 'finished'
+            ORDER BY taskcard.createdAt DESC LIMIT 3
             `, [userID]
         );
         return results ?? null;

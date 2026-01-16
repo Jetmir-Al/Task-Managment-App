@@ -13,13 +13,16 @@ export const TaskModalSerice = {
     },
 
     async pendingTasks(userID: number) {
-        await TaskModal.PendingTasks(userID);
+        const pending = await TaskModal.PendingTasks(userID);
+        return pending;
     },
     async progressTasks(userID: number) {
-        await TaskModal.ProgressTasks(userID);
+        const progress = await TaskModal.ProgressTasks(userID);
+        return progress;
     },
     async completedTasks(userID: number) {
-        await TaskModal.FinishedTasks(userID);
+        const completed = await TaskModal.FinishedTasks(userID);
+        return completed;
     }
 
 }

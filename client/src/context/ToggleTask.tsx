@@ -7,12 +7,14 @@ interface IToggleTaskForms {
 export const ToggleTaskFormProvider = ({ children }: IToggleTaskForms) => {
     const [toggleTaskList, setToggleTaskList] = useState<boolean>(false);
     const [toggleTaskCard, setToggleTaskCard] = useState<boolean>(false);
+    const [taskIDForm, setTaskIDForm] = useState<number>(0);
 
     const toggleTList = () => {
         setToggleTaskList(l => !l);
     };
-    const toggleTCard = () => {
+    const toggleTCard = (taskID: number) => {
         setToggleTaskCard(c => !c);
+        setTaskIDForm(taskID);
     }
 
     return (
@@ -20,6 +22,7 @@ export const ToggleTaskFormProvider = ({ children }: IToggleTaskForms) => {
             value={{
                 toggleTaskList,
                 toggleTaskCard,
+                taskIDForm,
                 toggleTList,
                 toggleTCard
             }}

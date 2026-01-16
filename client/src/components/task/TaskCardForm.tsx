@@ -7,20 +7,20 @@ import { CreateTaskCard } from "../../api/taskCard.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 
-const TaskCardForm = () => {
+const TaskCardForm = ({ taskID }: { taskID: number }) => {
     const { toggleTCard } = useTaskHook();
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [status, setStatus] = useState<string>("");
-    const [deadline, setDeadline] = useState<Date | null>(null);
+    const [deadline, setDeadline] = useState<string | null>(null);
     const queryClient = useQueryClient();
 
     const { mutateAsync: TaskFormFunc } = useMutation({
         mutationFn: async () => {
-            return await CreateTaskCard(3, title, description, status, deadline);
+            return await CreateTaskCard(taskID, title, description, status, deadline);
         },
         onSuccess: () => {
-            toggleTCard();
+            toggleTCard(taskID);
             queryClient.invalidateQueries(
                 { queryKey: ['taskCards'] }
             );
@@ -62,7 +62,7 @@ const TaskCardForm = () => {
                 Deadline <br /> <br />
                 <input type="datetime-local"
                     required
-                    onChange={(e) => setDeadline(e.target.valueAsDate)}
+                    onChange={(e) => setDeadline(e.target.value)}
                 />
             </label>
             <label>
@@ -87,7 +87,7 @@ const TaskCardForm = () => {
                 <Button
                     type="button"
                     className=""
-                    onClick={() => toggleTCard()}
+                    onClick={() => toggleTCard(taskID)}
                 >
                     Cancel
                 </Button>

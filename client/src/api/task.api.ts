@@ -12,15 +12,18 @@ export const createTaskList = async ({ userID, category, priority }: ICreateTask
 }
 
 export const PendingTaskList = async (userID?: number) => {
-    const res = await api.post("/task/pending", { userID }, { withCredentials: true });
+    const res = await api.post("/task/pendingTasks", { userID }, { withCredentials: true });
     return res.data;
 }
 
 export const ProgressTaskList = async (userID?: number) => {
-    const res = await api.post("/task/progress", { userID }, { withCredentials: true });
+    const res = await api.post("/task/progressTasks", { userID }, { withCredentials: true });
+    console.log(res.data);
     return res.data;
 }
 export const FinishedTaskList = async (userID?: number) => {
-    const res = await api.post("/task/finished", { userID }, { withCredentials: true });
+    const res = await api.post("/task/finishedTasks", { userID }, { withCredentials: true });
+    console.log(res);
+
     return res.data;
 }

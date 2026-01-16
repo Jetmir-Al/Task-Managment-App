@@ -10,7 +10,7 @@ export const AllTasksCards = async (taskID?: number) => {
     }
 }
 
-export const CreateTaskCard = async (taskID: number, title: string, description: string, status: string, deadline: Date | null) => {
+export const CreateTaskCard = async (taskID: number, title: string, description: string, status: string, deadline: string | null) => {
     try {
         const res = await api.post("/taskCard/createTaskCard", { taskID, title, description, status, deadline }, { withCredentials: true });
         return res.data;

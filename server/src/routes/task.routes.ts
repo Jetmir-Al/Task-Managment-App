@@ -6,7 +6,7 @@ router.post('/all', AllTasks);
 router.post('/createTaskList', InsertTaskList);
 router.post('/pendingTasks', PendingTaskList);
 router.post('/progressTasks', ProgressTaskList);
-router.post('/finished', FinishedTaskList);
+router.post('/finishedTasks', FinishedTaskList);
 
 
 export default router;

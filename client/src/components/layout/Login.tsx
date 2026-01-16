@@ -31,7 +31,7 @@ const Login = () => {
     })
     async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        LoginFunc();
+        await LoginFunc();
     }
 
     return (

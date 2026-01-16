@@ -13,7 +13,7 @@ import { Activity } from "react";
 
 const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
 
-    const { toggleTList, toggleTCard, toggleTaskCard } = useTaskHook();
+    const { toggleTList, toggleTCard, toggleTaskCard, taskIDForm } = useTaskHook();
 
     const { data: tasks, isError, error, isLoading } = useQuery({
         queryKey: ['taskCards', taskID],
@@ -49,10 +49,10 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
             </div>
 
             <div className="taskCards">
-                <Activity mode={toggleTaskCard ? "visible" : "hidden"}>
-                    <TaskCardForm />
+                <Activity mode={toggleTaskCard && taskID === taskIDForm ? "visible" : "hidden"}>
+                    <TaskCardForm taskID={taskID} />
                 </Activity>
-                <Activity mode={toggleTaskCard ? "hidden" : "visible"}>
+                <Activity mode={toggleTaskCard && taskID === taskIDForm ? "hidden" : "visible"}>
                     {
                         tasks?.length === 0 ? <NoInfo
                             noInfo="No task cards!"
@@ -78,12 +78,12 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
 
             </div>
             {
-                toggleTaskCard ? null :
+                toggleTaskCard && taskIDForm === taskID ? null :
                     <div className="newCard">
                         <Button
                             className="newCardBtn"
                             type="button"
-                            onClick={() => toggleTCard()}
+                            onClick={() => toggleTCard(taskID)}
                         >
                             Add a new card
                         </Button>
