@@ -1,16 +1,19 @@
 import "./pageStyles/boardPage.css";
 import TaskCard from "../components/task/TaskCard";
 import Button from "../components/ui/Button";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuthHook } from "../hooks/AuthHook";
 import { FinishedTaskList, PendingTaskList, ProgressTaskList } from "../api/task.api";
 import Loading from "../utils/Loading";
 import Error from "../utils/Error";
 import NoInfo from "../utils/NoInfo";
+import type { ITaskCardProps } from "../types/ITask";
+import { DeleteTaskCard } from "../api/taskCard.api";
 
 const BoardPage = () => {
-
     const { user } = useAuthHook();
+    const queryClient = useQueryClient();
+
     const { isError, error, isLoading, data: statusTasks } = useQuery({
         queryKey: ["statusTasks", user?.userID],
         queryFn: async () => {
@@ -20,6 +23,26 @@ const BoardPage = () => {
             return { pending, progress, finished };
         }
     });
+    const { mutateAsync: deleteTask } = useMutation({
+        mutationFn: async (taskCardID: number) => {
+            return await DeleteTaskCard(taskCardID);
+        },
+        onError: (error) => {
+            <Error
+                title="Error getting task statuses"
+                details={error}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
+            if (res.message === "Deleted Succesfully") {
+                queryClient.invalidateQueries({
+                    queryKey: ['statusTasks']
+                });
+            }
+        }
+    })
+
     if (isLoading) return <Loading />;
     if (isError) {
         return <Error
@@ -35,17 +58,20 @@ const BoardPage = () => {
                 <h2>Pending Tasks</h2>
                 {
                     statusTasks?.pending?.length === 0 ? <NoInfo noInfo="No pending tasks!" />
-                        : <TaskCard
-                            title="New Task"
-                            description="ss"
-                            deadline={new Date}
-                            createdAt={new Date}
-                            taskCardID={2}
-                            taskID={2}
-                            status="ss"
-                            finished={() => console.log("ss")}
-                            remove={() => console.log("ss")}
-                        />
+                        : statusTasks?.pending?.map((pen: ITaskCardProps, index: number) => (
+                            <TaskCard
+                                key={index}
+                                title={pen.title}
+                                description={pen.description}
+                                deadline={pen.deadline}
+                                createdAt={pen.createdAt}
+                                taskCardID={pen.taskCardID}
+                                taskID={pen.taskID}
+                                status={pen.status}
+                                finished={() => console.log("ss")}
+                                remove={async () => await deleteTask(pen.taskCardID)}
+                            />
+                        ))
                 }
                 <Button
                     className={"addPendingTask"}
@@ -59,17 +85,20 @@ const BoardPage = () => {
                 <h2>In Progress Tasks</h2>
                 {
                     statusTasks?.progress?.length === 0 ? <NoInfo noInfo="No in progress tasks!" />
-                        : <TaskCard
-                            title="New Task"
-                            description="ss"
-                            deadline={new Date}
-                            createdAt={new Date}
-                            taskCardID={2}
-                            taskID={2}
-                            status="ss"
-                            finished={() => console.log("ss")}
-                            remove={() => console.log("ss")}
-                        />
+                        : statusTasks?.progress?.map((pro: ITaskCardProps, index: number) => (
+                            <TaskCard
+                                key={index}
+                                title={pro.title}
+                                description={pro.description}
+                                deadline={pro.deadline}
+                                createdAt={pro.createdAt}
+                                taskCardID={pro.taskCardID}
+                                taskID={pro.taskID}
+                                status={pro.status}
+                                finished={() => console.log("ss")}
+                                remove={async () => await deleteTask(pro.taskCardID)}
+                            />
+                        ))
                 }
 
                 <Button
@@ -84,16 +113,19 @@ const BoardPage = () => {
                 <h2>Completed Tasks</h2>
                 {
                     statusTasks?.finished?.length === 0 ? <NoInfo noInfo="No completed tasks!" />
-                        : <TaskCard
-                            title="New Task"
-                            description="ss"
-                            deadline={new Date}
-                            createdAt={new Date}
-                            taskCardID={2}
-                            taskID={2}
-                            status="ss"
-                            remove={() => console.log("ss")}
-                        />
+                        : statusTasks?.finished.map((f: ITaskCardProps, index: number) => (
+                            <TaskCard
+                                key={index}
+                                title={f.title}
+                                description={f.description}
+                                deadline={f.deadline}
+                                createdAt={f.createdAt}
+                                taskCardID={f.taskCardID}
+                                taskID={f.taskID}
+                                status={f.status}
+                                remove={async () => await deleteTask(f.taskCardID)}
+                            />
+                        ))
                 }
 
                 <Button

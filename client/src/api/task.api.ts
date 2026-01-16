@@ -18,12 +18,14 @@ export const PendingTaskList = async (userID?: number) => {
 
 export const ProgressTaskList = async (userID?: number) => {
     const res = await api.post("/task/progressTasks", { userID }, { withCredentials: true });
-    console.log(res.data);
     return res.data;
 }
 export const FinishedTaskList = async (userID?: number) => {
     const res = await api.post("/task/finishedTasks", { userID }, { withCredentials: true });
-    console.log(res);
+    return res.data;
+}
 
+export const DeleteTaskList = async (taskID: number) => {
+    const res = await api.post("/task/deleteTask", { taskID }, { withCredentials: true });
     return res.data;
 }

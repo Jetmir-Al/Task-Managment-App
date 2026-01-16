@@ -7,13 +7,15 @@ import { AllTasksCards } from "../../api/taskCard.api";
 import NoInfo from "../../utils/NoInfo";
 import { useTaskHook } from "../../hooks/TaskHook";
 import TaskCardForm from "./TaskCardForm";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../../utils/Loading";
 import { Activity } from "react";
+import { DeleteTaskList } from "../../api/task.api";
 
 const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
 
-    const { toggleTList, toggleTCard, toggleTaskCard, taskIDForm } = useTaskHook();
+    const { toggleTCard, toggleTaskCard, taskIDForm } = useTaskHook();
+    const queryClient = useQueryClient();
 
     const { data: tasks, isError, error, isLoading } = useQuery({
         queryKey: ['taskCards', taskID],
@@ -21,6 +23,26 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
             const res = await AllTasksCards(taskID);
             return res;
         }
+    });
+
+    const { mutateAsync: deleteTaskList } = useMutation({
+        mutationFn: async (taskID: number) => {
+            return await DeleteTaskList(taskID);
+        },
+        onError: (err) => {
+            return <Error
+                title="Error deleting the task"
+                details={err}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
+            if (res.message === "Deleted Succesfully") {
+                queryClient.invalidateQueries({
+                    queryKey: ['taskLists']
+                });
+            }
+        },
     });
 
 
@@ -41,10 +63,10 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                 <h3>{category} ~ {priority} Priority</h3>
                 <Button
                     type="button"
-                    className="btn"
-                    onClick={() => toggleTList()}
+                    className="deleteListBtn"
+                    onClick={() => deleteTaskList(taskID)}
                 >
-                    + Add another List
+                    Delete this List
                 </Button>
             </div>
 

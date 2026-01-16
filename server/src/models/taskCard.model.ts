@@ -17,6 +17,13 @@ export const TaskCardModal = {
             (taskID, title, description, status, deadline)
             VALUES (?, ?, ?, ?, ?)`, [taskID, title, description, status, deadline]
         )
+    },
+
+    async DeleteTaskCard(taskCardID: number) {
+        await db.execute(
+            `DELETE FROM taskCard
+            WHERE taskCardID = ?`, [taskCardID]
+        );
     }
 }
 

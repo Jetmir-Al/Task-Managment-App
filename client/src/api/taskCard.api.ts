@@ -18,3 +18,12 @@ export const CreateTaskCard = async (taskID: number, title: string, description:
         console.log(err);
     }
 }
+
+export const DeleteTaskCard = async (taskCardID: number) => {
+    try {
+        const res = await api.post("/taskCard/deleteTaskCard", { taskCardID }, { withCredentials: true });
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

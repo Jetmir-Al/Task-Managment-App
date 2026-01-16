@@ -28,7 +28,16 @@
     padding: 0.5rem 1.5rem;
 }
 
+.deleteListBtn {
+    background-color: var(--red);
+    color: var(--white-color);
+    border-radius: 5px;
+    border: none;
+}
 
+.deleteListBtn:hover {
+    background-color: var(--redHover);
+}
 
 /* Responsive Task Modal */
 @media screen and (max-width: 1024px) {

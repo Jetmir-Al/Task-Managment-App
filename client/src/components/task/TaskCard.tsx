@@ -5,7 +5,9 @@ import type { ITaskCardProps } from "../../types/ITask";
 
 const TaskCard = ({ taskCardID, taskID, title, description, status, deadline, createdAt, finished, remove }: ITaskCardProps) => (
     <div className="taskCard">
-        <h3>{title} ~ {status} </h3>
+        <h3>{title} ~ {status === "finished" ? "Finished" :
+            status === "in progress" ? "In Progress" : "Pending"
+        } </h3>
         <p>
             {description} ~ {taskCardID} ~ {taskID}
         </p>

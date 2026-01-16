@@ -23,6 +23,9 @@ export const TaskModalSerice = {
     async completedTasks(userID: number) {
         const completed = await TaskModal.FinishedTasks(userID);
         return completed;
+    },
+    async deleteTask(taskID: number) {
+        await TaskModal.DeleteTaskList(taskID);
     }
 
 }

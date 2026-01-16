@@ -52,8 +52,11 @@ export const TaskModal = {
             `, [userID]
         );
         return results ?? null;
+    },
 
+    async DeleteTaskList(taskID: number) {
+        await db.execute(
+            `DELETE FROM task WHERE taskID = ?`, [taskID]
+        )
     }
-
-
 }

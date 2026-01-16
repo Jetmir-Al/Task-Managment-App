@@ -79,3 +79,17 @@ export const FinishedTaskList = async (req: Request, res: Response) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+export const DeleteTaskList = async (req: Request, res: Response) => {
+    try {
+        const token = req.cookies.user;
+        if (!token) {
+            return res.status(404).json({ message: "Cookie not found" });
+        }
+        const { taskID }: { taskID: number } = req.body;
+        await TaskModalSerice.deleteTask(taskID);
+        res.status(200).json({ message: "Deleted Succesfully" });
+    } catch (error: any) {
+        res.status(500).json({ message: error.message });
+    }
+}

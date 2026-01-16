@@ -34,3 +34,20 @@ export const CreateTaskCard = async (req: Request, res: Response) => {
         res.status(500).json({ message: error })
     }
 }
+
+export const DeleteTaskCard = async (req: Request, res: Response) => {
+    try {
+        const token = req.cookies.user;
+        if (!token) {
+            return res.status(404).json({ message: "Cookie not found" });
+        }
+
+        const { taskCardID }: { taskCardID: number } = req.body;
+
+        await TaskCardService.deleteTaskCard(taskCardID);
+        res.status(200).json({ message: "Deleted Succesfully" });
+
+    } catch (error: any) {
+        res.status(500).json({ message: error })
+    }
+}
