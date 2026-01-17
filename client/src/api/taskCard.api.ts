@@ -27,3 +27,25 @@ export const DeleteTaskCard = async (taskCardID: number) => {
         console.log(error);
     }
 }
+
+export const UpdFinishedTaskCard = async (taskCardID: number) => {
+    try {
+        const res = await api.post("/taskCard/updateFinishedTask",
+            { taskCardID }, { withCredentials: true }
+        );
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const UpdInProgressTaskCard = async (taskCardID: number) => {
+    try {
+        const res = await api.post("/taskCard/updateProgressTask",
+            { taskCardID }, { withCredentials: true }
+        );
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

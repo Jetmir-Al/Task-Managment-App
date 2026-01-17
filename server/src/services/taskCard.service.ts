@@ -15,6 +15,14 @@ export const TaskCardService = {
 
     async deleteTaskCard(taskCardID: number) {
         await TaskCardModal.DeleteTaskCard(taskCardID);
+    },
+
+    async InProgressUpd(taskCardID: number) {
+        await TaskCardModal.InProgressTaskCard(taskCardID);
+    },
+
+    async FinishedUpd(taskCardID: number) {
+        await TaskCardModal.FinishTaskCard(taskCardID);
     }
 
 }

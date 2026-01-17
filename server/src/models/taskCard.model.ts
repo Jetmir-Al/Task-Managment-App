@@ -24,6 +24,17 @@ export const TaskCardModal = {
             `DELETE FROM taskCard
             WHERE taskCardID = ?`, [taskCardID]
         );
-    }
+    },
+
+    async FinishTaskCard(taskCardID: number) {
+        await db.execute(
+            `UPDATE taskcard SET status='finished' WHERE taskcard.taskCardID = ?`, [taskCardID]
+        );
+    },
+    async InProgressTaskCard(taskCardID: number) {
+        await db.execute(
+            `UPDATE taskcard SET status='in progress' WHERE taskcard.taskCardID = ?`, [taskCardID]
+        );
+    },
 }
 

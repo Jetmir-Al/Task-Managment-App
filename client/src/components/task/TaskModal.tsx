@@ -3,7 +3,7 @@ import Button from "../ui/Button";
 import TaskCard from "./TaskCard";
 import "./taskModel.css";
 import Error from "../../utils/Error";
-import { AllTasksCards } from "../../api/taskCard.api";
+import { AllTasksCards, DeleteTaskCard, UpdFinishedTaskCard } from "../../api/taskCard.api";
 import NoInfo from "../../utils/NoInfo";
 import { useTaskHook } from "../../hooks/TaskHook";
 import TaskCardForm from "./TaskCardForm";
@@ -43,6 +43,45 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                 });
             }
         },
+    });
+
+    const { mutateAsync: updateFinishedTask } = useMutation({
+        mutationFn: async (taskCardID: number) => {
+            return await UpdFinishedTaskCard(taskCardID);
+        },
+        onError: (err) => {
+            return <Error
+                title="Error deleting the task"
+                details={err}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
+            if (res.message === "Updated Succesfully") {
+                queryClient.invalidateQueries({
+                    queryKey: ['taskCards']
+                });
+            }
+        }
+    });
+    const { mutateAsync: deleteTask } = useMutation({
+        mutationFn: async (taskCardID: number) => {
+            return await DeleteTaskCard(taskCardID);
+        },
+        onError: (error) => {
+            <Error
+                title="Error getting task statuses"
+                details={error}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
+            if (res.message === "Deleted Succesfully") {
+                queryClient.invalidateQueries({
+                    queryKey: ['taskCards']
+                });
+            }
+        }
     });
 
 
@@ -90,8 +129,8 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                                         status={task.status}
                                         createdAt={task.createdAt}
                                         deadline={task.deadline}
-                                        finished={() => console.log("ss")}
-                                        remove={() => console.log("ss")}
+                                        finished={async () => await updateFinishedTask(task.taskCardID)}
+                                        remove={async () => await deleteTask(task.taskCardID)}
                                     />
                                 </>
                             ))

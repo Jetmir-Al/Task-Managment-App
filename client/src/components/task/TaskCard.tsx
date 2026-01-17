@@ -9,12 +9,12 @@ const TaskCard = ({ taskCardID, taskID, title, description, status, deadline, cr
             status === "in progress" ? "In Progress" : "Pending"
         } </h3>
         <p>
-            {description} ~ {taskCardID} ~ {taskID}
+            {description}
         </p>
         <p>{new Date(deadline).toDateString()} ~ {new Date(createdAt).toDateString()}</p>
         <div className="taskCard-btns">
 
-            {
+            {status === 'finished' ? null :
                 finished &&
                 <Button
                     type="button"

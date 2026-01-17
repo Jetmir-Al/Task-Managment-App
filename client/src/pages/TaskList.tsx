@@ -10,6 +10,9 @@ import Error from "../utils/Error";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../utils/Loading";
 import Button from "../components/ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import { faClipboard } from "@fortawesome/free-regular-svg-icons";
 
 const TaskList = () => {
     const { user } = useAuthHook();
@@ -42,6 +45,14 @@ const TaskList = () => {
                             type="button"
                             onClick={() => toggleTList()}>
                             Add Task List
+                        </Button>
+                        <Button
+                            className="taskModal-btn"
+                            type="button"
+                            onClick={() => { }}
+                        >
+                            <FontAwesomeIcon icon={faList} />
+                            <FontAwesomeIcon icon={faClipboard} />
                         </Button>
                     </div>
                     <div className="taskList-presentation">
