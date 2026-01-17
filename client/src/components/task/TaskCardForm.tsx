@@ -69,8 +69,9 @@ const TaskCardForm = ({ taskID }: { taskID: number }) => {
                 Status <br /> <br />
                 <select name="" id="" required
                     onChange={(e) => setStatus(e.target.value)}
+                    defaultValue={""}
                 >
-                    <option selected disabled value="">Select Status!</option>
+                    <option disabled value="">Select Status!</option>
                     <option value="pending">Pending</option>
                     <option value="in progress">In Progress</option>
                     <option value="finished">Finished</option>

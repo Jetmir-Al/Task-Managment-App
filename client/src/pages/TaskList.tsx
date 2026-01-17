@@ -11,11 +11,13 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../utils/Loading";
 import Button from "../components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-import { faClipboard } from "@fortawesome/free-regular-svg-icons";
+import { faList, faClipboard } from "@fortawesome/free-solid-svg-icons";
+import { useTaskListHook } from "../hooks/TaskListHook";
+import List from "../components/list/List";
 
 const TaskList = () => {
     const { user } = useAuthHook();
+    const { toggleList, toggleListFunc } = useTaskListHook();
     const { toggleTaskList, toggleTList } = useTaskHook();
 
     const { data: tasks, isError, isLoading, error } = useQuery({
@@ -49,25 +51,42 @@ const TaskList = () => {
                         <Button
                             className="taskModal-btn"
                             type="button"
-                            onClick={() => { }}
+                            onClick={() => toggleListFunc()}
                         >
-                            <FontAwesomeIcon icon={faList} />
-                            <FontAwesomeIcon icon={faClipboard} />
+                            {
+                                toggleList ?
+                                    <FontAwesomeIcon icon={faClipboard}
+                                    />
+                                    :
+                                    <FontAwesomeIcon icon={faList} />
+                            }
                         </Button>
+
                     </div>
                     <div className="taskList-presentation">
                         {
-
-                            tasks?.length === 0 ? <NoInfo noInfo={"No tasks yet"} /> :
-                                tasks?.map((task: ITaskModal, index: number) => (
-                                    <TaskModal
-                                        key={index}
-                                        taskID={task.taskID}
-                                        userID={task.userID}
-                                        category={task.category}
-                                        priority={task.priority}
-                                    />
-                                ))
+                            toggleList ?
+                                tasks?.length === 0 ? <NoInfo noInfo="No tasks yet" /> :
+                                    tasks?.map((tasks: ITaskModal, i: number) => (
+                                        <List
+                                            key={i}
+                                            taskID={tasks.taskID}
+                                            userID={tasks.userID}
+                                            priority={tasks.priority}
+                                            category={tasks.category}
+                                        />
+                                    ))
+                                :
+                                tasks?.length === 0 ? <NoInfo noInfo={"No tasks yet"} /> :
+                                    tasks?.map((task: ITaskModal, index: number) => (
+                                        <TaskModal
+                                            key={index}
+                                            taskID={task.taskID}
+                                            userID={task.userID}
+                                            category={task.category}
+                                            priority={task.priority}
+                                        />
+                                    ))
                         }
                     </div>
                 </>
