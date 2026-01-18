@@ -118,21 +118,19 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
                         tasks?.length === 0 ? <NoInfo
                             noInfo="No task cards!"
                         /> :
-                            tasks?.map((task: ITaskCardProps, index: number) => (
-                                <>
-                                    <TaskCard
-                                        key={index}
-                                        taskCardID={task.taskCardID}
-                                        taskID={task.taskID}
-                                        title={task.title}
-                                        description={task.description}
-                                        status={task.status}
-                                        createdAt={task.createdAt}
-                                        deadline={task.deadline}
-                                        finished={async () => await updateFinishedTask(task.taskCardID)}
-                                        remove={async () => await deleteTask(task.taskCardID)}
-                                    />
-                                </>
+                            tasks?.map((task: ITaskCardProps) => (
+                                <TaskCard
+                                    key={task.taskCardID}
+                                    taskCardID={task.taskCardID}
+                                    taskID={task.taskID}
+                                    title={task.title}
+                                    description={task.description}
+                                    status={task.status}
+                                    createdAt={task.createdAt}
+                                    deadline={task.deadline}
+                                    finished={async () => await updateFinishedTask(task.taskCardID)}
+                                    remove={async () => await deleteTask(task.taskCardID)}
+                                />
                             ))
                     }
                 </Activity>

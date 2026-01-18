@@ -65,28 +65,26 @@ const TaskList = () => {
                     </div>
                     <div className="taskList-presentation">
                         {
-                            toggleList ?
-                                tasks?.length === 0 ? <NoInfo noInfo="No tasks yet" /> :
-                                    tasks?.map((tasks: ITaskModal, i: number) => (
+                            tasks?.length === 0 ? <NoInfo noInfo="No tasks yet" /> :
+                                tasks?.map((tasks: ITaskModal) => (
+                                    toggleList ?
                                         <List
-                                            key={i}
+                                            key={tasks.taskID}
                                             taskID={tasks.taskID}
                                             userID={tasks.userID}
                                             priority={tasks.priority}
                                             category={tasks.category}
                                         />
-                                    ))
-                                :
-                                tasks?.length === 0 ? <NoInfo noInfo={"No tasks yet"} /> :
-                                    tasks?.map((task: ITaskModal, index: number) => (
+                                        :
                                         <TaskModal
-                                            key={index}
-                                            taskID={task.taskID}
-                                            userID={task.userID}
-                                            category={task.category}
-                                            priority={task.priority}
+                                            key={tasks.taskID}
+                                            taskID={tasks.taskID}
+                                            userID={tasks.userID}
+                                            category={tasks.category}
+                                            priority={tasks.priority}
                                         />
-                                    ))
+                                ))
+
                         }
                     </div>
                 </>

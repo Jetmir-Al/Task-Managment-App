@@ -40,7 +40,8 @@ const List = ({ taskID, userID, category, priority }: ITaskModal) => {
                         :
                         <>
                             <ListHeader
-
+                                priority={priority}
+                                category={category}
                             />
                             <tbody>
                                 {
@@ -50,15 +51,19 @@ const List = ({ taskID, userID, category, priority }: ITaskModal) => {
                                             <td>{index + 1}</td>
                                             <td>{t.title}</td>
                                             <td>{t.description}</td>
-                                            <td>{new Date(t.createdAt).toDateString()}</td>
+                                            <td>{new Date(t.deadline).toDateString()}</td>
+                                            <td>{t.status.toUpperCase()}</td>
                                             <td className='tableBtns'>
-                                                <Button
-                                                    type="button"
-                                                    className="update-btn"
-                                                    onClick={() => { }}
-                                                >
-                                                    Update
-                                                </Button>
+                                                {
+                                                    t.status === "finished" ? null :
+                                                        <Button
+                                                            type="button"
+                                                            className="addCompletedTask"
+                                                            onClick={() => { }}
+                                                        >
+                                                            Finished
+                                                        </Button>
+                                                }
                                                 <Button
                                                     type="button"
                                                     className="delete-btn"

@@ -1,5 +1,5 @@
 
-const ListHeader = () => {
+const ListHeader = ({ priority, category }: { priority: string, category: string }) => {
     return (
         <>
             <thead>
@@ -7,7 +7,8 @@ const ListHeader = () => {
                     <th>Nr</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th>Priority</th>
+                    <th>{category}</th>
+                    <th>{priority}</th>
                     <th>Actions</th>
                 </tr>
             </thead>
