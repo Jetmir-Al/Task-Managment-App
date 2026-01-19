@@ -69,14 +69,25 @@
     background-color: var(--redHover);
 }
 
+.noInfo-head {
+    width: 100%;
+}
+
+.noInfo-row {
+    width: 100%;
+}
+
+
 
 @media screen and (max-width: 768px) {
 
-    .tasksTable,
+    .tasksTable {
+        width: 100%;
+    }
+
     .table-wrapper {
         width: 90%;
     }
-
 
     .tasksTable td {
         padding: 0.5rem;

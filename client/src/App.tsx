@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoutes from "./Route/ProtectedRoutes";
 import { useAuthHook } from "./hooks/AuthHook";
 import TaskList from "./pages/TaskList";
+import { FormToggleProvider } from "./context/FormToggleProvider";
 
 
 function App() {
@@ -22,7 +23,9 @@ function App() {
 
         <Route path={"/"} element={
           authenticated ?
-            <BoardPage />
+            <FormToggleProvider>
+              <BoardPage />
+            </FormToggleProvider>
             :
             <Home />
         } />

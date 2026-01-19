@@ -6,7 +6,7 @@ import Error from "../../utils/Error";
 import { AllTasksCards, DeleteTaskCard, UpdFinishedTaskCard } from "../../api/taskCard.api";
 import NoInfo from "../../utils/NoInfo";
 import { useTaskHook } from "../../hooks/TaskHook";
-import TaskCardForm from "./TaskCardForm";
+import TaskCardForm from "../forms/TaskCardForm";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../../utils/Loading";
 import { Activity } from "react";

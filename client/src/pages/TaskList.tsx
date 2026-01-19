@@ -5,7 +5,7 @@ import type { ITaskModal } from "../types/ITask";
 import NoInfo from "../utils/NoInfo";
 import "./pageStyles/taskList.css";
 import { useTaskHook } from "../hooks/TaskHook";
-import TaskListForm from "../components/task/TaskListForm";
+import TaskListForm from "../components/forms/TaskListForm";
 import Error from "../utils/Error";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../utils/Loading";

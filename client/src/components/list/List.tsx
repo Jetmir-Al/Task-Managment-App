@@ -1,14 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ITaskCardProps, ITaskModal } from "../../types/ITask";
 import NoInfo from "../../utils/NoInfo";
 import ListHeader from "./ListHeader";
-import { AllTasksCards } from "../../api/taskCard.api";
+import { AllTasksCards, DeleteTaskCard, UpdFinishedTaskCard } from "../../api/taskCard.api";
 import Error from "../../utils/Error";
 import Loading from "../../utils/Loading";
 import "./list.css";
 import Button from "../ui/Button";
 
 const List = ({ taskID, userID, category, priority }: ITaskModal) => {
+
+    const queryClient = useQueryClient();
 
     const { data: tasks, isError, error, isLoading } = useQuery({
         queryKey: ['taskCards', taskID],
@@ -17,6 +19,47 @@ const List = ({ taskID, userID, category, priority }: ITaskModal) => {
             return res;
         }
     });
+
+    const { mutateAsync: updateFinishedTask } = useMutation({
+        mutationFn: async (taskCardID: number) => {
+            return await UpdFinishedTaskCard(taskCardID);
+        },
+        onError: (err) => {
+            return <Error
+                title="Error deleting the task"
+                details={err}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
+            if (res.message === "Updated Succesfully") {
+                queryClient.invalidateQueries({
+                    queryKey: ['taskCards']
+                });
+            }
+        }
+    });
+
+    const { mutateAsync: deleteTask } = useMutation({
+        mutationFn: async (taskCardID: number) => {
+            return await DeleteTaskCard(taskCardID);
+        },
+        onError: (error) => {
+            <Error
+                title="Error getting task statuses"
+                details={error}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
+            if (res.message === "Deleted Succesfully") {
+                queryClient.invalidateQueries({
+                    queryKey: ['taskCards']
+                });
+            }
+        }
+    });
+
 
     if (isError) {
         return <Error
@@ -32,8 +75,8 @@ const List = ({ taskID, userID, category, priority }: ITaskModal) => {
             <table className="tasksTable">
                 {
                     tasks?.length === 0 ?
-                        <thead>
-                            <tr className="loading-container">
+                        <thead className="noInfo-head">
+                            <tr className="noInfo-row">
                                 <NoInfo noInfo="No task lists here" />
                             </tr>
                         </thead>
@@ -59,7 +102,7 @@ const List = ({ taskID, userID, category, priority }: ITaskModal) => {
                                                         <Button
                                                             type="button"
                                                             className="addCompletedTask"
-                                                            onClick={() => { }}
+                                                            onClick={async () => await updateFinishedTask(t.taskCardID)}
                                                         >
                                                             Finished
                                                         </Button>
@@ -67,7 +110,7 @@ const List = ({ taskID, userID, category, priority }: ITaskModal) => {
                                                 <Button
                                                     type="button"
                                                     className="delete-btn"
-                                                    onClick={() => { }}
+                                                    onClick={async () => await deleteTask(t.taskCardID)}
                                                 >
                                                     Delete
                                                 </Button>

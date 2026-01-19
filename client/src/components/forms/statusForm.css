@@ -1,0 +1,24 @@
+.statusFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+}
+
+
+.statusFormContainer label {
+    font: var(--h4);
+    width: 100%;
+}
+
+.statusFormContainer input,
+.statusFormContainer select {
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 0.7rem;
+}
