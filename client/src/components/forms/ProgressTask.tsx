@@ -16,6 +16,18 @@ const ProgressTask = () => {
     return (
         <form className="statusFormContainer" onSubmit={handleFormSubmit}>
             <label>
+                Task Card <br /> <br />
+                <select name="" id="" required
+                    onChange={(e) => setCategory(e.target.value)}
+                    defaultValue={0}
+                >
+                    <option disabled value={0}>Select card!</option>
+                    <option value={1}>Select card!</option>
+                    <option value={2}>Select card!</option>
+
+                </select>
+            </label>
+            <label>
                 Category <br /> <br />
                 <select name="" id="" required
                     onChange={(e) => setCategory(e.target.value)}

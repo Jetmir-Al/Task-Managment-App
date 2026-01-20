@@ -3,86 +3,21 @@ import Button from "../ui/Button";
 import TaskCard from "./TaskCard";
 import "./taskModel.css";
 import Error from "../../utils/Error";
-import { AllTasksCards, DeleteTaskCard, UpdFinishedTaskCard } from "../../api/taskCard.api";
 import NoInfo from "../../utils/NoInfo";
 import { useTaskHook } from "../../hooks/TaskHook";
 import TaskCardForm from "../forms/TaskCardForm";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../../utils/Loading";
 import { Activity } from "react";
-import { DeleteTaskList } from "../../api/task.api";
+import { useAllTaskCards, useDeleteTaskCard, useUpdToFinished } from "../../services/taskCard.service";
+import { useDeleteTaskList } from "../../services/task.service";
 
 const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
 
     const { toggleTCard, toggleTaskCard, taskIDForm } = useTaskHook();
-    const queryClient = useQueryClient();
-
-    const { data: tasks, isError, error, isLoading } = useQuery({
-        queryKey: ['taskCards', taskID],
-        queryFn: async () => {
-            const res = await AllTasksCards(taskID);
-            return res;
-        }
-    });
-
-    const { mutateAsync: deleteTaskList } = useMutation({
-        mutationFn: async (taskID: number) => {
-            return await DeleteTaskList(taskID);
-        },
-        onError: (err) => {
-            return <Error
-                title="Error deleting the task"
-                details={err}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            if (res.message === "Deleted Succesfully") {
-                queryClient.invalidateQueries({
-                    queryKey: ['taskLists']
-                });
-            }
-        },
-    });
-
-    const { mutateAsync: updateFinishedTask } = useMutation({
-        mutationFn: async (taskCardID: number) => {
-            return await UpdFinishedTaskCard(taskCardID);
-        },
-        onError: (err) => {
-            return <Error
-                title="Error deleting the task"
-                details={err}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            if (res.message === "Updated Succesfully") {
-                queryClient.invalidateQueries({
-                    queryKey: ['taskCards']
-                });
-            }
-        }
-    });
-    const { mutateAsync: deleteTask } = useMutation({
-        mutationFn: async (taskCardID: number) => {
-            return await DeleteTaskCard(taskCardID);
-        },
-        onError: (error) => {
-            <Error
-                title="Error getting task statuses"
-                details={error}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            if (res.message === "Deleted Succesfully") {
-                queryClient.invalidateQueries({
-                    queryKey: ['taskCards']
-                });
-            }
-        }
-    });
+    const { data: tasks, isError, error, isLoading } = useAllTaskCards(taskID);
+    const { mutateAsync: deleteTaskList } = useDeleteTaskList();
+    const { mutateAsync: updateFinishedTask } = useUpdToFinished();
+    const { mutateAsync: deleteTask } = useDeleteTaskCard();
 
 
     if (isError) {

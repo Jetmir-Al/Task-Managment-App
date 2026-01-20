@@ -1,64 +1,19 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ITaskCardProps, ITaskModal } from "../../types/ITask";
 import NoInfo from "../../utils/NoInfo";
 import ListHeader from "./ListHeader";
-import { AllTasksCards, DeleteTaskCard, UpdFinishedTaskCard } from "../../api/taskCard.api";
 import Error from "../../utils/Error";
 import Loading from "../../utils/Loading";
 import "./list.css";
 import Button from "../ui/Button";
+import { useAllTaskCards, useDeleteTaskCard, useUpdToFinished } from "../../services/taskCard.service";
 
 const List = ({ taskID, userID, category, priority }: ITaskModal) => {
 
-    const queryClient = useQueryClient();
+    const { data: tasks, isError, error, isLoading } = useAllTaskCards(taskID);
 
-    const { data: tasks, isError, error, isLoading } = useQuery({
-        queryKey: ['taskCards', taskID],
-        queryFn: async () => {
-            const res = await AllTasksCards(taskID);
-            return res;
-        }
-    });
+    const { mutateAsync: updateFinishedTask } = useUpdToFinished();
 
-    const { mutateAsync: updateFinishedTask } = useMutation({
-        mutationFn: async (taskCardID: number) => {
-            return await UpdFinishedTaskCard(taskCardID);
-        },
-        onError: (err) => {
-            return <Error
-                title="Error deleting the task"
-                details={err}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            if (res.message === "Updated Succesfully") {
-                queryClient.invalidateQueries({
-                    queryKey: ['taskCards']
-                });
-            }
-        }
-    });
-
-    const { mutateAsync: deleteTask } = useMutation({
-        mutationFn: async (taskCardID: number) => {
-            return await DeleteTaskCard(taskCardID);
-        },
-        onError: (error) => {
-            <Error
-                title="Error getting task statuses"
-                details={error}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            if (res.message === "Deleted Succesfully") {
-                queryClient.invalidateQueries({
-                    queryKey: ['taskCards']
-                });
-            }
-        }
-    });
+    const { mutateAsync: deleteTask } = useDeleteTaskCard();
 
 
     if (isError) {

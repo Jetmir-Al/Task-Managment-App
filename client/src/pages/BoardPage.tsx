@@ -1,53 +1,23 @@
 import "./pageStyles/boardPage.css";
 import TaskCard from "../components/task/TaskCard";
 import Button from "../components/ui/Button";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuthHook } from "../hooks/AuthHook";
-import { FinishedTaskList, PendingTaskList, ProgressTaskList } from "../api/task.api";
 import Loading from "../utils/Loading";
 import Error from "../utils/Error";
 import NoInfo from "../utils/NoInfo";
 import type { ITaskCardProps } from "../types/ITask";
-import { DeleteTaskCard } from "../api/taskCard.api";
 import { useStatusHook } from "../hooks/StatusFormHook";
 import PendingTask from "../components/forms/PendingTask";
 import ProgressTask from "../components/forms/ProgressTask";
 import CompletedTask from "../components/forms/CompletedTask";
+import { useTaskStatus } from "../services/task.service";
+import { useDeleteTaskCard } from "../services/taskCard.service";
 
 const BoardPage = () => {
-    const { user } = useAuthHook();
-    const queryClient = useQueryClient();
     const { toggleCompletedFunc, togglePendingFunc, toggleProgressFunc,
         toggleStatusCompleted, toggleStatusPending, toggleStatusProgress } = useStatusHook();
 
-    const { isError, error, isLoading, data: statusTasks } = useQuery({
-        queryKey: ["statusTasks", user?.userID],
-        queryFn: async () => {
-            const pending = await PendingTaskList(user?.userID);
-            const progress = await ProgressTaskList(user?.userID);
-            const finished = await FinishedTaskList(user?.userID);
-            return { pending, progress, finished };
-        }
-    });
-    const { mutateAsync: deleteTask } = useMutation({
-        mutationFn: async (taskCardID: number) => {
-            return await DeleteTaskCard(taskCardID);
-        },
-        onError: (error) => {
-            <Error
-                title="Error getting task statuses"
-                details={error}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            if (res.message === "Deleted Succesfully") {
-                queryClient.invalidateQueries({
-                    queryKey: ['statusTasks']
-                });
-            }
-        }
-    })
+    const { isError, error, isLoading, data: statusTasks } = useTaskStatus();
+    const { mutateAsync: deleteTaskCard } = useDeleteTaskCard();
 
     if (isLoading) return <Loading />;
     if (isError) {
@@ -78,7 +48,7 @@ const BoardPage = () => {
                                     taskID={pen.taskID}
                                     status={pen.status}
                                     finished={() => console.log("ss")}
-                                    remove={async () => await deleteTask(pen.taskCardID)}
+                                    remove={async () => await deleteTaskCard(pen.taskCardID)}
                                 />
                             ))
                 }
@@ -110,7 +80,7 @@ const BoardPage = () => {
                                     taskID={pro.taskID}
                                     status={pro.status}
                                     finished={() => console.log("ss")}
-                                    remove={async () => await deleteTask(pro.taskCardID)}
+                                    remove={async () => await deleteTaskCard(pro.taskCardID)}
                                 />
                             ))
                 }
@@ -140,7 +110,7 @@ const BoardPage = () => {
                                     taskCardID={f.taskCardID}
                                     taskID={f.taskID}
                                     status={f.status}
-                                    remove={async () => await deleteTask(f.taskCardID)}
+                                    remove={async () => await deleteTaskCard(f.taskCardID)}
                                 />
                             ))
                 }

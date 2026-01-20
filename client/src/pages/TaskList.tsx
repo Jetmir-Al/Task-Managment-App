@@ -1,31 +1,23 @@
 import TaskModal from "../components/task/TaskModal";
-import { allTasks } from "../api/task.api";
-import { useAuthHook } from "../hooks/AuthHook";
 import type { ITaskModal } from "../types/ITask";
 import NoInfo from "../utils/NoInfo";
 import "./pageStyles/taskList.css";
 import { useTaskHook } from "../hooks/TaskHook";
 import TaskListForm from "../components/forms/TaskListForm";
 import Error from "../utils/Error";
-import { useQuery } from "@tanstack/react-query";
 import Loading from "../utils/Loading";
 import Button from "../components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList, faClipboard } from "@fortawesome/free-solid-svg-icons";
 import { useTaskListHook } from "../hooks/TaskListHook";
 import List from "../components/list/List";
+import { useAllTasks } from "../services/task.service";
 
 const TaskList = () => {
-    const { user } = useAuthHook();
     const { toggleList, toggleListFunc } = useTaskListHook();
     const { toggleTaskList, toggleTList } = useTaskHook();
 
-    const { data: tasks, isError, isLoading, error } = useQuery({
-        queryKey: ['taskLists', user?.userID],
-        queryFn: async () => {
-            if (user) return await allTasks(user?.userID);
-        }
-    });
+    const { data: tasks, isError, isLoading, error } = useAllTasks();
 
     if (isError) {
         return <Error
