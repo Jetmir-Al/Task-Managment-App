@@ -34,7 +34,8 @@ const CompletedTask = () => {
     }
 
     return (
-        <form className="statusFormContainer" onSubmit={handleFormSubmit}>
+        <form className="ProgressFormContainer" onSubmit={handleFormSubmit}>
+            <h2>Finishing Tasks</h2>
             <label>
                 Task Card <br /> <br />
                 <select name="" id="" required

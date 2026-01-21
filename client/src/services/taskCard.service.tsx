@@ -1,6 +1,58 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AllTasksCards, DeleteTaskCard, UpdFinishedTaskCard } from "../api/taskCard.api";
+import { AllTasksCards, CreateTaskCard, DeleteTaskCard, UpdFinishedTaskCard, UpdInProgressTaskCard } from "../api/taskCard.api";
 import Error from "../utils/Error";
+import type { ITaskCardForm } from "../types/ITask";
+
+
+export const useUpdToInProgress = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: async (taskCardID: number) => {
+            return await UpdInProgressTaskCard(taskCardID);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(
+                { queryKey: ['statusTasks'] }
+            );
+        },
+        onError: (error) => {
+            return <Error
+                title="Error getting task cards"
+                details={error}
+                onClose={() => { }}
+                onRetry={() => { }}
+            />
+        }
+
+    })
+}
+
+export const useTaskCardForm = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({ taskID, title, description, status, deadline }: ITaskCardForm) => {
+            return await CreateTaskCard(taskID, title, description, status, deadline);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(
+                { queryKey: ['taskCards'] }
+            );
+            queryClient.invalidateQueries(
+                { queryKey: ['statusTasks'] }
+            );
+        },
+        onError: (error) => {
+            return <Error
+                title="Error getting task cards"
+                details={error}
+                onClose={() => { }}
+                onRetry={() => { }}
+            />
+        }
+
+    })
+}
 
 
 export const useDeleteTaskCard = () => {

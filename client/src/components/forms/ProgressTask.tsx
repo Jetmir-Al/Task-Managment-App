@@ -1,41 +1,51 @@
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import Button from "../ui/Button";
 import { useStatusHook } from "../../hooks/StatusFormHook";
 import "./statusForm.css";
+import { useUpdToInProgress } from "../../services/taskCard.service";
+import { useTaskStatus } from "../../services/task.service";
+import Loading from "../../utils/Loading";
+import Error from "../../utils/Error";
+import type { ITaskCardProps } from "../../types/ITask";
+import NoInfo from "../../utils/NoInfo";
 
 const ProgressTask = () => {
-    const [category, setCategory] = useState<number | string>();
-    const queryClient = useQueryClient();
+    const [taskCard, setTaskCard] = useState<number>(0);
     const { toggleProgressFunc } = useStatusHook();
+    const { mutateAsync: UpdateToInProgress } = useUpdToInProgress();
+    const { isError, error, isLoading, data: statusTasks } = useTaskStatus();
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        console.log(category);
+        UpdateToInProgress(taskCard);
+        toggleProgressFunc();
     }
+
+    if (isLoading) return <Loading />;
+    if (isError) {
+        return <Error
+            title="Error getting task statuses"
+            details={error}
+            onClose={() => { }}
+            onRetry={() => { }} />
+    }
+    if (statusTasks?.pending.length === 0) return <NoInfo noInfo="No pending tasks to add" />
+
     return (
-        <form className="statusFormContainer" onSubmit={handleFormSubmit}>
+        <form className="ProgressFormContainer" onSubmit={handleFormSubmit}>
+            <h2>Making Progress</h2>
             <label>
                 Task Card <br /> <br />
                 <select name="" id="" required
-                    onChange={(e) => setCategory(e.target.value)}
+                    onChange={(e) => setTaskCard(Number(e.target.value))}
                     defaultValue={0}
                 >
                     <option disabled value={0}>Select card!</option>
-                    <option value={1}>Select card!</option>
-                    <option value={2}>Select card!</option>
-
-                </select>
-            </label>
-            <label>
-                Category <br /> <br />
-                <select name="" id="" required
-                    onChange={(e) => setCategory(e.target.value)}
-                    defaultValue={0}
-                >
-                    <option disabled value={0}>Select Category!</option>
-                    <option value={1}>Select Category!</option>
-                    <option value={2}>Select Category!</option>
+                    {
+                        statusTasks?.pending.map((t: ITaskCardProps) => (
+                            <option key={t.taskCardID} value={t.taskCardID}>{t.title}</option>
+                        ))
+                    }
 
                 </select>
             </label>

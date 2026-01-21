@@ -20,6 +20,14 @@ export interface ITask {
   position: number;
 }
 
+export interface ITaskCardForm {
+  taskID: number,
+  title: string,
+  description: string,
+  status: string | "pending",
+  deadline: null | string
+}
+
 export interface ITaskCardProps {
   taskCardID: number,
   taskID: number,
@@ -27,7 +35,7 @@ export interface ITaskCardProps {
   description: string,
   status: string,
   createdAt: Date,
-  deadline: Date,
+  deadline: Date | string,
   finished?: () => void,
   remove?: () => void;
 }

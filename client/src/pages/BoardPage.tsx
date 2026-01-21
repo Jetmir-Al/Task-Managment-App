@@ -33,9 +33,8 @@ const BoardPage = () => {
             <div className="pendingTasks">
                 <h2>Pending Tasks</h2>
                 {
-                    statusTasks?.pending?.length === 0 ? <NoInfo noInfo="No pending tasks!" />
-                        :
-                        toggleStatusPending ? <PendingTask />
+                    toggleStatusPending ? <PendingTask /> :
+                        statusTasks?.pending?.length === 0 ? <NoInfo noInfo="No pending tasks!" />
                             :
                             statusTasks?.pending?.map((pen: ITaskCardProps, index: number) => (
                                 <TaskCard
@@ -66,8 +65,8 @@ const BoardPage = () => {
             <div className="inProgresTasks">
                 <h2>In Progress Tasks</h2>
                 {
-                    statusTasks?.progress?.length === 0 ? <NoInfo noInfo="No in progress tasks!" />
-                        : toggleStatusProgress ? <ProgressTask />
+                    toggleStatusProgress ? <ProgressTask /> :
+                        statusTasks?.progress?.length === 0 ? <NoInfo noInfo="No in progress tasks!" />
                             :
                             statusTasks?.progress?.map((pro: ITaskCardProps, index: number) => (
                                 <TaskCard
@@ -98,8 +97,9 @@ const BoardPage = () => {
             <div className="completedTasks">
                 <h2>Completed Tasks</h2>
                 {
-                    statusTasks?.finished?.length === 0 ? <NoInfo noInfo="No completed tasks!" />
-                        : toggleStatusCompleted ? <CompletedTask /> :
+                    toggleStatusCompleted ? <CompletedTask /> :
+                        statusTasks?.finished?.length === 0 ? <NoInfo noInfo="No completed tasks!" />
+                            :
                             statusTasks?.finished.map((f: ITaskCardProps, index: number) => (
                                 <TaskCard
                                     key={index}
