@@ -3,10 +3,11 @@ import { logout } from "../api/auth.api";
 import Button from "../components/ui/Button";
 import { useAuthHook } from "../hooks/AuthHook";
 import "./pageStyles/profiles.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import Error from "../utils/Error";
-import { FinishedTaskList, PendingTaskList, ProgressTaskList } from "../api/task.api";
 import Loading from "../utils/Loading";
+import { useTaskStatus } from "../services/task.service";
+import { useDeleteAcc } from "../services/users.service";
 
 const Profiles = () => {
 
@@ -30,14 +31,10 @@ const Profiles = () => {
             navigate("/");
         }
     });
-    const { isError, error, isLoading, data: taskLengths } = useQuery({
-        queryKey: ["statusTasks", user?.userID],
-        queryFn: async () => {
-            const pending = await PendingTaskList(user?.userID);
-            const progress = await ProgressTaskList(user?.userID); const finished = await FinishedTaskList(user?.userID);
-            return { pending, progress, finished };
-        }
-    });
+    const { mutateAsync: deleteAcc } = useDeleteAcc();
+
+
+    const { isError, error, isLoading, data: taskLengths } = useTaskStatus();
     if (isLoading) return <Loading />;
     if (isError) {
         return <Error
@@ -77,7 +74,7 @@ const Profiles = () => {
                     </Button>
 
                     <Button
-                        onClick={() => console.log("yup")}
+                        onClick={() => deleteAcc()}
                         type={"button"}
                         className={""}
                     >

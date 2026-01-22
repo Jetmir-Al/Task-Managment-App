@@ -59,9 +59,31 @@ export const status = async (req: Request, res: Response) => {
 export const logout = async (req: Request, res: Response) => {
     try {
         const { httpOnly, sameSite } = cookieConfig;
+        const token = req.cookies.user;
+        if (!token) {
+            return res.status(404).json({ message: "Cookie not found" });
+        }
 
         res.clearCookie('user', { httpOnly, sameSite });
         res.status(200).json({ message: "Cookie destroyed" });
+
+    } catch (error: any) {
+        res.status(401).json({ message: error.message });
+    }
+}
+
+export const DeleteUser = async (req: Request, res: Response) => {
+    try {
+        const { httpOnly, sameSite } = cookieConfig;
+        const { userID } = req.body;
+        const token = req.cookies.user;
+        if (!token) {
+            return res.status(404).json({ message: "Cookie not found" });
+        }
+
+        await UserService.deleteAcc(userID);
+        res.clearCookie('user', { httpOnly, sameSite });
+        res.status(200).json({ message: "User deleted" });
 
     } catch (error: any) {
         res.status(401).json({ message: error.message });

@@ -30,5 +30,11 @@ export const UserModel = {
             `SELECT * FROM users WHERE userID = ?`, [userID]
         );
         return user[0] ?? null;
+    },
+
+    async deleteUser(userID: number) {
+        await db.execute(
+            `DELETE FROM users WHERE userID = ?`, [userID]
+        );
     }
 }

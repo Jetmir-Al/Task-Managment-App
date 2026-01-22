@@ -49,6 +49,10 @@ export const UserService = {
             email: userInfo.email,
             createdAt: userInfo.createdAt
         }
+    },
+
+    async deleteAcc(userID: number) {
+        await UserModel.deleteUser(userID);
     }
 
 }
