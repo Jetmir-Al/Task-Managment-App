@@ -9,6 +9,7 @@ import ProtectedRoutes from "./Route/ProtectedRoutes";
 import { useAuthHook } from "./hooks/AuthHook";
 import TaskList from "./pages/TaskList";
 import { FormToggleProvider } from "./context/FormToggleProvider";
+import { ToggleUpdProvider } from "./context/ToggleUpdProvider";
 
 
 function App() {
@@ -31,7 +32,11 @@ function App() {
         } />
         {
           <Route element={<ProtectedRoutes />}>
-            <Route path={"/profile"} element={<Profiles />} />
+            <Route path={"/profile"} element={
+              <ToggleUpdProvider>
+                <Profiles />
+              </ToggleUpdProvider>
+            } />
             <Route path={"/task-list"} element={<TaskList />} />
           </Route>
         }

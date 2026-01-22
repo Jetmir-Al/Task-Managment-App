@@ -8,10 +8,13 @@ import Error from "../utils/Error";
 import Loading from "../utils/Loading";
 import { useTaskStatus } from "../services/task.service";
 import { useDeleteAcc } from "../services/users.service";
+import { useUpdateForm } from "../hooks/UpdForm";
+import UserForm from "../components/forms/UserForm";
 
 const Profiles = () => {
 
     const { user, setAuth, setUser } = useAuthHook();
+    const { toggleUpdate, toggleUpdFunc } = useUpdateForm();
     const navigate = useNavigate();
 
     const { mutateAsync: logoutFunc } = useMutation({
@@ -46,6 +49,7 @@ const Profiles = () => {
     const handleLogout = async () => {
         await logoutFunc();
     }
+    if (toggleUpdate) return <UserForm />
 
     return (
         <div className="profiles-container">
@@ -59,7 +63,7 @@ const Profiles = () => {
                 </div>
                 <div className="profile-btns">
                     <Button
-                        onClick={() => console.log("yup")}
+                        onClick={() => toggleUpdFunc()}
                         type={"button"}
                         className={""}
                     >
