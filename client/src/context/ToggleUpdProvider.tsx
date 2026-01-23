@@ -9,6 +9,7 @@ export const ToggleUpdProvider = ({ children }: IToggleUpdProvider) => {
     const [toggleUpdate, setToggleUpd] = useState<boolean>(false);
     const [toggleName, setToggleName] = useState<boolean>(false);
     const [togglePsw, setTogglePsw] = useState<boolean>(false);
+    const [toggleEmail, setToggleEmail] = useState<boolean>(false);
 
     const toggleUpdFunc = () => {
         setToggleUpd(u => !u);
@@ -19,6 +20,9 @@ export const ToggleUpdProvider = ({ children }: IToggleUpdProvider) => {
     const togglePswFunc = () => {
         setTogglePsw(p => !p);
     }
+    const toggleEmailFunc = () => {
+        setToggleEmail(e => !e);
+    }
     return (
         <ToggleUpdContext.Provider
             value={{
@@ -26,6 +30,8 @@ export const ToggleUpdProvider = ({ children }: IToggleUpdProvider) => {
                 toggleUpdFunc,
                 toggleName,
                 toggleNameFunc,
+                toggleEmail,
+                toggleEmailFunc,
                 togglePsw,
                 togglePswFunc
             }}>

@@ -53,6 +53,17 @@ export const UserService = {
 
     async deleteAcc(userID: number) {
         await UserModel.deleteUser(userID);
+    },
+
+    async updName(name: string, userID: number) {
+        await UserModel.UpdateName(name, userID);
+    },
+
+    async updEmail(email: string, userID: number) {
+        await UserModel.UpdateEmail(email, userID);
+    },
+    async updPsw(password: string, userID: number) {
+        await UserModel.UpdatePsw(password, userID);
     }
 
 }

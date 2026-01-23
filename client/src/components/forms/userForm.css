@@ -1,0 +1,74 @@
+.updateForm-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.update-presentation {
+    display: flex;
+    flex-direction: row;
+    box-shadow: var(--boxShadow);
+    width: 50%;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: var(--container-color);
+}
+
+.listToUpdate,
+.formToUpdate {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    min-height: 400px;
+    padding: 1rem;
+    width: 100%;
+}
+
+.listToUpdate-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.listToUpdate-info h4 {
+    border-bottom: 2px solid var(--first-color);
+}
+
+.listToUpdate-info button {
+    margin-top: 1rem;
+    width: 100%;
+    border: none;
+    background-color: var(--first-color);
+    color: var(--white-color);
+    padding: 0.75rem 1rem;
+}
+
+.formToUpdate h2,
+.listToUpdate h2 {
+    align-self: center;
+}
+
+.formToUpdate label {
+    font: var(--h4);
+    width: 100%;
+}
+
+.formToUpdate input {
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 0.7rem;
+}
+
+@media screen and (max-width: 758px) {
+    .update-presentation {
+        width: 80%;
+        flex-direction: column;
+    }
+}

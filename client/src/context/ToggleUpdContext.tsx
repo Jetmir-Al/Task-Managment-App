@@ -5,6 +5,8 @@ interface IUpdateContext {
     toggleUpdFunc: () => void,
     toggleName: boolean,
     toggleNameFunc: () => void,
+    toggleEmail: boolean,
+    toggleEmailFunc: () => void,
     togglePsw: boolean,
     togglePswFunc: () => void
 }

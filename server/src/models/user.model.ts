@@ -36,5 +36,24 @@ export const UserModel = {
         await db.execute(
             `DELETE FROM users WHERE userID = ?`, [userID]
         );
+    },
+
+    async UpdateName(name: string, userID: number) {
+        await db.execute(
+            `UPDATE users SET name = ? WHERE users.userID = ?;
+            `, [name, userID]
+        );
+    },
+    async UpdateEmail(email: string, userID: number) {
+        await db.execute(
+            `UPDATE users SET email = ? WHERE users.userID = ?;
+            `, [email, userID]
+        );
+    },
+    async UpdatePsw(password: string, userID: number) {
+        await db.execute(
+            `UPDATE users SET passwordHash = ? WHERE users.userID = ?;
+            `, [password, userID]
+        );
     }
 }
