@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query"
 import { useAuthHook } from "../hooks/AuthHook"
-import { deleteAcc } from "../api/auth.api";
+import { deleteAcc, UpdateName } from "../api/auth.api";
 import Error from "../utils/Error";
 import { useNavigate } from "react-router-dom";
 
@@ -28,5 +28,29 @@ export const useDeleteAcc = () => {
             }
         },
     });
+}
 
+
+export const useUpdateUser = () => {
+    const { user } = useAuthHook();
+    return useMutation({
+        mutationFn: async (name: string) => {
+            return await UpdateName(name, user?.userID);
+        },
+        onError: (err) => {
+            return <Error
+                title="Error updating user"
+                details={err}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
+            // if (res.message === "User deleted") {
+            //     setAuth(false);
+            //     setUser(null);
+            //     navigate('/');
+            // }\
+            console.log(res);
+        },
+    })
 }

@@ -56,13 +56,37 @@ export const UserService = {
     },
 
     async updName(name: string, userID: number) {
-        await UserModel.UpdateName(name, userID);
+        const upd = await UserModel.UpdateName(name, userID);
+        if (upd.message !== "updated name!") {
+            throw new Error("Problem with updating");
+        }
+        const userInfo = await UserModel.findByID(userID);
+        if (!userInfo) return null;
+
+        return {
+            userID: userInfo.userID,
+            name: userInfo.name,
+            email: userInfo.email,
+            createdAt: userInfo.createdAt
+        }
     },
 
     async updEmail(email: string, userID: number) {
         await UserModel.UpdateEmail(email, userID);
     },
-    async updPsw(password: string, userID: number) {
+    async updPsw(password: string, email: string, userID: number) {
+
+        const user = await UserModel.findByEmail(email);
+
+        if (!user) {
+            throw new Error("Invalid credentials");
+        }
+        const isMatch = await bcrypt.compare(password, user.passwordHash);
+
+        if (!isMatch) {
+            throw new Error("Invalid credentials");
+        }
+
         await UserModel.UpdatePsw(password, userID);
     }
 

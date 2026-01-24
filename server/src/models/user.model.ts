@@ -43,6 +43,7 @@ export const UserModel = {
             `UPDATE users SET name = ? WHERE users.userID = ?;
             `, [name, userID]
         );
+        return { message: "updated name!" }
     },
     async UpdateEmail(email: string, userID: number) {
         await db.execute(

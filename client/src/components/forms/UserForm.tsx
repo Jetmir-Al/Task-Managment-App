@@ -4,6 +4,7 @@ import { useUpdateForm } from "../../hooks/UpdForm";
 import NoInfo from "../../utils/NoInfo";
 import Button from "../ui/Button";
 import "./userForm.css";
+import { useUpdateUser } from "../../services/users.service";
 
 const UserForm = () => {
     const { toggleUpdFunc, toggleNameFunc, togglePswFunc, toggleEmailFunc, toggleEmail, toggleName, togglePsw } = useUpdateForm();
@@ -12,9 +13,14 @@ const UserForm = () => {
     const [email, setEmail] = useState<string>("");
     const [psw, setPsw] = useState<string>("");
     const [newPsw, setNewPsw] = useState<string>("");
+    const { mutateAsync: updateUser } = useUpdateUser();
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log(name, email, psw, newPsw);
+        if (name !== "") {
+            await updateUser(name);
+        }
     }
 
     return (

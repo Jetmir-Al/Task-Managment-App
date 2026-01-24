@@ -89,3 +89,21 @@ export const DeleteUser = async (req: Request, res: Response) => {
         res.status(401).json({ message: error.message });
     }
 }
+
+export const UpdateName = async (req: Request, res: Response) => {
+    try {
+        const { httpOnly, sameSite, maxAge } = cookieConfig;
+        const token = req.cookies.user;
+        if (!token) {
+            return res.status(404).json({ message: "Cookie not found" });
+        }
+        const { name, userID }: { name: string, userID: number } = req.body;
+
+        const updatedName = await UserService.updName(name, userID);
+        res.cookie("user", updatedName?.userID, { httpOnly, maxAge, sameSite });
+        res.status(200).json({ message: "Name updated", updatedName });
+
+    } catch (error: any) {
+        res.status(401).json({ message: error.message });
+    }
+}

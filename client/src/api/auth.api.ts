@@ -31,3 +31,8 @@ export const deleteAcc = async (userID?: number) => {
     const res = await api.post("/auth/deleteUser", { userID }, { withCredentials: true });
     return res.data;
 }
+
+export const UpdateName = async (name: string, userID?: number) => {
+    const res = await api.put("/auth/updateName", { name, userID }, { withCredentials: true });
+    return res.data;
+}
