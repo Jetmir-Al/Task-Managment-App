@@ -32,7 +32,7 @@ export const useDeleteAcc = () => {
 
 
 export const useUpdateUser = () => {
-    const { user } = useAuthHook();
+    const { user, reFetchFunc } = useAuthHook();
     return useMutation({
         mutationFn: async (name: string) => {
             return await UpdateName(name, user?.userID);
@@ -50,6 +50,7 @@ export const useUpdateUser = () => {
             //     setUser(null);
             //     navigate('/');
             // }\
+            reFetchFunc(true);
             console.log(res);
         },
     })

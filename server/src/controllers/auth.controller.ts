@@ -107,3 +107,21 @@ export const UpdateName = async (req: Request, res: Response) => {
         res.status(401).json({ message: error.message });
     }
 }
+
+export const UpdateEmail = async (req: Request, res: Response) => {
+    try {
+        const { httpOnly, sameSite, maxAge } = cookieConfig;
+        const token = req.cookies.user;
+        if (!token) {
+            return res.status(404).json({ message: "Cookie not found" });
+        }
+        const { email, userID }: { email: string, userID: number } = req.body;
+
+        const updatedEmail = await UserService.updEmail(email, userID);
+        res.cookie("user", updatedEmail?.userID, { httpOnly, maxAge, sameSite });
+        res.status(200).json({ message: "Name updated", updatedEmail });
+
+    } catch (error: any) {
+        res.status(401).json({ message: error.message });
+    }
+}

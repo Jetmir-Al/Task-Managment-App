@@ -72,7 +72,20 @@ export const UserService = {
     },
 
     async updEmail(email: string, userID: number) {
-        await UserModel.UpdateEmail(email, userID);
+        const upd = await UserModel.UpdateEmail(email, userID);
+        if (upd.message !== "updated email!") {
+            throw new Error("Problem with updating");
+        }
+
+        const userInfo = await UserModel.findByID(userID);
+        if (!userInfo) return null;
+
+        return {
+            userID: userInfo.userID,
+            name: userInfo.name,
+            email: userInfo.email,
+            createdAt: userInfo.createdAt
+        }
     },
     async updPsw(password: string, email: string, userID: number) {
 

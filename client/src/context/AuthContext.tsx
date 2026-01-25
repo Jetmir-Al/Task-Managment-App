@@ -6,13 +6,17 @@ interface IAuthContext {
     user: IUser | null,
     setUser: (user: IUser | null) => void,
     setAuth: (value: boolean) => void,
+    reFetch: boolean,
+    reFetchFunc: (value: boolean) => void,
 }
 
 export const defaultAuth: IAuthContext = {
     authenticated: false,
     user: null,
     setUser: () => { },
-    setAuth: () => { }
+    setAuth: () => { },
+    reFetch: false,
+    reFetchFunc: () => { }
 }
 
 

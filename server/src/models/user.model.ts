@@ -49,12 +49,16 @@ export const UserModel = {
         await db.execute(
             `UPDATE users SET email = ? WHERE users.userID = ?;
             `, [email, userID]
-        );
+        ); 4
+        return { message: "updated email!" }
+
     },
     async UpdatePsw(password: string, userID: number) {
         await db.execute(
             `UPDATE users SET passwordHash = ? WHERE users.userID = ?;
             `, [password, userID]
         );
+        return { message: "updated psw!" }
+
     }
 }
