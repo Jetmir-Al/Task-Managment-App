@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query"
 import { useAuthHook } from "../hooks/AuthHook"
-import { deleteAcc, UpdateName } from "../api/auth.api";
+import { deleteAcc, UpdateEmail, UpdateName, UpdatePsw } from "../api/auth.api";
 import Error from "../utils/Error";
 import { useNavigate } from "react-router-dom";
 
@@ -31,11 +31,12 @@ export const useDeleteAcc = () => {
 }
 
 
-export const useUpdateUser = () => {
-    const { user, reFetchFunc } = useAuthHook();
+export const useUpdateUserName = () => {
+    const { user } = useAuthHook();
     return useMutation({
         mutationFn: async (name: string) => {
-            return await UpdateName(name, user?.userID);
+            if (name !== "")
+                return await UpdateName(name, user?.userID);
         },
         onError: (err) => {
             return <Error
@@ -45,12 +46,47 @@ export const useUpdateUser = () => {
                 onRetry={() => { }} />
         },
         onSuccess: (res) => {
-            // if (res.message === "User deleted") {
-            //     setAuth(false);
-            //     setUser(null);
-            //     navigate('/');
-            // }\
-            reFetchFunc(true);
+            console.log(res);
+        },
+    })
+}
+
+
+export const useUpdateUserEmail = () => {
+    const { user } = useAuthHook();
+    return useMutation({
+        mutationFn: async (email: string) => {
+            if (email !== "")
+                return await UpdateEmail(email, user?.userID);
+        },
+        onError: (err) => {
+            return <Error
+                title="Error updating user"
+                details={err}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
+            console.log(res);
+        },
+    })
+}
+
+export const useUpdateUserPsw = () => {
+    const { user } = useAuthHook();
+    return useMutation({
+        mutationFn: async ({ oldPsw, newPsw }: { oldPsw: string, newPsw: string }) => {
+            if (oldPsw !== "" && newPsw !== "")
+                return await UpdatePsw(oldPsw, newPsw, user?.userID);
+        },
+        onError: (err) => {
+            return <Error
+                title="Error updating user"
+                details={err}
+                onClose={() => { }}
+                onRetry={() => { }} />
+        },
+        onSuccess: (res) => {
             console.log(res);
         },
     })

@@ -87,20 +87,28 @@ export const UserService = {
             createdAt: userInfo.createdAt
         }
     },
-    async updPsw(password: string, email: string, userID: number) {
+    async updPsw(oldPsw: string, newPsw: string, userID: number) {
 
-        const user = await UserModel.findByEmail(email);
+        const userInfo = await UserModel.findByID(userID);
 
-        if (!user) {
+        if (!userInfo) {
             throw new Error("Invalid credentials");
         }
-        const isMatch = await bcrypt.compare(password, user.passwordHash);
+        const isMatch = await bcrypt.compare(oldPsw, userInfo.passwordHash);
 
         if (!isMatch) {
             throw new Error("Invalid credentials");
         }
+        const passwordHash = await bcrypt.hash(newPsw, 10);
 
-        await UserModel.UpdatePsw(password, userID);
+        await UserModel.UpdatePsw(passwordHash, userID);
+
+        return {
+            userID: userInfo.userID,
+            name: userInfo.name,
+            email: userInfo.email,
+            createdAt: userInfo.createdAt
+        }
     }
 
 }

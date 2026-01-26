@@ -36,7 +36,7 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <form className="loginForm" onSubmit={handleLogin}>
+            <form className="loginForm" id="loginForm" onSubmit={handleLogin}>
                 <h3>Login</h3>
                 {
                     badInfo &&

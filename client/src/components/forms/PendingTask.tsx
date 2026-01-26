@@ -39,7 +39,7 @@ const PendingTask = () => {
     }
 
     return (
-        <form className="statusFormContainer" onSubmit={handleFormSubmit}>
+        <form className="statusFormContainer" id="statusForm" onSubmit={handleFormSubmit}>
             <label>
                 Title <br /> <br />
                 <input type="text" placeholder="E.x Clean room"

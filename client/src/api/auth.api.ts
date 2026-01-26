@@ -36,3 +36,13 @@ export const UpdateName = async (name: string, userID?: number) => {
     const res = await api.put("/auth/updateName", { name, userID }, { withCredentials: true });
     return res.data;
 }
+
+export const UpdateEmail = async (email: string, userID?: number) => {
+    const res = await api.put("/auth/updateEmail", { email, userID }, { withCredentials: true });
+    return res.data;
+}
+
+export const UpdatePsw = async (oldPsw: string, newPsw: string, userID?: number) => {
+    const res = await api.put("/auth/updatePsw", { oldPsw, newPsw, userID }, { withCredentials: true });
+    return res.data;
+}

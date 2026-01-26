@@ -47,3 +47,9 @@
     color: var(--white-color);
     border: none;
 }
+
+@media screen and (max-width: 600px) {
+    .formContainer {
+        min-width: 100%;
+    }
+}

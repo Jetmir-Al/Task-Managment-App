@@ -4,22 +4,37 @@ import { useUpdateForm } from "../../hooks/UpdForm";
 import NoInfo from "../../utils/NoInfo";
 import Button from "../ui/Button";
 import "./userForm.css";
-import { useUpdateUser } from "../../services/users.service";
+import { useUpdateUserEmail, useUpdateUserName, useUpdateUserPsw } from "../../services/users.service";
 
 const UserForm = () => {
     const { toggleUpdFunc, toggleNameFunc, togglePswFunc, toggleEmailFunc, toggleEmail, toggleName, togglePsw } = useUpdateForm();
-    const { user } = useAuthHook();
+    const { user, reFetchFunc } = useAuthHook();
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
-    const [psw, setPsw] = useState<string>("");
+    const [oldPsw, setPsw] = useState<string>("");
     const [newPsw, setNewPsw] = useState<string>("");
-    const { mutateAsync: updateUser } = useUpdateUser();
+    const [badInfo, setBadInfo] = useState<boolean>(false);
+
+    const { mutateAsync: updateUserName } = useUpdateUserName();
+    const { mutateAsync: updateUserEmail } = useUpdateUserEmail();
+    const { mutateAsync: updateUserPsw } = useUpdateUserPsw();
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(name, email, psw, newPsw);
-        if (name !== "") {
-            await updateUser(name);
+        try {
+            if (name !== "") {
+                await updateUserName(name);
+            }
+            if (email !== "") {
+                await updateUserEmail(email);
+            }
+            if (oldPsw !== "" && newPsw !== "") {
+                await updateUserPsw({ oldPsw, newPsw });
+            }
+            reFetchFunc(true);
+            toggleUpdFunc();
+        } catch {
+            setBadInfo(true);
         }
     }
 
@@ -56,11 +71,15 @@ const UserForm = () => {
                         </Button>
                     </div>
                 </div>
-                <form className="formToUpdate" onSubmit={handleSubmit}>
+                <form className="formToUpdate" id="formToUpdate" onSubmit={handleSubmit}>
                     <h2>Update Form!</h2>
                     {
                         toggleName === false && togglePsw === false && toggleEmail === false ? <NoInfo noInfo="Select a field to update!" /> :
                             <>
+                                {
+                                    badInfo && (
+                                        <p>Incorrect old password!</p>
+                                    )}
                                 {
 
                                     toggleName && (
@@ -84,10 +103,10 @@ const UserForm = () => {
                                 {
                                     togglePsw && (
                                         <label>
-                                            Password: <br />
-                                            <input type="password" required placeholder="Enter a old password!"
+                                            Current Password: <br />
+                                            <input type="password" required placeholder="Enter the old password!"
                                                 onChange={(e) => setPsw(e.target.value)} />
-                                            <br />
+                                            <br /> <br />
                                             New Password
                                             <input type="password" required placeholder="Enter a new password!"
                                                 onChange={(e) => setNewPsw(e.target.value)} />

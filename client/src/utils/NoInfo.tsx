@@ -4,8 +4,7 @@ import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import "./utils.css";
 
 function NoInfo(
-    { noInfo }:
-        { noInfo: string | "There is no information here yet!" }
+    { noInfo }: { noInfo: string }
 ) {
     return (
         <div className="noInfo-container">

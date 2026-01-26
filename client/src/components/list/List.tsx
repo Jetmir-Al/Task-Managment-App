@@ -32,7 +32,9 @@ const List = ({ taskID, userID, category, priority }: ITaskModal) => {
                     tasks?.length === 0 ?
                         <thead className="noInfo-head">
                             <tr className="noInfo-row">
-                                <NoInfo noInfo="No task cards in this list!" />
+                                <td>
+                                    <NoInfo noInfo="No task cards in this list!" />
+                                </td>
                             </tr>
                         </thead>
                         :

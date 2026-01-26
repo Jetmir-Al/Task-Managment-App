@@ -42,7 +42,7 @@ const TaskListForm = () => {
     }
 
     return (
-        <form className="formContainer" onSubmit={handleFormSubmit}>
+        <form className="formContainer" id="formContainer" onSubmit={handleFormSubmit}>
             <h2>New List</h2>
             <label>
                 Category <br /> <br />
@@ -54,7 +54,7 @@ const TaskListForm = () => {
                 Priority <br /> <br />
                 <select name="" id="" required
                     onChange={(e) => setPriority(e.target.value)}>
-                    <option selected disabled value="">Select priority!</option>
+                    <option disabled value="">Select priority!</option>
                     <option value="Urgent">Urgent</option>
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>

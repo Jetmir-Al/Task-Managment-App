@@ -32,7 +32,7 @@ const ProgressTask = () => {
     if (statusTasks?.pending.length === 0) return <NoInfo noInfo="No pending tasks to add" />
 
     return (
-        <form className="ProgressFormContainer" onSubmit={handleFormSubmit}>
+        <form className="ProgressFormContainer" id="progressForm" onSubmit={handleFormSubmit}>
             <h2>Making Progress</h2>
             <label>
                 Task Card <br /> <br />

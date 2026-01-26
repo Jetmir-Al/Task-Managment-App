@@ -39,7 +39,7 @@ function Signup() {
 
     return (
         <div className="login-container">
-            <form className="loginForm" onSubmit={handleSignupForm}>
+            <form className="loginForm" id="signUpForm" onSubmit={handleSignupForm}>
                 <h3>Signup</h3>
                 {
                     badInfo &&

@@ -42,7 +42,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
         }
 
         checkAuthStatus();
-        console.log("rendered");
     }, [reFetch])
 
     const setUser = (user: IUser | null) => {
