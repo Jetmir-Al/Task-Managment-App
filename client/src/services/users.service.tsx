@@ -38,16 +38,6 @@ export const useUpdateUserName = () => {
             if (name !== "")
                 return await UpdateName(name, user?.userID);
         },
-        onError: (err) => {
-            return <Error
-                title="Error updating user"
-                details={err}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            console.log(res);
-        },
     })
 }
 
@@ -59,16 +49,6 @@ export const useUpdateUserEmail = () => {
             if (email !== "")
                 return await UpdateEmail(email, user?.userID);
         },
-        onError: (err) => {
-            return <Error
-                title="Error updating user"
-                details={err}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            console.log(res);
-        },
     })
 }
 
@@ -78,16 +58,6 @@ export const useUpdateUserPsw = () => {
         mutationFn: async ({ oldPsw, newPsw }: { oldPsw: string, newPsw: string }) => {
             if (oldPsw !== "" && newPsw !== "")
                 return await UpdatePsw(oldPsw, newPsw, user?.userID);
-        },
-        onError: (err) => {
-            return <Error
-                title="Error updating user"
-                details={err}
-                onClose={() => { }}
-                onRetry={() => { }} />
-        },
-        onSuccess: (res) => {
-            console.log(res);
         },
     })
 }

@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import BoardPage from "./pages/BoardPage";
 import Profiles from "./pages/Profiles";
 import NotFound from "./pages/NotFound";
-import ProtectedRoutes from "./Route/ProtectedRoutes";
+import ProtectedRoutes from "./routes/ProtectedRoutes";
 import { useAuthHook } from "./hooks/AuthHook";
 import TaskList from "./pages/TaskList";
 import { FormToggleProvider } from "./context/FormToggleProvider";
