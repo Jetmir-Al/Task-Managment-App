@@ -23,7 +23,7 @@ const Login = () => {
         onSuccess: (res) => {
             toggleAcc();
             setAuth(true);
-            setUser(res?.userLogedIn);
+            setUser(res?.user);
         },
         onError: () => {
             setBadInfo(true);

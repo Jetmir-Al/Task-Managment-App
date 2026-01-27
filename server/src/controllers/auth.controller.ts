@@ -19,11 +19,11 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
     try {
         const { email, password }: LoginDTO = req.body;
-        const userLogedIn = await UserService.login(email, password);
+        const user = await UserService.login(email, password);
         const { httpOnly, maxAge, sameSite } = cookieConfig;
-        res.cookie("user", userLogedIn.userID, { httpOnly, maxAge, sameSite });
+        res.cookie("user", user.userID, { httpOnly, maxAge, sameSite });
 
-        res.status(200).json({ message: "Cookie set", userLogedIn });
+        res.status(200).json({ message: "Cookie set", user });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
