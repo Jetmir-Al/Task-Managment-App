@@ -1,27 +1,27 @@
 import type { ICreateTaskList } from "../types/ITask";
 import { api } from "./api";
 
-export const allTasks = async (userID?: number) => {
-    const res = await api.post("/task/all", { userID }, { withCredentials: true });
+export const allTasks = async () => {
+    const res = await api.post("/task/all", {}, { withCredentials: true });
     return res.data;
 }
 
-export const createTaskList = async ({ userID, category, priority }: ICreateTaskList) => {
-    const res = await api.post("/task/createTaskList", { userID, category, priority }, { withCredentials: true });
+export const createTaskList = async ({ category, priority }: ICreateTaskList) => {
+    const res = await api.post("/task/createTaskList", { category, priority }, { withCredentials: true });
     return res.data;
 }
 
-export const PendingTaskList = async (userID?: number) => {
-    const res = await api.post("/task/pendingTasks", { userID }, { withCredentials: true });
+export const PendingTaskList = async () => {
+    const res = await api.post("/task/pendingTasks", {}, { withCredentials: true });
     return res.data;
 }
 
-export const ProgressTaskList = async (userID?: number) => {
-    const res = await api.post("/task/progressTasks", { userID }, { withCredentials: true });
+export const ProgressTaskList = async () => {
+    const res = await api.post("/task/progressTasks", {}, { withCredentials: true });
     return res.data;
 }
-export const FinishedTaskList = async (userID?: number) => {
-    const res = await api.post("/task/finishedTasks", { userID }, { withCredentials: true });
+export const FinishedTaskList = async () => {
+    const res = await api.post("/task/finishedTasks", {}, { withCredentials: true });
     return res.data;
 }
 

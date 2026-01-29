@@ -6,12 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 
 export const useDeleteAcc = () => {
-    const { user, setAuth, setUser } = useAuthHook();
-    const userID = user?.userID;
+    const { setAuth, setUser } = useAuthHook();
     const navigate = useNavigate();
     return useMutation({
         mutationFn: async () => {
-            return await deleteAcc(userID);
+            return await deleteAcc();
         },
         onError: (err) => {
             return <Error
@@ -32,32 +31,29 @@ export const useDeleteAcc = () => {
 
 
 export const useUpdateUserName = () => {
-    const { user } = useAuthHook();
     return useMutation({
         mutationFn: async (name: string) => {
             if (name !== "")
-                return await UpdateName(name, user?.userID);
+                return await UpdateName(name);
         },
     })
 }
 
 
 export const useUpdateUserEmail = () => {
-    const { user } = useAuthHook();
     return useMutation({
         mutationFn: async (email: string) => {
             if (email !== "")
-                return await UpdateEmail(email, user?.userID);
+                return await UpdateEmail(email);
         },
     })
 }
 
 export const useUpdateUserPsw = () => {
-    const { user } = useAuthHook();
     return useMutation({
         mutationFn: async ({ oldPsw, newPsw }: { oldPsw: string, newPsw: string }) => {
             if (oldPsw !== "" && newPsw !== "")
-                return await UpdatePsw(oldPsw, newPsw, user?.userID);
+                return await UpdatePsw(oldPsw, newPsw);
         },
     })
 }

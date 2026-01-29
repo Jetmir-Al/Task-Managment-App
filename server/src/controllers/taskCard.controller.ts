@@ -5,7 +5,7 @@ import { TaskCardService } from "../services/taskCard.service";
 
 export const AllTasksCards = async (req: Request, res: Response) => {
     try {
-        const token = req.cookies.user;
+        const token = req.cookies.access_token;
         if (!token) {
             return res.status(404).json({ message: "Cookie not found" });
         }
@@ -20,7 +20,7 @@ export const AllTasksCards = async (req: Request, res: Response) => {
 
 export const CreateTaskCard = async (req: Request, res: Response) => {
     try {
-        const token = req.cookies.user;
+        const token = req.cookies.access_token;
         if (!token) {
             return res.status(404).json({ message: "Cookie not found" });
         }
@@ -37,7 +37,7 @@ export const CreateTaskCard = async (req: Request, res: Response) => {
 
 export const DeleteTaskCard = async (req: Request, res: Response) => {
     try {
-        const token = req.cookies.user;
+        const token = req.cookies.access_token;
         if (!token) {
             return res.status(404).json({ message: "Cookie not found" });
         }
@@ -54,10 +54,7 @@ export const DeleteTaskCard = async (req: Request, res: Response) => {
 
 export const UpdFinishedTaskCard = async (req: Request, res: Response) => {
     try {
-        const token = req.cookies.user;
-        if (!token) {
-            return res.status(404).json({ message: "Cookie not found" });
-        }
+
 
         const { taskCardID }: { taskCardID: number } = req.body;
 
@@ -70,10 +67,6 @@ export const UpdFinishedTaskCard = async (req: Request, res: Response) => {
 }
 export const UpdInProgressTaskCard = async (req: Request, res: Response) => {
     try {
-        const token = req.cookies.user;
-        if (!token) {
-            return res.status(404).json({ message: "Cookie not found" });
-        }
 
         const { taskCardID }: { taskCardID: number } = req.body;
 

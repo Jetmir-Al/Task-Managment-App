@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuthHook } from "../hooks/AuthHook";
 import { PendingTaskList, ProgressTaskList, FinishedTaskList, allTasks, DeleteTaskList } from "../api/task.api";
 import Error from "../utils/Error";
 
@@ -28,28 +27,24 @@ export const useDeleteTaskList = () => {
 }
 
 export const useAllTasks = () => {
-    const { user } = useAuthHook();
 
     return useQuery({
-        queryKey: ['taskLists', user?.userID],
+        queryKey: ['taskLists'],
         queryFn: async () => {
-            if (user) return await allTasks(user?.userID);
+            return await allTasks();
         },
-        enabled: !!user,
     });
 }
 
 export const useTaskStatus = () => {
-    const { user } = useAuthHook();
 
     return useQuery({
-        queryKey: ["statusTasks", user?.userID],
+        queryKey: ["statusTasks"],
         queryFn: async () => {
-            const pending = await PendingTaskList(user?.userID);
-            const progress = await ProgressTaskList(user?.userID);
-            const finished = await FinishedTaskList(user?.userID);
+            const pending = await PendingTaskList();
+            const progress = await ProgressTaskList();
+            const finished = await FinishedTaskList();
             return { pending, progress, finished };
         },
-        enabled: !!user,
     });
 }

@@ -27,22 +27,22 @@ export const status = async () => {
     return res.data;
 }
 
-export const deleteAcc = async (userID?: number) => {
-    const res = await api.post("/auth/deleteUser", { userID }, { withCredentials: true });
+export const deleteAcc = async () => {
+    const res = await api.post("/auth/deleteUser", {}, { withCredentials: true });
     return res.data;
 }
 
-export const UpdateName = async (name: string, userID?: number) => {
-    const res = await api.put("/auth/updateName", { name, userID }, { withCredentials: true });
+export const UpdateName = async (name: string) => {
+    const res = await api.put("/auth/updateName", { name }, { withCredentials: true });
     return res.data;
 }
 
-export const UpdateEmail = async (email: string, userID?: number) => {
-    const res = await api.put("/auth/updateEmail", { email, userID }, { withCredentials: true });
+export const UpdateEmail = async (email: string) => {
+    const res = await api.put("/auth/updateEmail", { email }, { withCredentials: true });
     return res.data;
 }
 
-export const UpdatePsw = async (oldPsw: string, newPsw: string, userID?: number) => {
-    const res = await api.put("/auth/updatePsw", { oldPsw, newPsw, userID }, { withCredentials: true });
+export const UpdatePsw = async (oldPsw: string, newPsw: string) => {
+    const res = await api.put("/auth/updatePsw", { oldPsw, newPsw }, { withCredentials: true });
     return res.data;
 }

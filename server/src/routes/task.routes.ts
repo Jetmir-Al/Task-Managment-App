@@ -1,13 +1,15 @@
 import express from 'express';
 import { AllTasks, InsertTaskList, ProgressTaskList, PendingTaskList, FinishedTaskList, DeleteTaskList } from '../controllers/taskModal.controller';
+import { requireAuth } from '../middleware/auth.middleware';
+
 const router = express.Router();
 
-router.post('/all', AllTasks);
-router.post('/createTaskList', InsertTaskList);
-router.post('/pendingTasks', PendingTaskList);
-router.post('/progressTasks', ProgressTaskList);
-router.post('/finishedTasks', FinishedTaskList);
-router.post('/deleteTask', DeleteTaskList);
+router.post('/all', requireAuth, AllTasks);
+router.post('/createTaskList', requireAuth, InsertTaskList);
+router.post('/pendingTasks', requireAuth, PendingTaskList);
+router.post('/progressTasks', requireAuth, ProgressTaskList);
+router.post('/finishedTasks', requireAuth, FinishedTaskList);
+router.post('/deleteTask', requireAuth, DeleteTaskList);
 
 
 export default router;

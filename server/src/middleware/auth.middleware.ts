@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/user.service";
+import { verify } from "node:crypto";
+import { verifyToken } from "../utils/jwt";
 
 export interface AuthRequest extends Request {
     user?: {
@@ -15,18 +17,20 @@ export const requireAuth = async (
     res: Response,
     next: NextFunction
 ) => {
-    const token = req.cookies.user;
-    if (!token) {
-        return res.status(401).json({ message: "Unauthorized" });
+    try {
+
+        const token = req.cookies.access_token;
+        if (!token) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const payload = verifyToken(token);
+        const user = await UserService.status(payload.userID);
+        if (!user) {
+            return res.status(401).json({ message: "Invalid sesion" });
+        }
+        req.user = user;
+        next();
+    } catch {
+        return res.status(401).json({ message: "Invalid or expired token" });
     }
-    const user = await UserService.status(Number(token));
-    if (!user) {
-        return res.status(401).json({ message: "Invalid sesion" });
-    }
-    req.user = {
-        userID: user.userID,
-        name: user.name,
-        email: user.email
-    };
-    next();
 }

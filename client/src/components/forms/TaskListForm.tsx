@@ -3,21 +3,19 @@ import "./taskForm.css"
 import Button from "../ui/Button";
 import { useTaskHook } from "../../hooks/TaskHook";
 import Error from "../../utils/Error";
-import { useAuthHook } from "../../hooks/AuthHook";
 import { createTaskList } from "../../api/task.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 
 const TaskListForm = () => {
     const { toggleTList } = useTaskHook();
-    const { user } = useAuthHook();
     const [category, setCategory] = useState<string>();
     const [priority, setPriority] = useState<string>();
     const queryClient = useQueryClient();
 
     const { mutateAsync: TaskListFunc } = useMutation({
-        mutationFn: async (userID: number | undefined) => {
-            return await createTaskList({ userID, category, priority });
+        mutationFn: async () => {
+            return await createTaskList({ category, priority });
         },
         onSuccess: () => {
             toggleTList();
@@ -37,8 +35,7 @@ const TaskListForm = () => {
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const userID = user?.userID;
-        TaskListFunc(userID);
+        TaskListFunc();
     }
 
     return (

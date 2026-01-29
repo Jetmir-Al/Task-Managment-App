@@ -73,6 +73,9 @@ export const useDeleteTaskCard = () => {
                 queryClient.invalidateQueries({
                     queryKey: ['statusTasks']
                 });
+                queryClient.invalidateQueries({
+                    queryKey: ['taskCards']
+                });
             }
         }
     })
