@@ -28,7 +28,7 @@ export const status = async () => {
 }
 
 export const deleteAcc = async () => {
-    const res = await api.post("/auth/deleteUser", {}, { withCredentials: true });
+    const res = await api.delete("/auth/deleteUser", { withCredentials: true });
     return res.data;
 }
 

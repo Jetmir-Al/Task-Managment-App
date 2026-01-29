@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/user.service";
-import { verify } from "node:crypto";
 import { verifyToken } from "../utils/jwt";
 
 export interface AuthRequest extends Request {

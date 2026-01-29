@@ -95,10 +95,10 @@ export const UpdateName = async (req: Request, res: Response) => {
         }
 
         const payload = verifyToken(token)
-        const { name }: { name: string } = req.body;
+        const { name } = req.body;
 
-        const updatedName = await UserService.updName(name, payload.userID);
-        res.cookie("access_token", payload.userID, { httpOnly, maxAge, sameSite });
+        await UserService.updName(name, payload.userID);
+
         res.status(200).json({ message: "Name updated" });
 
     } catch (error: any) {
@@ -115,10 +115,9 @@ export const UpdateEmail = async (req: Request, res: Response) => {
         }
 
         const payload = verifyToken(token);
-        const { email }: { email: string } = req.body;
+        const { email } = req.body;
 
         await UserService.updEmail(email, payload.userID);
-        res.cookie("access_token", token, { httpOnly, maxAge, sameSite });
         res.status(200).json({ message: "Email updated" });
 
     } catch (error: any) {
@@ -134,10 +133,9 @@ export const UpdatePsw = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "Cookie not found" });
         }
         const payload = verifyToken(token);
-        const { oldPsw, newPsw }: { oldPsw: string, newPsw: string } = req.body;
+        const { oldPsw, newPsw } = req.body;
 
-        const updatedPsw = await UserService.updPsw(oldPsw, newPsw, payload.userID);
-        res.cookie("access_token", payload.userID, { httpOnly, maxAge, sameSite });
+        await UserService.updPsw(oldPsw, newPsw, payload.userID);
         res.status(200).json({ message: "Password updated" });
 
     } catch (error: any) {

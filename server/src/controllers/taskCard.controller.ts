@@ -9,7 +9,7 @@ export const AllTasksCards = async (req: Request, res: Response) => {
         if (!token) {
             return res.status(404).json({ message: "Cookie not found" });
         }
-        const { taskID }: TaskCardDto = req.body;
+        const { taskID } = req.body;
         const taskCards = await TaskCardService.allTaskCards(taskID);
         res.status(200).json(taskCards);
 
@@ -25,7 +25,7 @@ export const CreateTaskCard = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "Cookie not found" });
         }
 
-        const { taskID, title, description, status, deadline }: CreateTaskDTO = req.body;
+        const { taskID, title, description, status, deadline } = req.body;
 
         await TaskCardService.createTaskCard(taskID, title, description, status, deadline);
         res.status(200).json({ message: "Insert Succesfully" });
@@ -42,7 +42,7 @@ export const DeleteTaskCard = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "Cookie not found" });
         }
 
-        const { taskCardID }: { taskCardID: number } = req.body;
+        const { taskCardID } = req.body;
 
         await TaskCardService.deleteTaskCard(taskCardID);
         res.status(200).json({ message: "Deleted Succesfully" });
@@ -56,7 +56,7 @@ export const UpdFinishedTaskCard = async (req: Request, res: Response) => {
     try {
 
 
-        const { taskCardID }: { taskCardID: number } = req.body;
+        const { taskCardID } = req.body;
 
         await TaskCardService.FinishedUpd(taskCardID);
         res.status(200).json({ message: "Updated Succesfully" });
@@ -68,7 +68,7 @@ export const UpdFinishedTaskCard = async (req: Request, res: Response) => {
 export const UpdInProgressTaskCard = async (req: Request, res: Response) => {
     try {
 
-        const { taskCardID }: { taskCardID: number } = req.body;
+        const { taskCardID } = req.body;
 
         await TaskCardService.InProgressUpd(taskCardID);
         res.status(200).json({ message: "Updated Succesfully" });

@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { CreateTaskListDTO, TaskDTO } from "../types/DTO/task.dto";
 import { TaskModalSerice } from "../services/task.service";
 import { verifyToken } from "../utils/jwt";
 
@@ -27,7 +26,7 @@ export const InsertTaskList = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "Cookie not found" });
         }
         const payload = verifyToken(token);
-        const { category, priority }: CreateTaskListDTO = req.body;
+        const { category, priority } = req.body;
         await TaskModalSerice.createTask(payload.userID, category, priority);
 
         res.status(200).json({ message: "Inserted succesfully" });
@@ -85,7 +84,7 @@ export const DeleteTaskList = async (req: Request, res: Response) => {
         if (!token) {
             return res.status(404).json({ message: "Cookie not found" });
         }
-        const { taskID }: { taskID: number } = req.body;
+        const { taskID } = req.body;
         await TaskModalSerice.deleteTask(taskID);
         res.status(200).json({ message: "Deleted Succesfully" });
     } catch (error: any) {

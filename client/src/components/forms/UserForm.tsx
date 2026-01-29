@@ -109,6 +109,7 @@ const UserForm = () => {
                                             <br /> <br />
                                             New Password
                                             <input type="password" required placeholder="Enter a new password!"
+                                                minLength={6}
                                                 onChange={(e) => setNewPsw(e.target.value)} />
                                         </label>
                                     )
