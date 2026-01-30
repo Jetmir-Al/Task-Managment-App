@@ -12,7 +12,8 @@
     "outDir": "./dist", // Good practice to include
     // Environment Settings
     "types": [
-      "node"
+      "node",
+      "jest"
     ], // Recommended for a Node.js project
     "lib": [
       "es2022"

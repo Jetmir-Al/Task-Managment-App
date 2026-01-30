@@ -20,12 +20,14 @@ const TaskList = () => {
     const { data: tasks, isError, refetch, isLoading, error } = useAllTasks();
 
     if (isError) {
-        return <Error
-            title="Error getting task cards"
-            details={error}
-            onRetry={() => {
-                refetch();
-            }} />
+        return <div className="errorPage">
+            <Error
+                title="Error getting task cards"
+                details={error}
+                onRetry={() => {
+                    refetch();
+                }} />
+        </div>
     }
     if (isLoading) return <Loading />
 

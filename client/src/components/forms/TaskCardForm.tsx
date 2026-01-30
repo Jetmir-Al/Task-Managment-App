@@ -21,7 +21,7 @@ const TaskCardForm = ({ taskID }: { taskID: number }) => {
     }
 
     return (
-        <form className="formContainer" id="formContainer" onSubmit={handleFormSubmit}>
+        <form className="formContainer" id="taskCardForm" onSubmit={handleFormSubmit}>
             <h2>New Card</h2>
             <label>
                 Title <br /> <br />

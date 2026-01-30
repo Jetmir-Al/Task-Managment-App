@@ -49,7 +49,7 @@
 }
 
 @media screen and (max-width: 600px) {
-    .formContainer {
+    #taskCardForm {
         min-width: 100%;
     }
 }
