@@ -25,8 +25,9 @@ const Profiles = () => {
             return <Error
                 title="Error loging out try later"
                 details={error}
-                onClose={() => { }}
-                onRetry={() => { navigate('/') }} />
+                onRetry={() => {
+                    logout();
+                }} />
         },
         onSuccess: () => {
             setAuth(false);
@@ -37,14 +38,15 @@ const Profiles = () => {
     const { mutateAsync: deleteAcc } = useDeleteAcc();
 
 
-    const { isError, error, isLoading, data: taskLengths } = useTaskStatus();
+    const { isError, error, isLoading, refetch, data: taskLengths } = useTaskStatus();
     if (isLoading) return <Loading />;
     if (isError) {
         return <Error
-            title="Error getting task lengths"
+            title="Error getting task info"
             details={error}
-            onClose={() => { }}
-            onRetry={() => { }} />
+            onRetry={() => {
+                refetch();
+            }} />
     }
     const handleLogout = async () => {
         await logoutFunc();

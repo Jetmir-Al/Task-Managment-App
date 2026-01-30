@@ -7,9 +7,9 @@ import "./list.css";
 import Button from "../ui/Button";
 import { useAllTaskCards, useDeleteTaskCard, useUpdToFinished } from "../../services/taskCard.service";
 
-const List = ({ taskID, userID, category, priority }: ITaskModal) => {
+const List = ({ taskID, category, priority }: ITaskModal) => {
 
-    const { data: tasks, isError, error, isLoading } = useAllTaskCards(taskID);
+    const { data: tasks, refetch, isError, error, isLoading } = useAllTaskCards(taskID);
 
     const { mutateAsync: updateFinishedTask } = useUpdToFinished();
 
@@ -20,8 +20,9 @@ const List = ({ taskID, userID, category, priority }: ITaskModal) => {
         return <Error
             title="Error getting task cards"
             details={error}
-            onClose={() => { }}
-            onRetry={() => { }} />
+            onRetry={() => {
+                refetch();
+            }} />
     }
     if (isLoading) return <Loading />
 

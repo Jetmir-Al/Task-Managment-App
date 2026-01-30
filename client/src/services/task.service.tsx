@@ -13,8 +13,8 @@ export const useDeleteTaskList = () => {
             return <Error
                 title="Error deleting the task"
                 details={err}
-                onClose={() => { }}
-                onRetry={() => { }} />
+                onRetry={() => {
+                }} />
         },
         onSuccess: (res) => {
             if (res.message === "Deleted Succesfully") {

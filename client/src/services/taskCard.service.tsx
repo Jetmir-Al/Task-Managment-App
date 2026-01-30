@@ -19,7 +19,6 @@ export const useUpdToInProgress = () => {
             return <Error
                 title="Error getting task cards"
                 details={error}
-                onClose={() => { }}
                 onRetry={() => { }}
             />
         }
@@ -46,7 +45,6 @@ export const useTaskCardForm = () => {
             return <Error
                 title="Error getting task cards"
                 details={error}
-                onClose={() => { }}
                 onRetry={() => { }}
             />
         }
@@ -65,7 +63,6 @@ export const useDeleteTaskCard = () => {
             <Error
                 title="Error getting task statuses"
                 details={error}
-                onClose={() => { }}
                 onRetry={() => { }} />
         },
         onSuccess: (res) => {
@@ -92,7 +89,6 @@ export const useUpdToFinished = () => {
             return <Error
                 title="Error deleting the task"
                 details={err}
-                onClose={() => { }}
                 onRetry={() => { }} />
         },
         onSuccess: (res) => {

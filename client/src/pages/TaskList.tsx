@@ -17,14 +17,15 @@ const TaskList = () => {
     const { toggleList, toggleListFunc } = useTaskListHook();
     const { toggleTaskList, toggleTList } = useTaskHook();
 
-    const { data: tasks, isError, isLoading, error } = useAllTasks();
+    const { data: tasks, isError, refetch, isLoading, error } = useAllTasks();
 
     if (isError) {
         return <Error
             title="Error getting task cards"
             details={error}
-            onClose={() => { }}
-            onRetry={() => { }} />
+            onRetry={() => {
+                refetch();
+            }} />
     }
     if (isLoading) return <Loading />
 
@@ -63,7 +64,6 @@ const TaskList = () => {
                                         <List
                                             key={tasks.taskID}
                                             taskID={tasks.taskID}
-                                            userID={tasks.userID}
                                             priority={tasks.priority}
                                             category={tasks.category}
                                         />
@@ -71,7 +71,6 @@ const TaskList = () => {
                                         <TaskModal
                                             key={tasks.taskID}
                                             taskID={tasks.taskID}
-                                            userID={tasks.userID}
                                             category={tasks.category}
                                             priority={tasks.priority}
                                         />

@@ -1,6 +1,5 @@
 export interface ITaskModal {
   taskID: number,
-  userID: number,
   category: string,
   priority: string
 }

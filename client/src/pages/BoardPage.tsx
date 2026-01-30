@@ -16,16 +16,19 @@ const BoardPage = () => {
     const { toggleCompletedFunc, togglePendingFunc, toggleProgressFunc,
         toggleStatusCompleted, toggleStatusPending, toggleStatusProgress } = useStatusHook();
 
-    const { isError, error, isLoading, data: statusTasks } = useTaskStatus();
+    const { isError, error, isLoading, refetch, data: statusTasks } = useTaskStatus();
     const { mutateAsync: deleteTaskCard } = useDeleteTaskCard();
 
     if (isLoading) return <Loading />;
     if (isError) {
-        return <Error
-            title="Error getting task statuses"
-            details={error}
-            onClose={() => { }}
-            onRetry={() => { }} />
+        return <div className="errorPage">
+            <Error
+                title="Error getting task statuses"
+                details={error}
+                onRetry={() => {
+                    refetch();
+                }} />
+        </div>
     }
 
     return (

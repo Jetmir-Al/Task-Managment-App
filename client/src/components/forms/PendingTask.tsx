@@ -16,7 +16,7 @@ const PendingTask = () => {
     const [taskID, setTaskID] = useState<number>(0);
     const { togglePendingFunc } = useStatusHook();
 
-    const { data: tasks, isError, isLoading, error } = useAllTasks();
+    const { data: tasks, refetch, isError, isLoading, error } = useAllTasks();
     const { mutateAsync: PendingTaskForm } = useTaskCardForm();
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -30,8 +30,9 @@ const PendingTask = () => {
         return <Error
             title="Error getting task cards"
             details={error}
-            onClose={() => { }}
-            onRetry={() => { }} />
+            onRetry={() => {
+                refetch();
+            }} />
     }
     if (isLoading) return <Loading />
     if (tasks.length === 0) {

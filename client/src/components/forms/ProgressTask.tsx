@@ -13,7 +13,7 @@ const ProgressTask = () => {
     const [taskCard, setTaskCard] = useState<number>(0);
     const { toggleProgressFunc } = useStatusHook();
     const { mutateAsync: UpdateToInProgress } = useUpdToInProgress();
-    const { isError, error, isLoading, data: statusTasks } = useTaskStatus();
+    const { isError, refetch, error, isLoading, data: statusTasks } = useTaskStatus();
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -26,8 +26,9 @@ const ProgressTask = () => {
         return <Error
             title="Error getting task statuses"
             details={error}
-            onClose={() => { }}
-            onRetry={() => { }} />
+            onRetry={() => {
+                refetch();
+            }} />
     }
     if (statusTasks?.pending.length === 0) return <NoInfo noInfo="No pending tasks to add" />
 

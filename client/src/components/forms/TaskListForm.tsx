@@ -27,7 +27,6 @@ const TaskListForm = () => {
             return <Error
                 title="Error getting task cards"
                 details={error}
-                onClose={() => { }}
                 onRetry={() => toggleTList()}
             />
         }

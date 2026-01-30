@@ -16,8 +16,9 @@ export const useDeleteAcc = () => {
             return <Error
                 title="Error deleting the task"
                 details={err}
-                onClose={() => { }}
-                onRetry={() => { }} />
+                onRetry={() => {
+                    deleteAcc();
+                }} />
         },
         onSuccess: (res) => {
             if (res.message === "User deleted") {

@@ -14,7 +14,7 @@ import { useDeleteTaskList } from "../../services/task.service";
 const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
 
     const { toggleTCard, toggleTaskCard, taskIDForm } = useTaskHook();
-    const { data: tasks, isError, error, isLoading } = useAllTaskCards(taskID);
+    const { data: tasks, isError, error, refetch, isLoading } = useAllTaskCards(taskID);
     const { mutateAsync: deleteTaskList } = useDeleteTaskList();
     const { mutateAsync: updateFinishedTask } = useUpdToFinished();
     const { mutateAsync: deleteTask } = useDeleteTaskCard();
@@ -24,8 +24,9 @@ const TaskModal = ({ taskID, category, priority }: ITaskModal) => {
         return <Error
             title="Error getting task cards"
             details={error}
-            onClose={() => { }}
-            onRetry={() => { }} />
+            onRetry={() => {
+                refetch();
+            }} />
     }
     if (isLoading) return <Loading />
 

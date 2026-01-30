@@ -13,7 +13,7 @@ import { useUpdToFinished } from "../../services/taskCard.service";
 const CompletedTask = () => {
     const [taskCard, setTaskCard] = useState<number>(0);
     const { toggleCompletedFunc } = useStatusHook();
-    const { isError, error, isLoading, data: statusTasks } = useTaskStatus();
+    const { isError, refetch, error, isLoading, data: statusTasks } = useTaskStatus();
     const { mutateAsync: updateTaskCard } = useUpdToFinished();
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -29,8 +29,9 @@ const CompletedTask = () => {
         return <Error
             title="Error getting task statuses"
             details={error}
-            onClose={() => { }}
-            onRetry={() => { }} />
+            onRetry={() => {
+                refetch();
+            }} />
     }
 
     return (

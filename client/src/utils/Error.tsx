@@ -6,9 +6,8 @@ import Button from '../components/ui/Button';
 
 interface IError {
     title: string | 'An error occurred',
-    details: string | "No details yet" | undefined | object,
+    details: string | null | undefined | object,
     onRetry: () => void | null,
-    onClose: () => void | null
 }
 
 export default function Error({ title, details, onRetry }: IError) {
@@ -55,7 +54,7 @@ export default function Error({ title, details, onRetry }: IError) {
                     className={"errorCloseBtn"}
                     type={'button'}
                 >
-                    Close
+                    Go Home
                 </Button>
             </div>
         </div>
