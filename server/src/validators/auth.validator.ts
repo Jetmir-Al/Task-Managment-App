@@ -5,7 +5,9 @@ export const isLoginBody = (body: any): body is LoginDTO => {
         typeof body === "object" &&
         typeof body.email === "string" &&
         body.email.includes("@") &&
-        typeof body.password === "string"
+        body.email !== "" &&
+        typeof body.password === "string" &&
+        body.password !== ""
     );
 }
 

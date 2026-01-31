@@ -3,15 +3,24 @@ import { UserService } from "../services/user.service";
 import { cookieConfig } from "../config/httpCookies";
 import { LoginDTO, SingupDTO } from "../types/DTO/auth.dto";
 import { signToken, verifyToken } from "../utils/jwt";
+import { HttpError } from "../http/http.error";
 
 
 export const register = async (req: Request, res: Response) => {
     try {
         const { name, email, password }: SingupDTO = req.body;
+        if (!email || !password || !name) {
+            res.status(400).json({ message: "Invalid Credencials" });
+        }
+
         await UserService.signup(name, email, password);
 
         res.status(201).json({ message: "User created" });
     } catch (error: any) {
+        if (error instanceof HttpError) {
+            return res.status(error.statusCode).json({ message: error.message });
+        }
+
         res.status(500).json({ message: error.message });
     }
 };
@@ -20,12 +29,18 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
     try {
         const { email, password }: LoginDTO = req.body;
+        if (!email || !password) {
+            res.status(400).json({ message: "Invalid Credencials" });
+        }
         const user = await UserService.login(email, password);
         const token = signToken({ userID: user.userID });
         res.cookie("access_token", token, cookieConfig);
-
         res.status(200).json({ message: "User loged in!", user });
     } catch (error: any) {
+        if (error instanceof HttpError) {
+            return res.status(error.statusCode).json({ message: error.message });
+        }
+
         res.status(500).json({ message: error.message });
     }
 }

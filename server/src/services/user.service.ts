@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import { UserModel } from "../models/user.model";
-import { UserReponseDTO } from "../types/DTO/auth.dto";
-
+import { ConfilctError, UnauthorizedError } from "../http/http.error";
 
 
 export const UserService = {
@@ -10,7 +9,7 @@ export const UserService = {
         const userExists = await UserModel.findByEmail(email);
 
         if (userExists) {
-            throw new Error("User already exists");
+            throw new ConfilctError("User already exists");
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
@@ -18,17 +17,17 @@ export const UserService = {
         return await UserModel.create(name, email, passwordHash);
     },
 
-    async login(email: string, password: string): Promise<UserReponseDTO> {
+    async login(email: string, password: string) {
         const user = await UserModel.findByEmail(email);
 
         if (!user) {
-            throw new Error("Invalid credentials");
+            throw new UnauthorizedError("Invalid credentials");
         }
         // console.log(user);
         const isMatch = await bcrypt.compare(password, user.passwordHash);
 
         if (!isMatch) {
-            throw new Error("Invalid credentials");
+            throw new UnauthorizedError("Invalid credentials");
         }
 
         return {
