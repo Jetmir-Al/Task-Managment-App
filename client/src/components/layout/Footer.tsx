@@ -10,7 +10,7 @@ const Footer = () => {
             <div>
                 © {new Date().getFullYear()} Jetmir Alshiqi ~ <a href="https://github.com/Jetmir-Al">
                     GitHub <FontAwesomeIcon icon={faGithub} />
-                </a> ~ <a href="https://github.com/Jetmir-Al">
+                </a> ~ <a href="https://github.com/Jetmir-Al/Task-Managment-App">
                     Source Code <FontAwesomeIcon icon={faCode} />
                 </a>
             </div>

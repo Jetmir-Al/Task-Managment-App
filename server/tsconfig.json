@@ -8,7 +8,7 @@
     "isolatedModules": true, // Keep
     "moduleDetection": "auto", // Change to auto
     // File Layout
-    // "rootDir": "./src",
+    "rootDir": "./src",
     "outDir": "./dist", // Good practice to include
     // Environment Settings
     "types": [
