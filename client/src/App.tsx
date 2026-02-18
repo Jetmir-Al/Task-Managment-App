@@ -10,6 +10,7 @@ import { useAuthHook } from "./hooks/AuthHook";
 import TaskList from "./pages/TaskList";
 import { FormToggleProvider } from "./context/FormToggleProvider";
 import { ToggleUpdProvider } from "./context/ToggleUpdProvider";
+import AlertBox from "./utils/AlertBox";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <AlertBox />
       <Routes>
         <Route path="*" element={<NotFound />} />
 
