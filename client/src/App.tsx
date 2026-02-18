@@ -11,6 +11,7 @@ import TaskList from "./pages/TaskList";
 import { FormToggleProvider } from "./context/FormToggleProvider";
 import { ToggleUpdProvider } from "./context/ToggleUpdProvider";
 import AlertBox from "./utils/AlertBox";
+import Footer from "./components/layout/Footer";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         }
 
       </Routes>
+      <Footer />
     </Router>
   )
 }
