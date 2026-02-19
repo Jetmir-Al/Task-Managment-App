@@ -15,4 +15,5 @@ export const env = {
     MYSQL_USER: requiredEnv("MYSQL_USER"),
     MYSQL_PASSWORD: requiredEnv("MYSQL_PASSWORD"),
     MYSQL_DATABASE: requiredEnv("MYSQL_DATABASE"),
+    MYSQL_PORT: requiredEnv("MYSQL_PORT"),
 };
