@@ -3,11 +3,13 @@ import Button from '../components/ui/Button';
 import { useAccountToggle } from '../hooks/ToggleAccount';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faCalendarDays, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import tmImage from "../assets/tm3.png";
+
 const Home = () => {
     const { toggleAcc } = useAccountToggle();
     return (
         <div className="home-container">
-            <img src="../src/assets/tm3.png" alt="task manger image" />
+            <img src={tmImage} alt="task manger image" />
             <div className="welcomeTitle">
                 <h2>
                     Welcome to Task Manager
