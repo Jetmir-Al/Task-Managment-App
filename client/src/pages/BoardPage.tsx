@@ -25,8 +25,8 @@ const BoardPage = () => {
             <Error
                 title="Error getting task statuses"
                 details={error}
-                onRetry={() => {
-                    refetch();
+                onRetry={async () => {
+                    await refetch();
                 }} />
         </div>
     }
