@@ -8,9 +8,9 @@ const router = express.Router();
 
 router.post('/all', requireAuth, AllTasks);
 router.post('/createTaskList', requireAuth, validateBody(isCreateTaskList), InsertTaskList);
-router.post('/pendingTasks', requireAuth, PendingTaskList);
-router.post('/progressTasks', requireAuth, ProgressTaskList);
-router.post('/finishedTasks', requireAuth, FinishedTaskList);
+router.get('/pendingTasks', requireAuth, PendingTaskList);
+router.get('/progressTasks', requireAuth, ProgressTaskList);
+router.get('/finishedTasks', requireAuth, FinishedTaskList);
 router.post('/deleteTask', requireAuth, validateBody(isDeleteTaskList), DeleteTaskList);
 
 

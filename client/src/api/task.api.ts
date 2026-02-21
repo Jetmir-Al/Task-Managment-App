@@ -12,16 +12,16 @@ export const createTaskList = async ({ category, priority }: ICreateTaskList) =>
 }
 
 export const PendingTaskList = async () => {
-    const res = await api.post("/task/pendingTasks", {}, { withCredentials: true });
+    const res = await api.get("/task/pendingTasks", { withCredentials: true });
     return res.data;
 }
 
 export const ProgressTaskList = async () => {
-    const res = await api.post("/task/progressTasks", {}, { withCredentials: true });
+    const res = await api.get("/task/progressTasks", { withCredentials: true });
     return res.data;
 }
 export const FinishedTaskList = async () => {
-    const res = await api.post("/task/finishedTasks", {}, { withCredentials: true });
+    const res = await api.get("/task/finishedTasks", { withCredentials: true });
     return res.data;
 }
 

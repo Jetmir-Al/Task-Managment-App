@@ -38,18 +38,18 @@ const Profiles = () => {
     const { mutateAsync: deleteAcc } = useDeleteAcc();
 
 
-    // const { isError, error, isLoading, refetch, data: taskLengths } = useTaskStatus();
-    // if (isLoading) return <Loading />;
-    // if (isError) {
-    //     return <div className="errorPage">
-    //         <Error
-    //             title="Error getting task info"
-    //             details={error}
-    //             onRetry={() => {
-    //                 refetch();
-    //             }} />
-    //     </div>
-    // }
+    const { isError, error, isLoading, refetch, data: taskLengths } = useTaskStatus();
+    if (isLoading) return <Loading />;
+    if (isError) {
+        return <div className="errorPage">
+            <Error
+                title="Error getting task info"
+                details={error}
+                onRetry={() => {
+                    refetch();
+                }} />
+        </div>
+    }
     const handleLogout = async () => {
         await logoutFunc();
     }
@@ -60,11 +60,11 @@ const Profiles = () => {
             <div className="profile-info">
                 <h2>{user?.name}</h2>
                 <h3>{user?.email}</h3>
-                {/* <div>
+                <div>
                     <i>Tasks: {taskLengths?.pending?.length + taskLengths?.progress?.length + taskLengths?.finished?.length}</i>
                     <br />
                     <i>Completed: {taskLengths?.finished?.length}</i>
-                </div> */}
+                </div>
                 <div className="profile-btns">
                     <Button
                         onClick={() => toggleUpdFunc()}
