@@ -21,9 +21,7 @@
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
     "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.16.0",
-    "@types/node": "^25.3.0",
-    "@types/jest": "^30.0.0"
+    "mysql2": "^3.16.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

@@ -11,10 +11,10 @@
     "rootDir": "./src",
     "outDir": "./dist", // Good practice to include
     // Environment Settings
-    "types": [
-      "node",
-      "jest"
-    ], // Recommended for a Node.js project
+    // "types": [
+    //   "node",
+    //   "jest"
+    // ], // Recommended for a Node.js project
     "lib": [
       "es2022"
     ], // Recommended for a Node.js project
