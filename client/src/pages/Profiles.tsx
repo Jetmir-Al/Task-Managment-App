@@ -41,14 +41,15 @@ const Profiles = () => {
     const { isError, error, isLoading, refetch, data: taskLengths } = useTaskStatus();
     if (isLoading) return <Loading />;
     if (isError) {
-        return <div className="errorPage">
-            <Error
-                title="Error getting task info"
-                details={error}
-                onRetry={() => {
-                    refetch();
-                }} />
-        </div>
+        // return <div className="errorPage">
+        //     <Error
+        //         title="Error getting task info"
+        //         details={error}
+        //         onRetry={() => {
+        //             refetch();
+        //         }} />
+        // </div>
+        console.log(error);
     }
     const handleLogout = async () => {
         await logoutFunc();
