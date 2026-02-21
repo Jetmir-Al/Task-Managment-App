@@ -21,22 +21,22 @@ export const TaskModal = {
     },
     async PendingTasks(userID: number): Promise<ITaskStatus | null> {
         const [results] = await db.execute<ITaskStatus & RowDataPacket[]>(
-            `SELECT * FROM taskcard
+            `SELECT * FROM taskCard
             INNER JOIN task 
-            ON taskcard.taskID = task.taskID
-            WHERE userID = ? AND taskcard.status = 'pending'
-            ORDER BY taskcard.createdAt DESC LIMIT 3
+            ON taskCard.taskID = task.taskID
+            WHERE userID = ? AND taskCard.status = 'pending'
+            ORDER BY taskCard.createdAt DESC LIMIT 3
             `, [userID]
         );
         return results ?? null;
     },
     async ProgressTasks(userID: number): Promise<ITaskStatus | null> {
         const [results] = await db.execute<ITaskStatus & RowDataPacket[]>(
-            `SELECT * FROM taskcard
+            `SELECT * FROM taskCard
             INNER JOIN task 
-            ON taskcard.taskID = task.taskID
-            WHERE userID = ? AND taskcard.status = 'in progress'
-            ORDER BY taskcard.createdAt DESC LIMIT 3
+            ON taskCard.taskID = task.taskID
+            WHERE userID = ? AND taskCard.status = 'in progress'
+            ORDER BY taskCard.createdAt DESC LIMIT 3
             `, [userID]
         );
         return results ?? null;
@@ -44,11 +44,11 @@ export const TaskModal = {
     },
     async FinishedTasks(userID: number): Promise<ITaskStatus | null> {
         const [results] = await db.execute<ITaskStatus & RowDataPacket[]>(
-            `SELECT * FROM taskcard
+            `SELECT * FROM taskCard
             INNER JOIN task 
-            ON taskcard.taskID = task.taskID
-            WHERE userID = ? AND taskcard.status = 'finished'
-            ORDER BY taskcard.createdAt DESC LIMIT 3
+            ON taskCard.taskID = task.taskID
+            WHERE userID = ? AND taskCard.status = 'finished'
+            ORDER BY taskCard.createdAt DESC LIMIT 3
             `, [userID]
         );
         return results ?? null;

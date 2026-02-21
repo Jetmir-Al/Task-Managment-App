@@ -25,8 +25,8 @@ const Profiles = () => {
             return <Error
                 title="Error loging out try later"
                 details={error}
-                onRetry={() => {
-                    logout();
+                onRetry={async () => {
+                    await logout();
                 }} />
         },
         onSuccess: () => {
@@ -45,8 +45,8 @@ const Profiles = () => {
             <Error
                 title="Error getting task info"
                 details={error}
-                onRetry={() => {
-                    refetch();
+                onRetry={async () => {
+                    await refetch();
                 }} />
         </div>
     }

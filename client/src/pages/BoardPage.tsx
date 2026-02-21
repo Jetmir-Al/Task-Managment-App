@@ -10,7 +10,7 @@ import PendingTask from "../components/forms/PendingTask";
 import ProgressTask from "../components/forms/ProgressTask";
 import CompletedTask from "../components/forms/CompletedTask";
 import { useTaskStatus } from "../services/task.service";
-import { useDeleteTaskCard } from "../services/taskCard.service";
+import { useDeleteTaskCard, useUpdToFinished } from "../services/taskCard.service";
 
 const BoardPage = () => {
     const { toggleCompletedFunc, togglePendingFunc, toggleProgressFunc,
@@ -18,6 +18,7 @@ const BoardPage = () => {
 
     const { isError, error, isLoading, refetch, data: statusTasks } = useTaskStatus();
     const { mutateAsync: deleteTaskCard } = useDeleteTaskCard();
+    const { mutateAsync: updateAsFinished } = useUpdToFinished();
 
     if (isLoading) return <Loading />;
     if (isError) {
@@ -49,7 +50,9 @@ const BoardPage = () => {
                                     taskCardID={pen.taskCardID}
                                     taskID={pen.taskID}
                                     status={pen.status}
-                                    finished={() => console.log("ss")}
+                                    finished={async () => {
+                                        await updateAsFinished(pen.taskCardID)
+                                    }}
                                     remove={async () => await deleteTaskCard(pen.taskCardID)}
                                 />
                             ))
@@ -81,7 +84,9 @@ const BoardPage = () => {
                                     taskCardID={pro.taskCardID}
                                     taskID={pro.taskID}
                                     status={pro.status}
-                                    finished={() => console.log("ss")}
+                                    finished={async () => {
+                                        await updateAsFinished(pro.taskCardID);
+                                    }}
                                     remove={async () => await deleteTaskCard(pro.taskCardID)}
                                 />
                             ))
