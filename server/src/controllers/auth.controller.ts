@@ -4,6 +4,8 @@ import { cookieConfig } from "../config/httpCookies";
 import { LoginDTO, SingupDTO } from "../types/DTO/auth.dto";
 import { signToken, verifyToken } from "../utils/jwt";
 import { HttpError } from "../http/http.error";
+const isProduction = process.env.NODE_ENV === "production";
+
 
 
 export const register = async (req: Request, res: Response) => {
@@ -80,7 +82,12 @@ export const logout = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "Cookie not found" });
         }
 
-        res.clearCookie('access_token', { httpOnly, sameSite });
+        res.clearCookie('access_token', {
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax",
+            path: "/",
+        });
         res.status(200).json({ message: "Loged out" });
 
     } catch (error: any) {

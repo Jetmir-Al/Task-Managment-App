@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/signup', validateBody(isSignUpBody), register);
 router.post('/login', validateBody(isLoginBody), login);
-router.post('/logout', requireAuth, logout);
+router.post('/logout', logout);
 router.get('/status', requireAuth, status);
 router.delete('/deleteUser', requireAuth, DeleteUser);
 router.put('/updateName', requireAuth, validateBody(isUpdName), UpdateName);
