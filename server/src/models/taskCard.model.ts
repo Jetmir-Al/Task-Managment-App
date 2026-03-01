@@ -28,7 +28,7 @@ export const TaskCardModal = {
 
     async FinishTaskCard(taskCardID: number) {
         await db.execute(
-            `UPDATE taskcard SET status='finished' WHERE taskcard.taskCardID = ?`, [taskCardID]
+            `UPDATE taskCard SET status='finished' WHERE taskCard.taskCardID = ?`, [taskCardID]
         );
     },
     async InProgressTaskCard(taskCardID: number) {
