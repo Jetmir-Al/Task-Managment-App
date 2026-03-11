@@ -9,7 +9,8 @@ Database: Managed via Aiven (MySQL)
 # Features
 User Authentication: Secure registration and login with protected routes.
 Task CRUD: Create, Read, Update, and Delete tasks seamlessly. 
-Data Validation: Server-side validation to ensure data integrity. Automated Testing: Comprehensive API route testing for predictable responses.
+Data Validation: Server-side validation to ensure data integrity. 
+Automated Testing: Comprehensive API route testing for predictable responses.
 
 # Tech Stack
 Frontend: React, TypeScript, CSS 
