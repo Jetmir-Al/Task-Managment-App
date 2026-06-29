@@ -1,7 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { AuthContext } from "./AuthContext";
 import { status } from "../api/auth.api";
-import Loading from "../utils/Loading";
 import type { IUser } from "../types/IUser";
 
 interface IAuthProvider {
@@ -12,7 +11,6 @@ interface IAuthProvider {
 export const AuthProvider = ({ children }: IAuthProvider) => {
     const [authenticated, setAuthenticated] = useState<boolean>(false);
     const [user, setUserInfo] = useState<IUser | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
     const [reFetch, setRefetch] = useState<boolean>(false);
 
     useEffect(() => {
@@ -55,7 +53,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     }
 
 
-    if (loading) return <Loading />;
 
     return (
         <AuthContext.Provider
