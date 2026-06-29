@@ -13,6 +13,15 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     const [user, setUserInfo] = useState<IUser | null>(null);
     const [reFetch, setRefetch] = useState<boolean>(false);
 
+    const reFetchFunc = (value: boolean) => {
+        setRefetch(value);
+    }
+    const setUser = (user: IUser | null) => {
+        setUserInfo(user);
+    }
+    const setAuth = (value: boolean) => {
+        setAuthenticated(value);
+    }
     useEffect(() => {
 
         const checkAuthStatus = async () => {
@@ -28,29 +37,16 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
             } catch {
                 setUserInfo(null);
                 setAuthenticated(false);
-            } finally {
-                setLoading(false);
             }
 
+            if (reFetch) {
+                reFetchFunc(false);
+            }
         }
 
-        if (reFetch) {
-            checkAuthStatus();
-            reFetchFunc(false);
-        }
 
         checkAuthStatus();
     }, [reFetch])
-
-    const setUser = (user: IUser | null) => {
-        setUserInfo(user);
-    }
-    const setAuth = (value: boolean) => {
-        setAuthenticated(value);
-    }
-    const reFetchFunc = (value: boolean) => {
-        setRefetch(value);
-    }
 
 
 
